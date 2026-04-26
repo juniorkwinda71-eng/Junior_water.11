@@ -14,264 +14,235 @@ body{font-family:'Poppins',sans-serif;min-height:100vh;overflow-x:hidden;backgro
 .bg-slider{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;}
 .bg-slide{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transition:opacity 2s ease;background-size:cover;background-position:center;}
 .bg-slide.active{opacity:1;}
-.bg-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(2,8,30,0.9) 0%,rgba(0,40,25,0.85) 100%);z-index:1;}
+.bg-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(2,8,30,0.91)0%,rgba(0,40,25,0.87)100%);z-index:1;}
 .particles-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;}
 .page-content{position:relative;z-index:2;padding:0 0 80px;}
-.top-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
-.logo-area{display:flex;align-items:center;gap:14px;}
-.logo-circle{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#00ffaa,#0055ff);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;position:relative;overflow:hidden;}
+
+.top-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px;}
+.logo-area{display:flex;align-items:center;gap:11px;}
+.logo-circle{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#00ffaa,#0055ff);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;position:relative;overflow:hidden;flex-shrink:0;}
 .logo-circle::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(transparent,rgba(255,255,255,0.15),transparent);animation:shimmer 3s infinite;}
 @keyframes shimmer{0%{transform:translateX(-100%) rotate(45deg);}100%{transform:translateX(100%) rotate(45deg);}}
-.brand-name{color:#fff;font-size:17px;font-weight:800;letter-spacing:-0.5px;line-height:1.1;}
+.brand-name{color:#fff;font-size:15px;font-weight:800;line-height:1.1;}
 .brand-name span{display:block;font-size:10px;font-weight:400;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase;}
-.nav-btns{display:flex;gap:8px;}
-.nav-btn{padding:8px 18px;border-radius:10px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:none;outline:none;transition:all 0.3s;letter-spacing:0.3px;}
+.nav-btns{display:flex;gap:7px;align-items:center;}
+.nav-btn{padding:7px 14px;border-radius:9px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:none;outline:none;transition:all 0.3s;}
 .nav-btn.survey{background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;}
-.nav-btn.survey:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,255,170,0.3);}
-.nav-btn.records{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.15);}
-.nav-btn.records:hover{background:rgba(255,255,255,0.15);transform:translateY(-2px);}
-.nav-btn.records .badge{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#00ffaa;color:#050d1a;font-size:10px;font-weight:900;margin-left:6px;}
+.nav-btn.survey:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(0,255,170,0.3);}
+.nav-btn.records{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.14);}
+.nav-btn.records:hover{background:rgba(255,255,255,0.14);transform:translateY(-2px);}
+.badge{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:#00ffaa;color:#050d1a;font-size:10px;font-weight:900;margin-left:5px;}
 
-.hero-wrap{text-align:center;padding:50px 20px 20px;}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(0,255,170,0.08);border:1px solid rgba(0,255,170,0.25);color:#00ffaa;font-size:11px;font-weight:700;padding:6px 18px;border-radius:30px;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;}
+/* SETUP PANEL */
+.setup-panel{max-width:840px;margin:18px auto 0;padding:0 16px;position:relative;z-index:2;}
+.setup-card{background:rgba(255,180,0,0.07);border:1px solid rgba(255,180,0,0.25);border-radius:18px;padding:20px 22px;}
+.setup-card.connected{background:rgba(0,255,170,0.06);border-color:rgba(0,255,170,0.22);}
+.setup-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.setup-emoji{font-size:22px;flex-shrink:0;margin-top:2px;}
+.setup-heading{color:#ffcc00;font-size:14px;font-weight:700;margin-bottom:5px;}
+.setup-card.connected .setup-heading{color:#00ffaa;}
+.setup-desc{color:rgba(255,255,255,0.55);font-size:12px;line-height:1.7;}
+.setup-desc a{color:#00ffaa;font-weight:600;text-decoration:none;}
+.setup-desc a:hover{text-decoration:underline;}
+.setup-desc code{background:rgba(255,255,255,0.1);padding:1px 6px;border-radius:4px;font-size:11px;color:#ffcc00;}
+.setup-fields{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.setup-inp{flex:1;min-width:180px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,180,0,0.25);border-radius:9px;padding:9px 13px;color:#fff;font-size:12px;font-family:'Poppins',sans-serif;outline:none;transition:border-color 0.3s;}
+.setup-inp:focus{border-color:#00ffaa;}
+.setup-inp::placeholder{color:rgba(255,255,255,0.28);}
+.setup-btn{padding:9px 18px;border-radius:9px;background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;border:none;cursor:pointer;white-space:nowrap;outline:none;transition:all 0.25s;}
+.setup-btn:hover{transform:translateY(-1px);}
+.steps-list{margin-top:12px;display:flex;flex-direction:column;gap:6px;}
+.step-row{display:flex;align-items:flex-start;gap:9px;font-size:12px;color:rgba(255,255,255,0.55);}
+.step-num{width:20px;height:20px;border-radius:6px;background:rgba(255,180,0,0.2);color:#ffcc00;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+
+/* SYNC BAR */
+.sync-bar{display:flex;align-items:center;justify-content:center;gap:7px;padding:7px 20px;font-size:12px;color:rgba(255,255,255,0.45);position:relative;z-index:2;}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:#555;flex-shrink:0;transition:background 0.3s;}
+.sync-dot.green{background:#00ffaa;box-shadow:0 0 6px rgba(0,255,170,0.55);}
+.sync-dot.yellow{background:#ffcc00;animation:blink 0.8s infinite;}
+.sync-dot.red{background:#ff5555;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+.hero-wrap{text-align:center;padding:26px 20px 14px;}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(0,255,170,0.08);border:1px solid rgba(0,255,170,0.22);color:#00ffaa;font-size:11px;font-weight:700;padding:5px 15px;border-radius:28px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
 .pulse-dot{width:6px;height:6px;border-radius:50%;background:#00ffaa;animation:pulse 1.5s infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.6);}}
-.hero-title{font-size:clamp(26px,5vw,48px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:14px;letter-spacing:-1px;}
+.hero-title{font-size:clamp(22px,5vw,44px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:10px;letter-spacing:-1px;}
 .hero-title .grad{background:linear-gradient(90deg,#00ffaa,#0088ff,#aa00ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-sub{font-size:14px;color:rgba(255,255,255,0.5);max-width:560px;margin:0 auto 10px;line-height:1.7;}
-.stats-bar{display:flex;justify-content:center;gap:30px;padding:16px 0 30px;flex-wrap:wrap;}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.48);max-width:520px;margin:0 auto;line-height:1.7;}
+.stats-bar{display:flex;justify-content:center;gap:22px;padding:12px 0 22px;flex-wrap:wrap;}
 .stat-item{text-align:center;}
-.stat-num{font-size:20px;font-weight:800;color:#00ffaa;}
-.stat-lab{font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;}
+.stat-num{font-size:19px;font-weight:800;color:#00ffaa;}
+.stat-lab{font-size:10px;color:rgba(255,255,255,0.38);text-transform:uppercase;letter-spacing:1px;}
 
-.prog-outer{max-width:800px;margin:0 auto 24px;padding:0 20px;}
-.prog-info{display:flex;justify-content:space-between;margin-bottom:8px;}
-.prog-info span{font-size:12px;color:rgba(255,255,255,0.45);}
+.prog-outer{max-width:840px;margin:0 auto 18px;padding:0 18px;}
+.prog-info{display:flex;justify-content:space-between;margin-bottom:5px;}
+.prog-info span{font-size:12px;color:rgba(255,255,255,0.38);}
 .prog-info strong{font-size:12px;color:#00ffaa;font-weight:700;}
-.prog-track{height:6px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;}
-.prog-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#00ffaa,#0088ff);transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
+.prog-track{height:5px;background:rgba(255,255,255,0.07);border-radius:5px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#00ffaa,#0088ff);transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
 
-.card{background:rgba(255,255,255,0.04);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.08);border-radius:24px;max-width:840px;margin:0 auto 20px;overflow:hidden;padding:0 24px;}
-.sec-hd{display:flex;align-items:center;gap:14px;padding:22px 8px 16px;}
-.sec-icon{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.sec-icon.blue{background:rgba(0,136,255,0.2);border:1px solid rgba(0,136,255,0.3);}
-.sec-icon.green{background:rgba(0,255,170,0.15);border:1px solid rgba(0,255,170,0.25);}
-.sec-icon.purple{background:rgba(170,0,255,0.2);border:1px solid rgba(170,0,255,0.3);}
-.sec-title{font-size:15px;font-weight:700;color:#fff;}
-.sec-sub{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px;}
-.sec-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);margin:0 8px 20px;}
-
-.bio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;padding:0 8px 20px;}
-.f-wrap{display:flex;flex-direction:column;gap:7px;}
-.f-label{font-size:11px;font-weight:600;color:rgba(255,255,255,0.6);letter-spacing:0.5px;text-transform:uppercase;}
-.f-label .req{color:#ff6b6b;margin-left:3px;}
-.f-select,.f-input{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:11px 15px;color:#fff;font-size:13px;font-family:'Poppins',sans-serif;outline:none;transition:all 0.3s;width:100%;appearance:none;-webkit-appearance:none;}
-.f-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300ffaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;cursor:pointer;}
-.f-select:focus,.f-input:focus{border-color:#00ffaa;background:rgba(0,255,170,0.07);box-shadow:0 0 0 3px rgba(0,255,170,0.1);}
-.f-select option{background:#0a1628;color:#fff;}
-.f-input::placeholder{color:rgba(255,255,255,0.25);}
-
-.q-block{padding:0 8px 22px;}
-.q-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:6px;}
-.q-num{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,#00ffaa,#0088ff);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#050d1a;flex-shrink:0;margin-top:1px;}
+.card{background:rgba(255,255,255,0.04);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.08);border-radius:20px;max-width:840px;margin:0 auto 18px;overflow:hidden;padding:0 20px;}
+.sec-hd{display:flex;align-items:center;gap:11px;padding:18px 8px 12px;}
+.sec-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.sec-icon.blue{background:rgba(0,136,255,0.18);border:1px solid rgba(0,136,255,0.28);}
+.sec-icon.green{background:rgba(0,255,170,0.13);border:1px solid rgba(0,255,170,0.23);}
+.sec-icon.purple{background:rgba(170,0,255,0.18);border:1px solid rgba(170,0,255,0.28);}
+.sec-title{font-size:14px;font-weight:700;color:#fff;}
+.sec-sub{font-size:11px;color:rgba(255,255,255,0.38);margin-top:1px;}
+.sec-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent);margin:0 8px 16px;}
+.bio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:11px;padding:0 8px 16px;}
+.f-wrap{display:flex;flex-direction:column;gap:5px;}
+.f-label{font-size:11px;font-weight:600;color:rgba(255,255,255,0.52);letter-spacing:0.4px;text-transform:uppercase;}
+.f-label .req{color:#ff6b6b;margin-left:2px;}
+.f-sel,.f-in{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.11);border-radius:10px;padding:9px 13px;color:#fff;font-size:13px;font-family:'Poppins',sans-serif;outline:none;transition:all 0.28s;width:100%;appearance:none;-webkit-appearance:none;}
+.f-sel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%2300ffaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;}
+.f-sel:focus,.f-in:focus{border-color:#00ffaa;background:rgba(0,255,170,0.07);box-shadow:0 0 0 3px rgba(0,255,170,0.1);}
+.f-sel option{background:#0a1628;color:#fff;}
+.f-in::placeholder{color:rgba(255,255,255,0.2);}
+.q-block{padding:0 8px 18px;}
+.q-head{display:flex;align-items:flex-start;gap:9px;margin-bottom:4px;}
+.q-num{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#00ffaa,#0088ff);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#050d1a;flex-shrink:0;margin-top:2px;}
 .q-txt{font-size:14px;font-weight:600;color:#fff;line-height:1.4;}
-.q-hint{font-size:11px;color:rgba(255,255,255,0.35);margin:4px 0 14px 40px;font-style:italic;}
-
-.radio-list{display:flex;flex-direction:column;gap:8px;margin-left:40px;}
-.r-opt{display:flex;align-items:center;gap:12px;padding:11px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);cursor:pointer;transition:all 0.25s;user-select:none;}
-.r-opt:hover{background:rgba(0,255,170,0.06);border-color:rgba(0,255,170,0.25);}
-.r-opt.sel{background:rgba(0,255,170,0.1);border-color:#00ffaa;box-shadow:0 0 12px rgba(0,255,170,0.1);}
-.r-circle{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.25s;}
+.q-hint{font-size:11px;color:rgba(255,255,255,0.3);margin:3px 0 11px 33px;font-style:italic;}
+.radio-list{display:flex;flex-direction:column;gap:6px;margin-left:33px;}
+.r-opt{display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:10px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);cursor:pointer;transition:all 0.2s;user-select:none;}
+.r-opt:hover{background:rgba(0,255,170,0.06);border-color:rgba(0,255,170,0.2);}
+.r-opt.sel{background:rgba(0,255,170,0.1);border-color:#00ffaa;box-shadow:0 0 9px rgba(0,255,170,0.1);}
+.r-circle{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
 .r-opt.sel .r-circle{border-color:#00ffaa;}
-.r-inner{width:9px;height:9px;border-radius:50%;background:#00ffaa;transform:scale(0);transition:transform 0.25s cubic-bezier(0.175,0.885,0.32,1.275);}
+.r-inner{width:8px;height:8px;border-radius:50%;background:#00ffaa;transform:scale(0);transition:transform 0.2s cubic-bezier(0.175,0.885,0.32,1.275);}
 .r-opt.sel .r-inner{transform:scale(1);}
-.r-text{font-size:13px;color:rgba(255,255,255,0.8);}
+.r-text{font-size:13px;color:rgba(255,255,255,0.75);}
 .r-opt.sel .r-text{color:#fff;font-weight:500;}
-
-.scale-outer{margin-left:40px;}
-.scale-ends{display:flex;justify-content:space-between;margin-bottom:8px;}
-.scale-ends span{font-size:10px;color:rgba(255,255,255,0.35);}
-.scale-row{display:flex;gap:8px;}
-.s-btn{flex:1;padding:12px 4px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.6);font-size:16px;font-weight:800;cursor:pointer;transition:all 0.25s;font-family:'Poppins',sans-serif;outline:none;}
-.s-btn:hover{background:rgba(0,255,170,0.08);border-color:rgba(0,255,170,0.4);color:#fff;transform:translateY(-2px);}
-.s-btn.sel{background:linear-gradient(135deg,#00ffaa,#0088ff);border-color:transparent;color:#050d1a;transform:translateY(-3px) scale(1.05);box-shadow:0 8px 20px rgba(0,255,170,0.3);}
-
-.cb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin-left:40px;}
-.cb-opt{display:flex;align-items:center;gap:12px;padding:11px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);cursor:pointer;transition:all 0.25s;user-select:none;}
-.cb-opt:hover{background:rgba(0,255,170,0.06);border-color:rgba(0,255,170,0.25);}
-.cb-opt.sel{background:rgba(0,255,170,0.1);border-color:#00ffaa;box-shadow:0 0 12px rgba(0,255,170,0.1);}
-.cb-box{width:20px;height:20px;border-radius:6px;border:2px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.25s;}
+.scale-outer{margin-left:33px;}
+.scale-ends{display:flex;justify-content:space-between;margin-bottom:6px;}
+.scale-ends span{font-size:10px;color:rgba(255,255,255,0.3);}
+.scale-row{display:flex;gap:6px;}
+.s-btn{flex:1;padding:10px 3px;border-radius:10px;border:1px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.52);font-size:15px;font-weight:800;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;outline:none;}
+.s-btn:hover{background:rgba(0,255,170,0.08);border-color:rgba(0,255,170,0.32);color:#fff;transform:translateY(-2px);}
+.s-btn.sel{background:linear-gradient(135deg,#00ffaa,#0088ff);border-color:transparent;color:#050d1a;transform:translateY(-3px) scale(1.05);box-shadow:0 6px 16px rgba(0,255,170,0.26);}
+.cb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px;margin-left:33px;}
+.cb-opt{display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:10px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);cursor:pointer;transition:all 0.2s;user-select:none;}
+.cb-opt:hover{background:rgba(0,255,170,0.06);border-color:rgba(0,255,170,0.2);}
+.cb-opt.sel{background:rgba(0,255,170,0.1);border-color:#00ffaa;box-shadow:0 0 9px rgba(0,255,170,0.09);}
+.cb-box{width:18px;height:18px;border-radius:5px;border:2px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
 .cb-opt.sel .cb-box{background:#00ffaa;border-color:#00ffaa;}
-.cb-tick{width:11px;height:7px;border-left:2.5px solid #050d1a;border-bottom:2.5px solid #050d1a;transform:rotate(-45deg) translateY(-1px);opacity:0;transition:opacity 0.2s;}
+.cb-tick{width:9px;height:6px;border-left:2px solid #050d1a;border-bottom:2px solid #050d1a;transform:rotate(-45deg) translateY(-1px);opacity:0;transition:opacity 0.18s;}
 .cb-opt.sel .cb-tick{opacity:1;}
-.cb-text{font-size:13px;color:rgba(255,255,255,0.8);}
+.cb-text{font-size:13px;color:rgba(255,255,255,0.75);}
 .cb-opt.sel .cb-text{color:#fff;font-weight:500;}
-
-.num-wrap{margin-left:40px;display:flex;align-items:center;gap:12px;}
-.num-btn{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-family:'Poppins',sans-serif;outline:none;}
-.num-btn:hover{background:rgba(0,255,170,0.15);border-color:#00ffaa;color:#00ffaa;}
-.num-input{width:80px;text-align:center;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:9px;color:#fff;font-size:18px;font-weight:700;font-family:'Poppins',sans-serif;outline:none;transition:all 0.3s;}
+.num-wrap{margin-left:33px;display:flex;align-items:center;gap:9px;}
+.num-btn{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.11);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-family:'Poppins',sans-serif;outline:none;}
+.num-btn:hover{background:rgba(0,255,170,0.13);border-color:#00ffaa;color:#00ffaa;}
+.num-input{width:72px;text-align:center;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.11);border-radius:10px;padding:8px;color:#fff;font-size:16px;font-weight:700;font-family:'Poppins',sans-serif;outline:none;transition:all 0.28s;}
 .num-input:focus{border-color:#00ffaa;box-shadow:0 0 0 3px rgba(0,255,170,0.1);}
-.num-hint{font-size:11px;color:rgba(255,255,255,0.35);}
+.num-hint{font-size:11px;color:rgba(255,255,255,0.3);}
+.divider-line{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);margin:4px 8px 16px;}
+.btn-row{display:flex;gap:9px;justify-content:center;padding:16px 8px 8px;flex-wrap:wrap;}
+.btn{padding:11px 24px;border-radius:12px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.28s;border:none;outline:none;}
+.btn-reset{background:rgba(255,80,80,0.1);color:#ff8080;border:1px solid rgba(255,80,80,0.23);}
+.btn-reset:hover{background:rgba(255,80,80,0.19);transform:translateY(-2px);}
+.btn-done{background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;box-shadow:0 3px 16px rgba(0,255,170,0.2);}
+.btn-done:hover{transform:translateY(-3px);box-shadow:0 9px 26px rgba(0,255,170,0.36);}
+.btn-view{background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.13);}
+.btn-view:hover{background:rgba(255,255,255,0.11);transform:translateY(-2px);}
+.btn-dis{opacity:0.45;cursor:not-allowed !important;transform:none !important;box-shadow:none !important;}
 
-.divider-line{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);margin:4px 8px 20px;}
-
-.personal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;padding:0 8px 20px;}
-.pf{display:flex;flex-direction:column;gap:7px;}
-.pf.full{grid-column:1/-1;}
-.pf-label{font-size:11px;font-weight:600;color:rgba(255,255,255,0.6);letter-spacing:0.5px;text-transform:uppercase;}
-.pf-label .req{color:#ff6b6b;}
-.pf-input{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:11px 15px;color:#fff;font-size:13px;font-family:'Poppins',sans-serif;outline:none;transition:all 0.3s;width:100%;}
-.pf-input:focus{border-color:#00ffaa;background:rgba(0,255,170,0.07);box-shadow:0 0 0 3px rgba(0,255,170,0.1);}
-.pf-input::placeholder{color:rgba(255,255,255,0.25);}
-
-.btn-row{display:flex;gap:12px;justify-content:center;padding:20px 8px 8px;flex-wrap:wrap;}
-.btn{padding:13px 28px;border-radius:14px;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.3s;border:none;outline:none;letter-spacing:0.2px;}
-.btn-reset{background:rgba(255,80,80,0.1);color:#ff8080;border:1px solid rgba(255,80,80,0.25);}
-.btn-reset:hover{background:rgba(255,80,80,0.2);transform:translateY(-2px);}
-.btn-done{background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;box-shadow:0 4px 20px rgba(0,255,170,0.25);}
-.btn-done:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,255,170,0.4);}
-.btn-view{background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.15);}
-.btn-view:hover{background:rgba(255,255,255,0.12);transform:translateY(-2px);}
-
-.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120px);padding:14px 24px;border-radius:14px;font-size:13px;font-weight:600;z-index:9999;transition:transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275);max-width:92%;text-align:center;backdrop-filter:blur(10px);background:rgba(255,80,80,0.95);color:#fff;}
+/* TOAST */
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(120px);padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;transition:transform 0.38s cubic-bezier(0.175,0.885,0.32,1.275);max-width:92%;text-align:center;backdrop-filter:blur(10px);background:rgba(210,55,55,0.95);color:#fff;}
 .toast.show{transform:translateX(-50%) translateY(0);}
-.toast.ok{background:rgba(0,200,120,0.95);}
+.toast.ok{background:rgba(0,185,105,0.95);}
+.toast.info{background:rgba(0,115,210,0.95);}
 
-/* PAGE 2 RECORDS */
-.rec-page-content{position:relative;z-index:2;padding:0 0 60px;}
-.records-hero{text-align:center;padding:40px 20px 10px;}
-.rec-title{font-size:clamp(22px,4vw,38px);font-weight:900;color:#fff;margin-bottom:10px;letter-spacing:-0.5px;}
+/* RECORDS PAGE */
+.rec-content{position:relative;z-index:2;padding:0 0 60px;}
+.rec-hero{text-align:center;padding:30px 20px 8px;}
+.rec-title{font-size:clamp(20px,4vw,34px);font-weight:900;color:#fff;margin-bottom:7px;letter-spacing:-0.5px;}
 .rec-title span{background:linear-gradient(90deg,#00ffaa,#0088ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.rec-sub{font-size:13px;color:rgba(255,255,255,0.45);max-width:500px;margin:0 auto 30px;}
-
-.rec-summary{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:28px;}
-.rec-stat{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:16px 28px;text-align:center;}
-.rec-stat-num{font-size:28px;font-weight:900;color:#00ffaa;}
-.rec-stat-lab{font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
-
-.rec-container{max-width:920px;margin:0 auto;padding:0 20px;}
-.rec-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
-.rec-search{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:9px 16px;color:#fff;font-size:13px;font-family:'Poppins',sans-serif;outline:none;width:220px;transition:all 0.3s;}
+.rec-sub{font-size:13px;color:rgba(255,255,255,0.4);max-width:460px;margin:0 auto 22px;line-height:1.6;}
+.rec-summary{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:20px;}
+.rstat{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:13px;padding:12px 20px;text-align:center;min-width:80px;}
+.rstat-num{font-size:24px;font-weight:900;color:#00ffaa;}
+.rstat-lab{font-size:10px;color:rgba(255,255,255,0.36);text-transform:uppercase;letter-spacing:0.9px;margin-top:1px;}
+.rec-container{max-width:880px;margin:0 auto;padding:0 16px;}
+.rec-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+.rec-search{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.11);border-radius:9px;padding:8px 14px;color:#fff;font-size:13px;font-family:'Poppins',sans-serif;outline:none;width:200px;transition:all 0.28s;}
 .rec-search:focus{border-color:#00ffaa;box-shadow:0 0 0 3px rgba(0,255,170,0.1);}
-.rec-search::placeholder{color:rgba(255,255,255,0.3);}
-.rec-clear-all{padding:9px 18px;border-radius:10px;background:rgba(255,80,80,0.1);color:#ff8080;border:1px solid rgba(255,80,80,0.25);font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.3s;outline:none;}
-.rec-clear-all:hover{background:rgba(255,80,80,0.22);}
+.rec-search::placeholder{color:rgba(255,255,255,0.25);}
+.rec-tools{display:flex;gap:7px;}
+.tool-btn{padding:8px 13px;border-radius:9px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:none;outline:none;transition:all 0.25s;}
+.tool-refresh{background:rgba(0,255,170,0.1);color:#00ffaa;border:1px solid rgba(0,255,170,0.22);}
+.tool-refresh:hover{background:rgba(0,255,170,0.18);}
+.tool-clear{background:rgba(255,80,80,0.09);color:#ff8080;border:1px solid rgba(255,80,80,0.2);}
+.tool-clear:hover{background:rgba(255,80,80,0.18);}
 
-.rec-empty{text-align:center;padding:60px 20px;color:rgba(255,255,255,0.3);}
-.rec-empty-icon{font-size:48px;margin-bottom:16px;opacity:0.4;}
-.rec-empty-txt{font-size:14px;}
+.spinner-wrap{display:flex;align-items:center;justify-content:center;gap:9px;padding:30px;color:rgba(255,255,255,0.38);font-size:13px;}
+.spinner{width:19px;height:19px;border:2px solid rgba(0,255,170,0.18);border-top-color:#00ffaa;border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
 
-.rec-list{display:flex;flex-direction:column;gap:12px;}
-.rec-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-radius:18px;overflow:hidden;transition:all 0.3s;animation:fadeUp 0.4s ease forwards;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-.rec-card:hover{border-color:rgba(0,255,170,0.2);box-shadow:0 4px 20px rgba(0,0,0,0.2);}
-.rec-card-header{display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer;user-select:none;}
-.rec-avatar{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#00ffaa,#0088ff);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#050d1a;flex-shrink:0;}
-.rec-info{flex:1;min-width:0;}
-.rec-fullname{font-size:15px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.rec-meta{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px;}
-.rec-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
-.rec-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:0.3px;}
-.rec-badge.q1yes{background:rgba(0,255,170,0.12);color:#00ffaa;border:1px solid rgba(0,255,170,0.25);}
-.rec-badge.q1no{background:rgba(255,80,80,0.12);color:#ff8080;border:1px solid rgba(255,80,80,0.25);}
-.rec-badge.q1un{background:rgba(255,200,0,0.12);color:#ffc800;border:1px solid rgba(255,200,0,0.25);}
-.rec-badge.prov{background:rgba(0,136,255,0.12);color:#4da6ff;border:1px solid rgba(0,136,255,0.25);}
-.rec-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
-.rec-expand-btn{width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all 0.25s;outline:none;}
-.rec-expand-btn:hover{background:rgba(0,255,170,0.1);border-color:rgba(0,255,170,0.3);color:#00ffaa;}
-.rec-del-btn{width:32px;height:32px;border-radius:9px;background:rgba(255,80,80,0.08);border:1px solid rgba(255,80,80,0.2);color:#ff8080;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all 0.25s;outline:none;}
-.rec-del-btn:hover{background:rgba(255,80,80,0.22);transform:scale(1.05);}
+.rec-empty{text-align:center;padding:44px 20px;color:rgba(255,255,255,0.26);}
+.rec-empty-icon{font-size:42px;margin-bottom:12px;opacity:0.32;}
+.rec-empty-txt{font-size:13px;line-height:1.6;}
 
-.rec-details{display:none;border-top:1px solid rgba(255,255,255,0.06);padding:18px 20px;}
-.rec-details.open{display:block;}
-.rec-details-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;}
-.rec-detail-item{background:rgba(255,255,255,0.04);border-radius:10px;padding:10px 14px;}
-.rec-detail-label{font-size:10px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px;}
-.rec-detail-val{font-size:13px;font-weight:600;color:#fff;}
-.rec-detail-val.green{color:#00ffaa;}
-.rec-num-badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;font-size:13px;font-weight:900;}
-.rec-methods{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px;}
-.rec-method-tag{font-size:10px;padding:3px 9px;border-radius:8px;background:rgba(0,255,170,0.1);color:#00ffaa;border:1px solid rgba(0,255,170,0.2);}
+.rec-list{display:flex;flex-direction:column;gap:9px;}
+.rec-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;transition:all 0.28s;animation:fadeUp 0.32s ease forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.rec-card:hover{border-color:rgba(0,255,170,0.17);box-shadow:0 3px 18px rgba(0,0,0,0.18);}
+.rec-card-hdr{display:flex;align-items:center;gap:11px;padding:13px 16px;cursor:pointer;user-select:none;}
+.rec-av{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,#00ffaa,#0088ff);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#050d1a;flex-shrink:0;}
+.rec-inf{flex:1;min-width:0;}
+.rec-name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rec-meta{font-size:11px;color:rgba(255,255,255,0.36);margin-top:1px;}
+.rec-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px;}
+.rt{font-size:10px;font-weight:700;padding:2px 8px;border-radius:16px;}
+.rt.yes{background:rgba(0,255,170,0.11);color:#00ffaa;border:1px solid rgba(0,255,170,0.22);}
+.rt.no{background:rgba(255,80,80,0.11);color:#ff8080;border:1px solid rgba(255,80,80,0.22);}
+.rt.un{background:rgba(255,200,0,0.11);color:#ffc800;border:1px solid rgba(255,200,0,0.22);}
+.rt.prov{background:rgba(0,136,255,0.11);color:#4da6ff;border:1px solid rgba(0,136,255,0.22);}
+.rt.lv{background:rgba(170,0,255,0.11);color:#cc88ff;border:1px solid rgba(170,0,255,0.22);}
+.rec-acts{display:flex;gap:6px;flex-shrink:0;}
+.ico-btn{width:29px;height:29px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;border:none;outline:none;transition:all 0.2s;}
+.expand-btn{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);}
+.expand-btn:hover{background:rgba(0,255,170,0.09);color:#00ffaa;}
+.del-btn{background:rgba(255,80,80,0.08);color:#ff8080;border:1px solid rgba(255,80,80,0.16);}
+.del-btn:hover{background:rgba(255,80,80,0.2);transform:scale(1.05);}
+.rec-det{display:none;border-top:1px solid rgba(255,255,255,0.06);padding:14px 16px;}
+.rec-det.open{display:block;}
+.det-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:8px;}
+.di{background:rgba(255,255,255,0.04);border-radius:9px;padding:9px 12px;}
+.di-lbl{font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:3px;}
+.di-val{font-size:13px;font-weight:600;color:#fff;}
+.di-val.g{color:#00ffaa;}
+.lvbadge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;font-size:11px;font-weight:900;}
+.meth-wrap{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px;}
+.meth-tag{font-size:10px;padding:2px 7px;border-radius:6px;background:rgba(0,255,170,0.09);color:#00ffaa;border:1px solid rgba(0,255,170,0.18);}
 
-.rec-back-btn{display:block;margin:30px auto 0;padding:12px 30px;border-radius:14px;background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;outline:none;transition:all 0.3s;}
-.rec-back-btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,255,170,0.3);}
+.rec-back{display:block;margin:22px auto 0;padding:11px 26px;border-radius:12px;background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;outline:none;transition:all 0.28s;}
+.rec-back:hover{transform:translateY(-2px);box-shadow:0 7px 22px rgba(0,255,170,0.26);}
 
-.confirm-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:2000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
-.confirm-overlay.show{display:flex;}
-.confirm-box{background:#0d1f3a;border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:32px;text-align:center;max-width:380px;width:90%;animation:scaleIn 0.3s cubic-bezier(0.175,0.885,0.32,1.275);}
-@keyframes scaleIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
-.confirm-icon{font-size:36px;margin-bottom:14px;}
-.confirm-title{color:#fff;font-size:18px;font-weight:700;margin-bottom:8px;}
-.confirm-sub{color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:24px;line-height:1.6;}
-.confirm-btns{display:flex;gap:10px;justify-content:center;}
-.conf-cancel{padding:10px 24px;border-radius:11px;background:rgba(255,255,255,0.07);color:#fff;border:1px solid rgba(255,255,255,0.15);font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer;outline:none;}
-.conf-del{padding:10px 24px;border-radius:11px;background:linear-gradient(135deg,#ff4444,#cc2222);color:#fff;border:none;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;cursor:pointer;outline:none;}
-.conf-del:hover{transform:translateY(-1px);}
+/* CONFIRM */
+.conf-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.72);z-index:2000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(7px);}
+.conf-overlay.show{display:flex;}
+.conf-box{background:#0d1f3a;border:1px solid rgba(255,255,255,0.11);border-radius:17px;padding:28px;text-align:center;max-width:340px;width:92%;animation:scIn 0.26s cubic-bezier(0.175,0.885,0.32,1.275);}
+@keyframes scIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+.conf-icon{font-size:32px;margin-bottom:11px;}
+.conf-title{color:#fff;font-size:16px;font-weight:700;margin-bottom:6px;}
+.conf-sub{color:rgba(255,255,255,0.45);font-size:12px;margin-bottom:20px;line-height:1.6;}
+.conf-btns{display:flex;gap:8px;justify-content:center;}
+.ccancel{padding:9px 20px;border-radius:9px;background:rgba(255,255,255,0.07);color:#fff;border:1px solid rgba(255,255,255,0.13);font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer;outline:none;}
+.cdel{padding:9px 20px;border-radius:9px;background:linear-gradient(135deg,#ff4444,#cc1111);color:#fff;border:none;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;cursor:pointer;outline:none;}
 
 @media(max-width:600px){
-.bio-grid,.cb-grid,.personal-grid,.rec-details-grid{grid-template-columns:1fr;}
-.scale-row{gap:5px;}.s-btn{font-size:14px;padding:10px 2px;}
-.top-bar{padding:12px 16px;}.hero-wrap,.records-hero{padding:28px 16px 10px;}
-.card{padding:0 14px;}.rec-container{padding:0 14px;}
-.rec-summary{gap:10px;}.rec-stat{padding:12px 20px;}
+.bio-grid,.cb-grid,.det-grid{grid-template-columns:1fr;}
+.scale-row{gap:4px;}.s-btn{font-size:13px;padding:9px 2px;}
+.top-bar{padding:11px 13px;}.card{padding:0 11px;}
+.rec-container{padding:0 11px;}
+.setup-fields{flex-direction:column;}
 }
 </style>
 </head>
 <body>
-  <script type="module">
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
-
-const supabaseUrl = "https://yyagmgsaqckeapjekjrk.supabase.co/rest/v1/";
-const supabaseKey = "sb_publishable__8iySYeHTxpU9Ufwg5QWHQ_RNOGE3V6";
-
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-/* IMPORTANT: this must match your input */
-document.addEventListener("DOMContentLoaded", () => {
-
-  const form = document.getElementById("form");
-
-  if (!form) {
-    console.log("Form not found - check HTML");
-    return;
-  }
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const input = document.querySelector("input[name='answer']");
-    if (!input) {
-      console.log("Input not found");
-      return;
-    }
-
-    const answer = input.value;
-
-    const { error } = await supabase
-      .from("answers")
-      .insert([{ answer }]);
-
-    if (error) {
-      console.log("Error:", error.message);
-      alert("Error saving data");
-    } else {
-      alert("Saved successfully!");
-      input.value = "";
-    }
-  });
-
-});
-</script>
-  <form id="form">
-  <input type="text" name="answer" placeholder="Type your answer" />
-  <button type="submit">Submit</button>
-</form>
-  <form id="form">
-  <input type="text" name="answer" placeholder="Type your answer" />
-  <button type="submit">Submit</button>
-</form>
-
 <canvas class="particles-canvas" id="pCanvas"></canvas>
 <div class="bg-slider">
 <div class="bg-slide active" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80')"></div>
@@ -282,20 +253,19 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 <div class="bg-overlay"></div>
 <div id="toastEl" class="toast"></div>
-
-<div class="confirm-overlay" id="confirmOverlay">
-<div class="confirm-box">
-<div class="confirm-icon">&#128465;</div>
-<div class="confirm-title">Delete this record?</div>
-<div class="confirm-sub" id="confirmSub">This will permanently remove this person's response. This cannot be undone.</div>
-<div class="confirm-btns">
-<button class="conf-cancel" onclick="closeConfirm()">Cancel</button>
-<button class="conf-del" onclick="confirmDelete()">Yes, Delete</button>
+<div class="conf-overlay" id="confOv">
+<div class="conf-box">
+<div class="conf-icon">&#128465;</div>
+<div class="conf-title">Delete record?</div>
+<div class="conf-sub" id="confSub">This removes this person from the shared Google Sheet permanently.</div>
+<div class="conf-btns">
+<button class="ccancel" onclick="closeConf()">Cancel</button>
+<button class="cdel" onclick="doDelete()">Yes, Delete</button>
 </div>
 </div>
 </div>
 
-<!-- PAGE 1 SURVEY -->
+<!-- PAGE 1 -->
 <div id="page1" class="page active">
 <div class="page-content">
 <div class="top-bar">
@@ -304,18 +274,70 @@ document.addEventListener("DOMContentLoaded", () => {
 <div class="brand-name">Junior K Questions<span>Water Research · Grade 12 CAT PAT 2026</span></div>
 </div>
 <div class="nav-btns">
-<button class="nav-btn records" onclick="showPage2()" type="button">&#128203; Records <span class="badge" id="recBadge">0</span></button>
+<button class="nav-btn records" onclick="goRecords()" type="button">&#128203; Records <span class="badge" id="recBadge">—</span></button>
 </div>
 </div>
 
+<div class="setup-panel">
+<div class="setup-card" id="setupCard">
+<div class="setup-top">
+<div class="setup-emoji">&#9889;</div>
+<div>
+<div class="setup-heading">Quick Setup — Connect to Google Sheets (Free)</div>
+<div class="setup-desc">Responses will be saved to YOUR Google Sheet and shared across every device. Takes 3 minutes to set up once.</div>
+</div>
+</div>
+<div class="steps-list">
+<div class="step-row"><div class="step-num">1</div><span>Go to <a href="https://script.google.com" target="_blank">script.google.com</a> → click <strong>New Project</strong></span></div>
+<div class="step-row"><div class="step-num">2</div><span>Delete all existing code → paste the Google Apps Script code shown below → click <strong>Save</strong> (floppy disk icon)</span></div>
+<div class="step-row"><div class="step-num">3</div><span>Click <strong>Deploy → New Deployment → Web App</strong> → set "Who has access" to <strong>Anyone</strong> → click <strong>Deploy</strong> → copy the <strong>Web App URL</strong></span></div>
+<div class="step-row"><div class="step-num">4</div><span>Paste the Web App URL below and click <strong>Connect</strong></span></div>
+</div>
+<div style="margin-top:13px;background:rgba(0,0,0,0.3);border-radius:10px;padding:12px 14px;font-size:11px;color:#00ffaa;font-family:monospace;line-height:1.8;overflow-x:auto;">
+<div style="color:rgba(255,255,255,0.4);margin-bottom:6px;font-family:'Poppins',sans-serif;font-size:11px;">— Paste this into Google Apps Script —</div>
+var SHEET_NAME='Responses';<br>
+function doGet(e){<br>
+&nbsp;&nbsp;var ss=SpreadsheetApp.openById(e.parameter.sheetId||PropertiesService.getScriptProperties().getProperty('sheetId'));<br>
+&nbsp;&nbsp;var sh=ss.getSheetByName(SHEET_NAME)||ss.insertSheet(SHEET_NAME);<br>
+&nbsp;&nbsp;var action=e.parameter.action;<br>
+&nbsp;&nbsp;if(action==='read'){var d=sh.getDataRange().getValues();return ok(d);}<br>
+&nbsp;&nbsp;if(action==='delete'){var id=Number(e.parameter.id);var rows=sh.getDataRange().getValues();for(var i=rows.length-1;i>=1;i--){if(rows[i][0]==id){sh.deleteRow(i+1);break;}}return ok('deleted');}<br>
+&nbsp;&nbsp;if(action==='clear'){if(sh.getLastRow()>1)sh.deleteRows(2,sh.getLastRow()-1);return ok('cleared');}<br>
+&nbsp;&nbsp;return ok('ready');<br>
+}<br>
+function doPost(e){<br>
+&nbsp;&nbsp;var data=JSON.parse(e.postData.contents);<br>
+&nbsp;&nbsp;var ss=SpreadsheetApp.openById(data.sheetId);<br>
+&nbsp;&nbsp;var sh=ss.getSheetByName(SHEET_NAME)||ss.insertSheet(SHEET_NAME);<br>
+&nbsp;&nbsp;if(sh.getLastRow()===0){sh.appendRow(['ID','FirstName','LastName','FullName','Gender','Age','Occupation','Province','Email','Phone','Q1_Crisis','Q2_Shortages','Q3_Concern','Q4_Household','Q5_Methods','SavedAt']);}<br>
+&nbsp;&nbsp;sh.appendRow([data.id,data.fn,data.ln,data.fullName,data.gender,data.age,data.occ,data.prov,data.email,data.phone,data.q1,data.q2,data.q3,data.q4,(data.q5||[]).join(', '),data.savedAt]);<br>
+&nbsp;&nbsp;return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);<br>
+}<br>
+function ok(d){return ContentService.createTextOutput(JSON.stringify({ok:true,data:d})).setMimeType(ContentService.MimeType.JSON);}
+</div>
+<div style="margin-top:10px;font-size:11px;color:rgba(255,255,255,0.4);">Also go to <a href="https://sheets.google.com" target="_blank" style="color:#00ffaa;font-weight:600;">sheets.google.com</a> → create a new blank sheet → copy its <strong>Sheet ID</strong> from the URL (the long string between /d/ and /edit)</div>
+<div class="setup-fields" style="margin-top:10px;">
+<input type="text" class="setup-inp" id="urlInp" placeholder="Paste Web App URL here (starts with https://script.google...)">
+<input type="text" class="setup-inp" id="sidInp" placeholder="Paste Google Sheet ID here">
+<button class="setup-btn" onclick="saveSetup()">&#128279; Connect</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="sync-bar">
+<div class="sync-dot" id="syncDot"></div>
+<span id="syncTxt">Checking connection...</span>
+</div>
+
 <div class="hero-wrap">
-<div class="hero-tag"><div class="pulse-dot"></div>Live Survey</div>
+<div class="hero-tag"><div class="pulse-dot"></div>Shared Live Survey</div>
 <h1 class="hero-title"><span class="grad">Junior K Questions</span><br>Water Research SA</h1>
-<p class="hero-sub">Complete this survey as part of an important Grade 12 CAT research project on water as a vital resource in South Africa. Takes about 2 minutes.</p>
+<p class="hero-sub">Complete this survey as part of a Grade 12 CAT research project on water in South Africa. All responses are shared across every device in real time via Google Sheets.</p>
 <div class="stats-bar">
 <div class="stat-item"><div class="stat-num">5</div><div class="stat-lab">Questions</div></div>
-<div class="stat-item"><div class="stat-num" id="statCount">0</div><div class="stat-lab">Responses</div></div>
-<div class="stat-item"><div class="stat-num">100%</div><div class="stat-lab">Anonymous</div></div>
+<div class="stat-item"><div class="stat-num" id="statCnt">—</div><div class="stat-lab">Responses</div></div>
+<div class="stat-item"><div class="stat-num">&#127758;</div><div class="stat-lab">Shared Live</div></div>
 </div>
 </div>
 
@@ -328,90 +350,82 @@ document.addEventListener("DOMContentLoaded", () => {
 <div class="sec-hd"><div class="sec-icon blue">&#128100;</div><div><div class="sec-title">Section A — Biographical Information</div><div class="sec-sub">Background details about you</div></div></div>
 <div class="sec-divider"></div>
 <div class="bio-grid">
-<div class="f-wrap"><label class="f-label">First Name <span class="req">*</span></label><input type="text" class="f-input" id="bio_fn" placeholder="Your first name" oninput="calcP1()"></div>
-<div class="f-wrap"><label class="f-label">Last Name <span class="req">*</span></label><input type="text" class="f-input" id="bio_ln" placeholder="Your last name" oninput="calcP1()"></div>
-<div class="f-wrap"><label class="f-label">Gender <span class="req">*</span></label><select class="f-select" id="bio_gender" onchange="calcP1()"><option value="">Choose gender</option><option>Male</option><option>Female</option><option>Prefer not to say</option></select></div>
-<div class="f-wrap"><label class="f-label">Age <span class="req">*</span></label><input type="number" class="f-input" id="bio_age" placeholder="e.g. 17" min="5" max="100" oninput="calcP1()"></div>
-<div class="f-wrap"><label class="f-label">Occupation <span class="req">*</span></label><select class="f-select" id="bio_occ" onchange="calcP1()"><option value="">Choose occupation</option><option>Student</option><option>Employed</option><option>Unemployed</option><option>Self-employed</option><option>Retired</option></select></div>
-<div class="f-wrap"><label class="f-label">Province <span class="req">*</span></label><select class="f-select" id="bio_prov" onchange="calcP1()"><option value="">Choose province</option><option>Gauteng</option><option>Western Cape</option><option>KwaZulu-Natal</option><option>Eastern Cape</option><option>Limpopo</option><option>Mpumalanga</option><option>North West</option><option>Northern Cape</option><option>Free State</option></select></div>
-<div class="f-wrap"><label class="f-label">Email Address</label><input type="email" class="f-input" id="bio_em" placeholder="email@example.com" oninput="calcP1()"></div>
-<div class="f-wrap"><label class="f-label">Phone Number</label><input type="text" class="f-input" id="bio_ph" placeholder="e.g. 071 234 5678" oninput="calcP1()"></div>
+<div class="f-wrap"><label class="f-label">First Name <span class="req">*</span></label><input type="text" class="f-in" id="fn" placeholder="First name" oninput="cp1()"></div>
+<div class="f-wrap"><label class="f-label">Last Name <span class="req">*</span></label><input type="text" class="f-in" id="ln" placeholder="Last name" oninput="cp1()"></div>
+<div class="f-wrap"><label class="f-label">Gender <span class="req">*</span></label><select class="f-sel" id="gender" onchange="cp1()"><option value="">Gender</option><option>Male</option><option>Female</option><option>Prefer not to say</option></select></div>
+<div class="f-wrap"><label class="f-label">Age <span class="req">*</span></label><input type="number" class="f-in" id="age" placeholder="e.g. 17" min="5" max="100" oninput="cp1()"></div>
+<div class="f-wrap"><label class="f-label">Occupation <span class="req">*</span></label><select class="f-sel" id="occ" onchange="cp1()"><option value="">Occupation</option><option>Student</option><option>Employed</option><option>Unemployed</option><option>Self-employed</option><option>Retired</option></select></div>
+<div class="f-wrap"><label class="f-label">Province <span class="req">*</span></label><select class="f-sel" id="prov" onchange="cp1()"><option value="">Province</option><option>Gauteng</option><option>Western Cape</option><option>KwaZulu-Natal</option><option>Eastern Cape</option><option>Limpopo</option><option>Mpumalanga</option><option>North West</option><option>Northern Cape</option><option>Free State</option></select></div>
+<div class="f-wrap"><label class="f-label">Email</label><input type="email" class="f-in" id="em" placeholder="email@example.com" oninput="cp1()"></div>
+<div class="f-wrap"><label class="f-label">Phone</label><input type="text" class="f-in" id="ph" placeholder="071 234 5678" oninput="cp1()"></div>
 </div>
-
 <div class="divider-line"></div>
 <div class="sec-hd"><div class="sec-icon green">&#127754;</div><div><div class="sec-title">Section B — Water Awareness</div><div class="sec-sub">Your views on South Africa's water situation</div></div></div>
 <div class="sec-divider"></div>
-
 <div class="q-block">
 <div class="q-head"><div class="q-num">1</div><div class="q-txt">Do you think South Africa is currently facing a water crisis?</div></div>
-<div class="q-hint">Select ONE answer that best describes your view.</div>
+<div class="q-hint">Select ONE answer.</div>
 <div class="radio-list" id="q1g">
-<div class="r-opt" onclick="pickR('q1g',this,'Yes')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Yes — South Africa is facing a serious water crisis</span></div>
-<div class="r-opt" onclick="pickR('q1g',this,'No')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">No — I do not think there is a water crisis</span></div>
-<div class="r-opt" onclick="pickR('q1g',this,'Unsure')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Unsure — I am not certain either way</span></div>
+<div class="r-opt" onclick="pr('q1g',this,'Yes')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Yes — South Africa is facing a serious water crisis</span></div>
+<div class="r-opt" onclick="pr('q1g',this,'No')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">No — I do not think there is a water crisis</span></div>
+<div class="r-opt" onclick="pr('q1g',this,'Unsure')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Unsure — I am not certain either way</span></div>
 </div>
 </div>
-
 <div class="q-block">
 <div class="q-head"><div class="q-num">2</div><div class="q-txt">How often does your area experience water shortages?</div></div>
-<div class="q-hint">Select ONE answer that best matches your experience.</div>
+<div class="q-hint">Select ONE answer.</div>
 <div class="radio-list" id="q2g">
-<div class="r-opt" onclick="pickR('q2g',this,'Never')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Never — we always have water</span></div>
-<div class="r-opt" onclick="pickR('q2g',this,'Rarely')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Rarely — a few times a year</span></div>
-<div class="r-opt" onclick="pickR('q2g',this,'Sometimes')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Sometimes — about once a month</span></div>
-<div class="r-opt" onclick="pickR('q2g',this,'Often')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Often — about once a week</span></div>
-<div class="r-opt" onclick="pickR('q2g',this,'Almost every day')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Almost every day — very frequent shortages</span></div>
+<div class="r-opt" onclick="pr('q2g',this,'Never')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Never — we always have water</span></div>
+<div class="r-opt" onclick="pr('q2g',this,'Rarely')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Rarely — a few times a year</span></div>
+<div class="r-opt" onclick="pr('q2g',this,'Sometimes')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Sometimes — about once a month</span></div>
+<div class="r-opt" onclick="pr('q2g',this,'Often')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Often — about once a week</span></div>
+<div class="r-opt" onclick="pr('q2g',this,'Almost every day')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Almost every day</span></div>
 </div>
 </div>
-
 <div class="q-block">
-<div class="q-head"><div class="q-num">3</div><div class="q-txt">On a scale of 1 to 5, how concerned are you about water scarcity in South Africa?</div></div>
-<div class="q-hint">Click one number. 1 = Not concerned at all &nbsp;|&nbsp; 5 = Extremely concerned.</div>
+<div class="q-head"><div class="q-num">3</div><div class="q-txt">On a scale of 1 to 5, how concerned are you about water scarcity?</div></div>
+<div class="q-hint">1 = Not concerned at all &nbsp;|&nbsp; 5 = Extremely concerned.</div>
 <div class="scale-outer">
 <div class="scale-ends"><span>1 — Not concerned</span><span>5 — Extremely concerned</span></div>
 <div class="scale-row" id="q3s">
-<button class="s-btn" onclick="pickS(this,'q3s',1)" type="button">1</button>
-<button class="s-btn" onclick="pickS(this,'q3s',2)" type="button">2</button>
-<button class="s-btn" onclick="pickS(this,'q3s',3)" type="button">3</button>
-<button class="s-btn" onclick="pickS(this,'q3s',4)" type="button">4</button>
-<button class="s-btn" onclick="pickS(this,'q3s',5)" type="button">5</button>
+<button class="s-btn" onclick="ps(this,'q3s',1)" type="button">1</button>
+<button class="s-btn" onclick="ps(this,'q3s',2)" type="button">2</button>
+<button class="s-btn" onclick="ps(this,'q3s',3)" type="button">3</button>
+<button class="s-btn" onclick="ps(this,'q3s',4)" type="button">4</button>
+<button class="s-btn" onclick="ps(this,'q3s',5)" type="button">5</button>
 </div>
 </div>
 </div>
-
 <div class="divider-line"></div>
-<div class="sec-hd"><div class="sec-icon purple">&#127968;</div><div><div class="sec-title">Section C — Water Usage and Conservation</div><div class="sec-sub">Your household habits and practices</div></div></div>
+<div class="sec-hd"><div class="sec-icon purple">&#127968;</div><div><div class="sec-title">Section C — Water Usage and Conservation</div><div class="sec-sub">Your household habits</div></div></div>
 <div class="sec-divider"></div>
-
 <div class="q-block">
 <div class="q-head"><div class="q-num">4</div><div class="q-txt">How many people live in your household?</div></div>
-<div class="q-hint">Type or use the buttons to enter the total number of people including yourself.</div>
+<div class="q-hint">Type or use + / - buttons.</div>
 <div class="num-wrap">
-<button class="num-btn" onclick="changeNum(-1)" type="button">&#8722;</button>
-<input type="number" class="num-input" id="q4val" value="" placeholder="0" min="1" max="30" oninput="calcP1()">
-<button class="num-btn" onclick="changeNum(1)" type="button">&#43;</button>
-<span class="num-hint">people in household</span>
+<button class="num-btn" onclick="cn(-1)" type="button">&#8722;</button>
+<input type="number" class="num-input" id="q4" placeholder="0" min="1" max="30" oninput="cp1()">
+<button class="num-btn" onclick="cn(1)" type="button">&#43;</button>
+<span class="num-hint">people</span>
 </div>
 </div>
-
 <div class="q-block">
 <div class="q-head"><div class="q-num">5</div><div class="q-txt">Which water saving methods do you practise at home?</div></div>
-<div class="q-hint">Tick ALL that apply — you may select more than one option.</div>
+<div class="q-hint">Tick ALL that apply.</div>
 <div class="cb-grid">
-<div class="cb-opt" id="cb0" onclick="toggleCB(0)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Fixing leaking taps immediately</span></div>
-<div class="cb-opt" id="cb1" onclick="toggleCB(1)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Taking shorter showers</span></div>
-<div class="cb-opt" id="cb2" onclick="toggleCB(2)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Collecting rainwater</span></div>
-<div class="cb-opt" id="cb3" onclick="toggleCB(3)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Reusing grey water for garden</span></div>
-<div class="cb-opt" id="cb4" onclick="toggleCB(4)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Using a bucket instead of hosepipe</span></div>
-<div class="cb-opt" id="cb5" onclick="toggleCB(5)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Only running full loads of laundry</span></div>
-<div class="cb-opt" id="cb6" onclick="toggleCB(6)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">None of the above</span></div>
+<div class="cb-opt" id="cb0" onclick="tc(0)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Fixing leaking taps immediately</span></div>
+<div class="cb-opt" id="cb1" onclick="tc(1)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Taking shorter showers</span></div>
+<div class="cb-opt" id="cb2" onclick="tc(2)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Collecting rainwater</span></div>
+<div class="cb-opt" id="cb3" onclick="tc(3)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Reusing grey water for garden</span></div>
+<div class="cb-opt" id="cb4" onclick="tc(4)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Using a bucket instead of hosepipe</span></div>
+<div class="cb-opt" id="cb5" onclick="tc(5)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Full loads of laundry only</span></div>
+<div class="cb-opt" id="cb6" onclick="tc(6)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">None of the above</span></div>
 </div>
 </div>
-
 <div class="btn-row">
-<button class="btn btn-reset" onclick="doReset()" type="button">&#8635; Reset All</button>
-<button class="btn btn-view" onclick="showPage2()" type="button">&#128203; View Records</button>
-<button class="btn btn-done" onclick="saveDone()" type="button">&#10003; Done — Save Response</button>
+<button class="btn btn-reset" onclick="reset()" type="button">&#8635; Reset</button>
+<button class="btn btn-view" onclick="goRecords()" type="button">&#128203; Records</button>
+<button class="btn btn-done" id="doneBtn" onclick="save()" type="button">&#10003; Done — Save Response</button>
 </div>
 </div>
 </div>
@@ -419,337 +433,271 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <!-- PAGE 2 RECORDS -->
 <div id="page2" class="page">
-<div class="rec-page-content">
+<div class="rec-content">
 <div class="top-bar">
 <div class="logo-area">
 <div class="logo-circle">JK</div>
-<div class="brand-name">Junior K Questions<span>Saved Responses — Records</span></div>
+<div class="brand-name">Junior K Questions<span>Shared Responses</span></div>
 </div>
 <div class="nav-btns">
-<button class="nav-btn survey" onclick="showPage1()" type="button">&#43; New Response</button>
+<button class="nav-btn survey" onclick="goSurvey()" type="button">&#43; New Response</button>
 </div>
 </div>
-
-<div class="records-hero">
-<div class="hero-tag"><div class="pulse-dot"></div>Response Records</div>
+<div class="rec-hero">
+<div class="hero-tag"><div class="pulse-dot"></div>Google Sheets Database</div>
 <h1 class="rec-title"><span>Junior K Questions</span><br>All Saved Responses</h1>
-<p class="rec-sub">All responses saved on this device. Click any record to expand and view full details. Delete individual records or clear all at once.</p>
+<p class="rec-sub">Every response from every device is stored in your Google Sheet. Refresh anytime to see the latest data.</p>
 </div>
-
 <div class="rec-container">
 <div class="rec-summary">
-<div class="rec-stat"><div class="rec-stat-num" id="totalCount">0</div><div class="rec-stat-lab">Total Responses</div></div>
-<div class="rec-stat"><div class="rec-stat-num" id="yesCount">0</div><div class="rec-stat-lab">Believe in Crisis</div></div>
-<div class="rec-stat"><div class="rec-stat-num" id="avgConcern">—</div><div class="rec-stat-lab">Avg Concern Level</div></div>
-<div class="rec-stat"><div class="rec-stat-num" id="slotsLeft">20</div><div class="rec-stat-lab">Slots Remaining</div></div>
+<div class="rstat"><div class="rstat-num" id="rTotal">—</div><div class="rstat-lab">Total</div></div>
+<div class="rstat"><div class="rstat-num" id="rYes">—</div><div class="rstat-lab">Crisis: Yes</div></div>
+<div class="rstat"><div class="rstat-num" id="rAvg">—</div><div class="rstat-lab">Avg Concern</div></div>
+<div class="rstat"><div class="rstat-num" id="rLeft">—</div><div class="rstat-lab">Slots Left</div></div>
 </div>
-
 <div class="rec-toolbar">
-<input type="text" class="rec-search" id="recSearch" placeholder="&#128269; Search by name..." oninput="renderRecords()">
-<button class="rec-clear-all" onclick="clearAllRecords()" type="button">&#128465; Clear All Records</button>
+<input type="text" class="rec-search" id="recSrch" placeholder="&#128269; Search name or province..." oninput="renderRecs()">
+<div class="rec-tools">
+<button class="tool-btn tool-refresh" onclick="loadRecs()" type="button">&#8635; Refresh</button>
+<button class="tool-btn tool-clear" onclick="clearAll()" type="button">&#128465; Clear All</button>
 </div>
-
+</div>
 <div id="recList" class="rec-list"></div>
-<div id="recEmpty" class="rec-empty" style="display:none;">
-<div class="rec-empty-icon">&#128203;</div>
-<div class="rec-empty-txt">No responses saved yet.<br>Complete the survey and click "Done — Save Response".</div>
-</div>
-
-<button class="rec-back-btn" onclick="showPage1()" type="button">&#8592; Back to Survey</button>
+<div id="recEmpty" class="rec-empty" style="display:none;"><div class="rec-empty-icon">&#128203;</div><div class="rec-empty-txt">No responses yet.<br>Be the first to complete the survey.</div></div>
+<div id="recLoad" class="spinner-wrap"><div class="spinner"></div><span>Loading from Google Sheets...</span></div>
+<button class="rec-back" onclick="goSurvey()" type="button">&#8592; Back to Survey</button>
 </div>
 </div>
 </div>
 
 <script>
+var CFG='jkq_gs_v1';
 var ans={q1:'',q2:'',q3:0};
-var cbS=[false,false,false,false,false,false,false];
-var cbLabels=['Fixing leaking taps','Shorter showers','Collecting rainwater','Reusing grey water','Bucket instead of hosepipe','Full loads of laundry','None of the above'];
-var pendingDelId=null;
-var STORAGE_KEY='jkq_responses_v2';
+var cbs=[false,false,false,false,false,false,false];
+var cbL=['Fixing leaking taps','Shorter showers','Collecting rainwater','Reusing grey water','Bucket not hosepipe','Full loads only','None of the above'];
+var allRecs=[];
+var pendId=null;
+var busy=false;
 
-function loadRecords(){
-  try{var d=localStorage.getItem(STORAGE_KEY);return d?JSON.parse(d):[];}
-  catch(e){return [];}
-}
-function saveRecords(arr){
-  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));}
-  catch(e){showToast('Storage error — responses not saved.');}
+function cfg(){try{var d=localStorage.getItem(CFG);return d?JSON.parse(d):null;}catch(e){return null;}}
+function saveCfg(u,s){try{localStorage.setItem(CFG,JSON.stringify({url:u,sid:s}));}catch(e){}}
+
+function saveSetup(){
+  var u=g('urlInp').value.trim();
+  var s=g('sidInp').value.trim();
+  if(!u||!s){toast('Paste both the Web App URL and the Sheet ID.');return;}
+  if(!u.startsWith('https://script.google')){toast('Web App URL should start with https://script.google.com...');return;}
+  saveCfg(u,s);
+  g('setupCard').style.display='none';
+  toast('Connected! Testing...','info');
+  pingCheck();
 }
 
-function pickR(gid,el,val){
-  document.querySelectorAll('#'+gid+' .r-opt').forEach(function(o){o.classList.remove('sel');});
-  el.classList.add('sel');
-  if(gid==='q1g') ans.q1=val;
-  if(gid==='q2g') ans.q2=val;
-  calcP1();
+async function pingCheck(){
+  var c=cfg();
+  if(!c){setSS('red','Not connected — complete setup');g('setupCard').style.display='block';updateBadge('—');return;}
+  setSS('yellow','Connecting to Google Sheets...');
+  try{
+    var r=await fetch(c.url+'?action=ping&sheetId='+encodeURIComponent(c.sid));
+    if(r.ok){setSS('green','Connected to Google Sheets');g('setupCard').style.display='none';loadCount();}
+    else{setSS('red','Connection failed — check URL and Sheet ID');g('setupCard').style.display='block';}
+  }catch(e){setSS('red','Connection failed — check URL');g('setupCard').style.display='block';}
 }
-function pickS(btn,gid,val){
-  document.querySelectorAll('#'+gid+' .s-btn').forEach(function(b){b.classList.remove('sel');});
-  btn.classList.add('sel');
-  ans.q3=val;
-  calcP1();
+
+async function loadCount(){
+  var c=cfg();if(!c)return;
+  try{
+    var r=await fetch(c.url+'?action=read&sheetId='+encodeURIComponent(c.sid));
+    var j=await r.json();
+    var rows=(j.data||[]).slice(1);
+    updateBadge(rows.length);
+    setSS('green','Connected — '+rows.length+' response'+(rows.length===1?'':'s'));
+  }catch(e){}
 }
-function toggleCB(i){
-  if(i===6){
-    if(!cbS[6]){for(var j=0;j<6;j++){cbS[j]=false;document.getElementById('cb'+j).classList.remove('sel');}}
-    cbS[6]=!cbS[6];
-  } else {
-    cbS[6]=false;document.getElementById('cb6').classList.remove('sel');
-    cbS[i]=!cbS[i];
+
+async function loadRecs(){
+  var c=cfg();
+  g('recLoad').style.display='flex';
+  g('recList').style.display='none';
+  g('recEmpty').style.display='none';
+  if(!c){g('recLoad').style.display='none';g('recEmpty').style.display='block';return;}
+  try{
+    var r=await fetch(c.url+'?action=read&sheetId='+encodeURIComponent(c.sid));
+    var j=await r.json();
+    var rows=(j.data||[]).slice(1);
+    allRecs=rows.map(function(row){
+      return {id:row[0],fn:row[1],ln:row[2],fullName:row[3],gender:row[4],age:row[5],occ:row[6],prov:row[7],email:row[8],phone:row[9],q1:row[10],q2:row[11],q3:row[12],q4:row[13],q5:(row[14]||'').split(', ').filter(Boolean),savedAt:row[15]};
+    });
+    g('recLoad').style.display='none';
+    updateBadge(allRecs.length);
+    updateStats(allRecs);
+    renderRecs();
+  }catch(e){
+    g('recLoad').style.display='none';
+    g('recEmpty').style.display='block';
+    toast('Failed to load. Check connection.');
   }
-  document.getElementById('cb'+i).classList[cbS[i]?'add':'remove']('sel');
-  calcP1();
-}
-function changeNum(d){
-  var el=document.getElementById('q4val');
-  var v=parseInt(el.value)||0;
-  v=Math.max(1,Math.min(30,v+d));
-  el.value=v;calcP1();
-}
-function calcP1(){
-  var done=0,total=10;
-  if(g('bio_fn').value.trim()) done++;
-  if(g('bio_ln').value.trim()) done++;
-  if(g('bio_gender').value) done++;
-  if(g('bio_age').value) done++;
-  if(g('bio_occ').value) done++;
-  if(g('bio_prov').value) done++;
-  if(ans.q1) done++;
-  if(ans.q2) done++;
-  if(ans.q3) done++;
-  if(g('q4val').value) done++;
-  var pct=Math.round((done/total)*100);
-  g('p1bar').style.width=pct+'%';
-  g('p1pct').textContent=pct+'% complete';
 }
 
+function renderRecs(){
+  var q=g('recSrch').value.trim().toLowerCase();
+  var filtered=allRecs.filter(function(r){return (r.fullName||'').toLowerCase().includes(q)||(r.prov||'').toLowerCase().includes(q);});
+  var list=g('recList'),empty=g('recEmpty');
+  list.innerHTML='';
+  if(filtered.length===0){list.style.display='none';empty.style.display='block';}
+  else{
+    list.style.display='flex';empty.style.display='none';
+    filtered.forEach(function(r,i){
+      var init=((r.fn||'?')[0]+(r.ln||'?')[0]).toUpperCase();
+      var qc=r.q1==='Yes'?'yes':r.q1==='No'?'no':'un';
+      var mhtml=(r.q5||[]).map(function(m){return '<span class="meth-tag">'+esc(m)+'</span>';}).join('');
+      var d=document.createElement('div');
+      d.className='rec-card';
+      d.innerHTML='<div class="rec-card-hdr" onclick="expand(\''+r.id+'\')">'
+        +'<div class="rec-av">'+init+'</div>'
+        +'<div class="rec-inf"><div class="rec-name">'+(i+1)+'. '+esc(r.fullName||'')+'</div>'
+        +'<div class="rec-meta">'+esc(r.gender||'')+' &middot; Age '+esc(String(r.age||''))+' &middot; '+esc(r.savedAt||'')+'</div>'
+        +'<div class="rec-tags"><span class="rt '+qc+'">Crisis: '+esc(r.q1||'')+'</span><span class="rt prov">'+esc(r.prov||'')+'</span><span class="rt lv">Concern: '+esc(String(r.q3||''))+'/5</span></div>'
+        +'</div>'
+        +'<div class="rec-acts">'
+        +'<button class="ico-btn expand-btn" onclick="event.stopPropagation();expand(\''+r.id+'\')" type="button">&#9660;</button>'
+        +'<button class="ico-btn del-btn" onclick="event.stopPropagation();askDel(\''+r.id+'\',\''+escQ(r.fullName||'')+'\')" type="button">&#128465;</button>'
+        +'</div></div>'
+        +'<div class="rec-det" id="det_'+r.id+'">'
+        +'<div class="det-grid">'
+        +'<div class="di"><div class="di-lbl">Full Name</div><div class="di-val g">'+esc(r.fullName||'')+'</div></div>'
+        +'<div class="di"><div class="di-lbl">Gender</div><div class="di-val">'+esc(r.gender||'')+'</div></div>'
+        +'<div class="di"><div class="di-lbl">Age</div><div class="di-val">'+esc(String(r.age||''))+'</div></div>'
+        +'<div class="di"><div class="di-lbl">Occupation</div><div class="di-val">'+esc(r.occ||'')+'</div></div>'
+        +'<div class="di"><div class="di-lbl">Province</div><div class="di-val">'+esc(r.prov||'')+'</div></div>'
+        +'<div class="di"><div class="di-lbl">Email</div><div class="di-val">'+esc(r.email||'Not provided')+'</div></div>'
+        +'<div class="di"><div class="di-lbl">Phone</div><div class="di-val">'+esc(r.phone||'Not provided')+'</div></div>'
+        +'<div class="di"><div class="di-lbl">Q1 — Water Crisis</div><div class="di-val g">'+esc(r.q1||'')+'</div></div>'
+        +'<div class="di"><div class="di-lbl">Q2 — Shortages</div><div class="di-val">'+esc(r.q2||'')+'</div></div>'
+        +'<div class="di"><div class="di-lbl">Q3 — Concern</div><div class="di-val"><span class="lvbadge">'+esc(String(r.q3||''))+'</span></div></div>'
+        +'<div class="di"><div class="di-lbl">Q4 — Household</div><div class="di-val">'+esc(String(r.q4||''))+' people</div></div>'
+        +'<div class="di" style="grid-column:1/-1"><div class="di-lbl">Q5 — Methods</div><div class="meth-wrap">'+mhtml+'</div></div>'
+        +'</div></div>';
+      list.appendChild(d);
+    });
+  }
+}
+
+function expand(id){
+  var det=g('det_'+id);if(!det)return;
+  det.classList.toggle('open');
+  var btn=det.previousElementSibling.querySelector('.expand-btn');
+  if(btn)btn.innerHTML=det.classList.contains('open')?'&#9650;':'&#9660;';
+}
+
+function askDel(id,name){pendId=id;g('confSub').textContent='This will permanently remove '+name+"'s response from the Google Sheet for everyone.";g('confOv').classList.add('show');}
+function closeConf(){g('confOv').classList.remove('show');pendId=null;}
+async function doDelete(){
+  if(!pendId)return;
+  closeConf();
+  setSS('yellow','Deleting...');
+  var c=cfg();if(!c)return;
+  try{
+    await fetch(c.url+'?action=delete&id='+encodeURIComponent(pendId)+'&sheetId='+encodeURIComponent(c.sid));
+    toast('Record deleted.','ok');
+    await loadRecs();
+    setSS('green','Deleted successfully');
+  }catch(e){toast('Delete failed. Try again.');}
+}
+
+async function clearAll(){
+  if(allRecs.length===0){toast('No records to clear.');return;}
+  if(!confirm('Delete ALL '+allRecs.length+' responses from the shared Google Sheet? This cannot be undone.'))return;
+  var c=cfg();if(!c)return;
+  setSS('yellow','Clearing...');
+  try{
+    await fetch(c.url+'?action=clear&sheetId='+encodeURIComponent(c.sid));
+    toast('All records cleared.','ok');
+    await loadRecs();
+    setSS('green','All records cleared');
+  }catch(e){toast('Clear failed.');}
+}
+
+function updateStats(recs){
+  g('rTotal').textContent=recs.length;
+  g('rLeft').textContent=Math.max(0,20-recs.length);
+  var yes=recs.filter(function(r){return r.q1==='Yes';}).length;
+  g('rYes').textContent=yes;
+  if(recs.length>0){var avg=recs.reduce(function(s,r){return s+Number(r.q3);},0)/recs.length;g('rAvg').textContent=avg.toFixed(1);}
+  else g('rAvg').textContent='—';
+}
+
+function updateBadge(n){g('recBadge').textContent=n;g('statCnt').textContent=n;}
+function setSS(col,txt){var d=g('syncDot');d.className='sync-dot '+col;g('syncTxt').textContent=txt;}
+
+// FORM
 function g(id){return document.getElementById(id);}
+function pr(gid,el,val){document.querySelectorAll('#'+gid+' .r-opt').forEach(function(o){o.classList.remove('sel');});el.classList.add('sel');if(gid==='q1g')ans.q1=val;if(gid==='q2g')ans.q2=val;cp1();}
+function ps(btn,gid,val){document.querySelectorAll('#'+gid+' .s-btn').forEach(function(b){b.classList.remove('sel');});btn.classList.add('sel');ans.q3=val;cp1();}
+function tc(i){if(i===6){if(!cbs[6]){for(var j=0;j<6;j++){cbs[j]=false;g('cb'+j).classList.remove('sel');}}cbs[6]=!cbs[6];}else{cbs[6]=false;g('cb6').classList.remove('sel');cbs[i]=!cbs[i];}g('cb'+i).classList[cbs[i]?'add':'remove']('sel');cp1();}
+function cn(d){var el=g('q4');var v=parseInt(el.value)||0;v=Math.max(1,Math.min(30,v+d));el.value=v;cp1();}
+function cp1(){var done=0,tot=10;if(g('fn').value.trim())done++;if(g('ln').value.trim())done++;if(g('gender').value)done++;if(g('age').value)done++;if(g('occ').value)done++;if(g('prov').value)done++;if(ans.q1)done++;if(ans.q2)done++;if(ans.q3)done++;if(g('q4').value)done++;var pct=Math.round(done/tot*100);g('p1bar').style.width=pct+'%';g('p1pct').textContent=pct+'% complete';}
 
-function doReset(){
-  if(!confirm('Clear all your current answers? Saved records will NOT be affected.')) return;
-  g('bio_fn').value='';g('bio_ln').value='';g('bio_gender').value='';
-  g('bio_age').value='';g('bio_occ').value='';g('bio_prov').value='';
-  g('bio_em').value='';g('bio_ph').value='';
+function reset(){
+  if(!confirm('Clear all your current answers? Saved records are NOT affected.'))return;
+  g('fn').value='';g('ln').value='';g('gender').value='';g('age').value='';g('occ').value='';g('prov').value='';g('em').value='';g('ph').value='';
   document.querySelectorAll('.r-opt').forEach(function(o){o.classList.remove('sel');});
   document.querySelectorAll('.s-btn').forEach(function(b){b.classList.remove('sel');});
-  for(var i=0;i<cbS.length;i++){cbS[i]=false;g('cb'+i).classList.remove('sel');}
-  g('q4val').value='';
-  ans={q1:'',q2:'',q3:0};
-  calcP1();
-  showToast('Form cleared. Saved records are untouched.');
+  for(var i=0;i<cbs.length;i++){cbs[i]=false;g('cb'+i).classList.remove('sel');}
+  g('q4').value='';ans={q1:'',q2:'',q3:0};cp1();
+  toast('Form cleared. Records untouched.','info');
 }
 
-function saveDone(){
-  var fn=g('bio_fn').value.trim();
-  var ln=g('bio_ln').value.trim();
-  if(!fn||!ln){showToast('Please enter your First Name and Last Name before saving.');return;}
-  if(!g('bio_gender').value){showToast('Please select your Gender.');return;}
-  if(!g('bio_age').value){showToast('Please enter your Age.');return;}
-  if(!g('bio_occ').value){showToast('Please select your Occupation.');return;}
-  if(!g('bio_prov').value){showToast('Please select your Province.');return;}
-  if(!ans.q1){showToast('Please answer Question 1.');return;}
-  if(!ans.q2){showToast('Please answer Question 2.');return;}
-  if(!ans.q3){showToast('Please answer Question 3 — select a concern level.');return;}
-  if(!g('q4val').value){showToast('Please answer Question 4 — household size.');return;}
-  if(!cbS.some(function(s){return s;})){showToast('Please answer Question 5 — select at least one water saving method.');return;}
-  var records=loadRecords();
-  if(records.length>=20){showToast('Maximum 20 responses reached. Please delete a record first.');return;}
-  var methods=cbLabels.filter(function(_,i){return cbS[i];});
-  var record={
-    id:Date.now(),
-    fn:fn,ln:ln,fullName:fn+' '+ln,
-    gender:g('bio_gender').value,age:g('bio_age').value,
-    occ:g('bio_occ').value,prov:g('bio_prov').value,
-    email:g('bio_em').value||'Not provided',phone:g('bio_ph').value||'Not provided',
-    q1:ans.q1,q2:ans.q2,q3:ans.q3,
-    q4:g('q4val').value,q5:methods,
-    savedAt:new Date().toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})
-  };
-  records.push(record);
-  saveRecords(records);
-  updateBadge();
-  showToast(fn+' '+ln+'\'s response saved successfully!','ok');
-  doReset();
+async function save(){
+  if(busy)return;
+  var fn=g('fn').value.trim(),ln=g('ln').value.trim();
+  if(!fn||!ln){toast('Enter your First Name and Last Name.');return;}
+  if(!g('gender').value){toast('Please select your Gender.');return;}
+  if(!g('age').value){toast('Please enter your Age.');return;}
+  if(!g('occ').value){toast('Please select your Occupation.');return;}
+  if(!g('prov').value){toast('Please select your Province.');return;}
+  if(!ans.q1){toast('Please answer Question 1.');return;}
+  if(!ans.q2){toast('Please answer Question 2.');return;}
+  if(!ans.q3){toast('Please select a number for Question 3.');return;}
+  if(!g('q4').value){toast('Please enter household size for Question 4.');return;}
+  if(!cbs.some(function(s){return s;})){toast('Please select at least one option for Question 5.');return;}
+  var c=cfg();
+  if(!c){toast('Google Sheets not connected. Complete setup first.');return;}
+  busy=true;
+  var db=g('doneBtn');db.textContent='Saving...';db.classList.add('btn-dis');
+  setSS('yellow','Saving to Google Sheets...');
+  var methods=cbL.filter(function(_,i){return cbs[i];});
+  var now=new Date().toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  var rec={id:Date.now(),fn:fn,ln:ln,fullName:fn+' '+ln,gender:g('gender').value,age:g('age').value,occ:g('occ').value,prov:g('prov').value,email:g('em').value||'Not provided',phone:g('ph').value||'Not provided',q1:ans.q1,q2:ans.q2,q3:ans.q3,q4:g('q4').value,q5:methods,savedAt:now,sheetId:c.sid};
+  try{
+    var r=await fetch(c.url,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(rec)});
+    var j=await r.json();
+    if(j.ok){
+      setSS('green','Saved to Google Sheets!');
+      toast(fn+' '+ln+"'s response saved and shared with everyone!",'ok');
+      reset();
+      loadCount();
+    }else{setSS('red','Save failed');toast('Google Sheets returned an error. Check your script.');}
+  }catch(e){setSS('red','Save failed');toast('Could not reach Google Sheets. Check your Web App URL.');}
+  busy=false;db.textContent='✓ Done — Save Response';db.classList.remove('btn-dis');
 }
 
-function updateBadge(){
-  var n=loadRecords().length;
-  g('recBadge').textContent=n;
-  g('statCount').textContent=n;
-}
+function goRecords(){g('page1').classList.remove('active');g('page2').classList.add('active');loadRecs();window.scrollTo({top:0,behavior:'smooth'});}
+function goSurvey(){g('page2').classList.remove('active');g('page1').classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
 
-function showPage2(){
-  g('page1').classList.remove('active');
-  g('page2').classList.add('active');
-  renderRecords();
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function showPage1(){
-  g('page2').classList.remove('active');
-  g('page1').classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
+function toast(msg,type){var t=g('toastEl');t.textContent=msg;t.className='toast'+(type==='ok'?' ok':type==='info'?' info':'');setTimeout(function(){t.classList.add('show');},10);setTimeout(function(){t.classList.remove('show');},4200);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function escQ(s){return (s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
 
-function renderRecords(){
-  var records=loadRecords();
-  var search=g('recSearch').value.trim().toLowerCase();
-  var filtered=records.filter(function(r){return r.fullName.toLowerCase().indexOf(search)>-1||r.prov.toLowerCase().indexOf(search)>-1;});
-  var list=g('recList');
-  var empty=g('recEmpty');
-  list.innerHTML='';
-  if(filtered.length===0){
-    list.style.display='none';empty.style.display='block';
-  } else {
-    list.style.display='flex';empty.style.display='none';
-    filtered.forEach(function(r,idx){
-      var initials=r.fn.charAt(0).toUpperCase()+(r.ln.charAt(0).toUpperCase());
-      var badgeCls=r.q1==='Yes'?'q1yes':r.q1==='No'?'q1no':'q1un';
-      var methodsHtml=r.q5.map(function(m){return '<span class="rec-method-tag">'+m+'</span>';}).join('');
-      var div=document.createElement('div');
-      div.className='rec-card';
-      div.id='rcard_'+r.id;
-      div.innerHTML=
-        '<div class="rec-card-header" onclick="toggleExpand('+r.id+')">'
-        +'<div class="rec-avatar">'+initials+'</div>'
-        +'<div class="rec-info">'
-        +'<div class="rec-fullname">'+(idx+1)+'. '+r.fullName+'</div>'
-        +'<div class="rec-meta">'+r.gender+' &middot; Age '+r.age+' &middot; Saved: '+r.savedAt+'</div>'
-        +'<div class="rec-badges"><span class="rec-badge '+badgeCls+'">Crisis: '+r.q1+'</span><span class="rec-badge prov">'+r.prov+'</span><span class="rec-badge q1yes">Concern: '+r.q3+'/5</span></div>'
-        +'</div>'
-        +'<div class="rec-actions">'
-        +'<button class="rec-expand-btn" onclick="event.stopPropagation();toggleExpand('+r.id+')" title="Expand" type="button">&#9660;</button>'
-        +'<button class="rec-del-btn" onclick="event.stopPropagation();askDelete('+r.id+',\''+r.fullName+'\')" title="Delete" type="button">&#128465;</button>'
-        +'</div>'
-        +'</div>'
-        +'<div class="rec-details" id="rdet_'+r.id+'">'
-        +'<div class="rec-details-grid">'
-        +'<div class="rec-detail-item"><div class="rec-detail-label">Full Name</div><div class="rec-detail-val green">'+r.fullName+'</div></div>'
-        +'<div class="rec-detail-item"><div class="rec-detail-label">Gender</div><div class="rec-detail-val">'+r.gender+'</div></div>'
-        +'<div class="rec-detail-item"><div class="rec-detail-label">Age</div><div class="rec-detail-val">'+r.age+' years old</div></div>'
-        +'<div class="rec-detail-item"><div class="rec-detail-label">Occupation</div><div class="rec-detail-val">'+r.occ+'</div></div>'
-        +'<div class="rec-detail-item"><div class="rec-detail-label">Province</div><div class="rec-detail-val">'+r.prov+'</div></div>'
-        +'<div class="rec-detail-item"><div class="rec-detail-label">Email</div><div class="rec-detail-val">'+r.email+'</div></div>'
-        +'<div class="rec-detail-item"><div class="rec-detail-label">Phone</div><div class="rec-detail-val">'+r.phone+'</div></div>'
-        +'<div class="rec-detail-item"><div class="rec-detail-label">Q1 — Water Crisis</div><div class="rec-detail-val green">'+r.q1+'</div></div>'
-        +'<div class="rec-detail-item"><div class="rec-detail-label">Q2 — Shortages</div><div class="rec-detail-val">'+r.q2+'</div></div>'
-        +'<div class="rec-detail-item"><div class="rec-detail-label">Q3 — Concern Level</div><div class="rec-detail-val"><span class="rec-num-badge">'+r.q3+'</span></div></div>'
-        +'<div class="rec-detail-item"><div class="rec-detail-label">Q4 — Household Size</div><div class="rec-detail-val">'+r.q4+' people</div></div>'
-        +'<div class="rec-detail-item" style="grid-column:1/-1"><div class="rec-detail-label">Q5 — Water Saving Methods</div><div class="rec-methods">'+methodsHtml+'</div></div>'
-        +'</div>'
-        +'</div>';
-      list.appendChild(div);
-    });
-  }
-  updateSummary(records);
-}
+// BG SLIDER
+var bgI=0;var bgS=document.querySelectorAll('.bg-slide');
+setInterval(function(){bgS[bgI].classList.remove('active');bgI=(bgI+1)%bgS.length;bgS[bgI].classList.add('active');},5000);
 
-function toggleExpand(id){
-  var det=g('rdet_'+id);
-  if(!det) return;
-  det.classList.toggle('open');
-  var btn=det.previousElementSibling.querySelector('.rec-expand-btn');
-  if(btn) btn.textContent=det.classList.contains('open')?'&#9650;':'&#9660;';
-}
+// PARTICLES
+(function(){var c=g('pCanvas');var ctx=c.getContext('2d');function rs(){c.width=window.innerWidth;c.height=window.innerHeight;}rs();window.addEventListener('resize',rs);var pts=[];for(var i=0;i<32;i++){pts.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*2+0.4,vx:(Math.random()-0.5)*0.28,vy:-(Math.random()*0.38+0.12),op:Math.random()*0.42+0.09,col:Math.random()>0.5?'0,255,170':'0,136,255'});}function draw(){ctx.clearRect(0,0,c.width,c.height);pts.forEach(function(p){p.x+=p.vx;p.y+=p.vy;if(p.y<-8){p.y=c.height+8;p.x=Math.random()*c.width;}if(p.x<0||p.x>c.width)p.vx*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba('+p.col+','+p.op+')';ctx.fill();});requestAnimationFrame(draw);}draw();})();
 
-function askDelete(id,name){
-  pendingDelId=id;
-  g('confirmSub').textContent='This will permanently remove '+name+'\'s response. This cannot be undone.';
-  g('confirmOverlay').classList.add('show');
-}
-function closeConfirm(){g('confirmOverlay').classList.remove('show');pendingDelId=null;}
-function confirmDelete(){
-  if(!pendingDelId) return;
-  var records=loadRecords().filter(function(r){return r.id!==pendingDelId;});
-  saveRecords(records);
-  closeConfirm();
-  updateBadge();
-  renderRecords();
-  showToast('Record deleted.','ok');
-}
-
-function clearAllRecords(){
-  if(!confirm('Delete ALL '+loadRecords().length+' saved responses? This cannot be undone.')) return;
-  saveRecords([]);
-  updateBadge();
-  renderRecords();
-  showToast('All records cleared.');
-}
-
-function updateSummary(records){
-  g('totalCount').textContent=records.length;
-  g('slotsLeft').textContent=Math.max(0,20-records.length);
-  var yes=records.filter(function(r){return r.q1==='Yes';}).length;
-  g('yesCount').textContent=yes;
-  if(records.length>0){
-    var avg=records.reduce(function(s,r){return s+Number(r.q3);},0)/records.length;
-    g('avgConcern').textContent=avg.toFixed(1);
-  } else {
-    g('avgConcern').textContent='—';
-  }
-}
-
-function showToast(msg,type){
-  var t=g('toastEl');
-  t.textContent=msg;
-  t.className='toast'+(type==='ok'?' ok':'');
-  setTimeout(function(){t.classList.add('show');},10);
-  setTimeout(function(){t.classList.remove('show');},3800);
-}
-
-var bgIdx=0;
-var bgSl=document.querySelectorAll('.bg-slide');
-setInterval(function(){bgSl[bgIdx].classList.remove('active');bgIdx=(bgIdx+1)%bgSl.length;bgSl[bgIdx].classList.add('active');},5000);
-
-(function initP(){
-  var c=g('pCanvas');
-  var ctx=c.getContext('2d');
-  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
-  resize();window.addEventListener('resize',resize);
-  var pts=[];
-  for(var i=0;i<40;i++){pts.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*2+0.5,vx:(Math.random()-0.5)*0.3,vy:-(Math.random()*0.4+0.15),op:Math.random()*0.5+0.1,col:Math.random()>0.5?'0,255,170':'0,136,255'});}
-  function draw(){
-    ctx.clearRect(0,0,c.width,c.height);
-    pts.forEach(function(p){
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.y<-10){p.y=c.height+10;p.x=Math.random()*c.width;}
-      if(p.x<0||p.x>c.width) p.vx*=-1;
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba('+p.col+','+p.op+')';ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-updateBadge();
+// INIT
+(function(){var c=cfg();if(!c){g('setupCard').style.display='block';setSS('red','Not connected — complete setup');updateBadge('—');}else{g('setupCard').style.display='none';pingCheck();}})();
 </script>
 </body>
-  <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-
-// 🔥 PASTE YOUR FIREBASE CONFIG HERE
-const firebaseConfig = {
-  apiKey: "PASTE_HERE",
-  authDomain: "PASTE_HERE",
-  projectId: "PASTE_HERE"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// FORM SUBMIT
-document.getElementById("form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const answer = e.target.answer.value;
-
-  await addDoc(collection(db, "responses"), {
-    answer: answer,
-    time: new Date()
-  });
-
-  alert("Saved!");
-});
-</script>
 </html>
