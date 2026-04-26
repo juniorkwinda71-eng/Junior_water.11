@@ -219,6 +219,50 @@ body{font-family:'Poppins',sans-serif;min-height:100vh;overflow-x:hidden;backgro
 </style>
 </head>
 <body>
+  <script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+const supabaseUrl = "https://yyagmgsaqckeapjekjrk.supabase.co/rest/v1/";
+const supabaseKey = "sb_publishable__8iySYeHTxpU9Ufwg5QWHQ_RNOGE3V6";
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+/* IMPORTANT: this must match your input */
+document.addEventListener("DOMContentLoaded", () => {
+
+  const form = document.getElementById("form");
+
+  if (!form) {
+    console.log("Form not found - check HTML");
+    return;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const input = document.querySelector("input[name='answer']");
+    if (!input) {
+      console.log("Input not found");
+      return;
+    }
+
+    const answer = input.value;
+
+    const { error } = await supabase
+      .from("answers")
+      .insert([{ answer }]);
+
+    if (error) {
+      console.log("Error:", error.message);
+      alert("Error saving data");
+    } else {
+      alert("Saved successfully!");
+      input.value = "";
+    }
+  });
+
+});
+</script>
   <form id="form">
   <input type="text" name="answer" placeholder="Type your answer" />
   <button type="submit">Submit</button>
