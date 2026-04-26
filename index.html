@@ -672,4 +672,32 @@ setInterval(function(){bgSl[bgIdx].classList.remove('active');bgIdx=(bgIdx+1)%bg
 updateBadge();
 </script>
 </body>
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+// 🔥 PASTE YOUR FIREBASE CONFIG HERE
+const firebaseConfig = {
+  apiKey: "PASTE_HERE",
+  authDomain: "PASTE_HERE",
+  projectId: "PASTE_HERE"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// FORM SUBMIT
+document.getElementById("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const answer = e.target.answer.value;
+
+  await addDoc(collection(db, "responses"), {
+    answer: answer,
+    time: new Date()
+  });
+
+  alert("Saved!");
+});
+</script>
 </html>
