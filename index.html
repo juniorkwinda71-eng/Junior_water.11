@@ -1,3 +1,4 @@
+cat > /mnt/user-data/outputs/questionnaire.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,240 +10,246 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{font-family:'Poppins',sans-serif;min-height:100vh;overflow-x:hidden;background:#050d1a;}
+
+/* ── BACKGROUND ── */
+.bg-slider{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;}
+.bg-slide{position:absolute;inset:0;opacity:0;transition:opacity 2s ease;background-size:cover;background-position:center;}
+.bg-slide.active{opacity:1;}
+.bg-overlay{position:fixed;inset:0;background:linear-gradient(135deg,rgba(2,8,30,.92) 0%,rgba(0,38,22,.88) 100%);z-index:1;}
+.particles-canvas{position:fixed;inset:0;z-index:1;pointer-events:none;}
+
+/* ── LAYOUT ── */
 .page{display:none;min-height:100vh;position:relative;}
 .page.active{display:block;}
-.bg-slider{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;}
-.bg-slide{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transition:opacity 2s ease;background-size:cover;background-position:center;}
-.bg-slide.active{opacity:1;}
-.bg-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(2,8,30,0.91)0%,rgba(0,40,25,0.87)100%);z-index:1;}
-.particles-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;}
-.page-content{position:relative;z-index:2;padding:0 0 80px;}
+.page-wrap{position:relative;z-index:2;padding:0 0 80px;}
 
-.top-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px;}
-.logo-area{display:flex;align-items:center;gap:11px;}
-.logo-circle{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#00ffaa,#0055ff);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;position:relative;overflow:hidden;flex-shrink:0;}
-.logo-circle::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(transparent,rgba(255,255,255,0.15),transparent);animation:shimmer 3s infinite;}
-@keyframes shimmer{0%{transform:translateX(-100%) rotate(45deg);}100%{transform:translateX(100%) rotate(45deg);}}
-.brand-name{color:#fff;font-size:15px;font-weight:800;line-height:1.1;}
-.brand-name span{display:block;font-size:10px;font-weight:400;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase;}
-.nav-btns{display:flex;gap:7px;align-items:center;}
-.nav-btn{padding:7px 14px;border-radius:9px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:none;outline:none;transition:all 0.3s;}
-.nav-btn.survey{background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;}
-.nav-btn.survey:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(0,255,170,0.3);}
-.nav-btn.records{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.14);}
-.nav-btn.records:hover{background:rgba(255,255,255,0.14);transform:translateY(-2px);}
-.badge{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:#00ffaa;color:#050d1a;font-size:10px;font-weight:900;margin-left:5px;}
+/* ── TOP BAR ── */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:13px 28px;background:rgba(255,255,255,0.035);backdrop-filter:blur(22px);border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px;}
+.logo{display:flex;align-items:center;gap:11px;}
+.logo-mark{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#00ffaa,#0044ff);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;overflow:hidden;position:relative;flex-shrink:0;}
+.logo-mark::after{content:'';position:absolute;inset:-50%;background:linear-gradient(transparent,rgba(255,255,255,.14),transparent);animation:sh 3s infinite;}
+@keyframes sh{0%{transform:translateX(-100%) rotate(45deg);}100%{transform:translateX(100%) rotate(45deg);}}
+.brand{color:#fff;font-size:15px;font-weight:800;line-height:1.15;}
+.brand small{display:block;font-size:10px;font-weight:400;color:rgba(255,255,255,.38);letter-spacing:1px;text-transform:uppercase;}
+.records-link{padding:7px 15px;border-radius:9px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.13);font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;outline:none;transition:all .25s;}
+.records-link:hover{background:rgba(255,255,255,.13);transform:translateY(-1px);}
+.records-link .cnt{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;padding:0 4px;border-radius:8px;background:#00ffaa;color:#050d1a;font-size:10px;font-weight:900;margin-left:5px;}
 
-/* SETUP PANEL */
-.setup-panel{max-width:840px;margin:18px auto 0;padding:0 16px;position:relative;z-index:2;}
-.setup-card{background:rgba(255,180,0,0.07);border:1px solid rgba(255,180,0,0.25);border-radius:18px;padding:20px 22px;}
-.setup-card.connected{background:rgba(0,255,170,0.06);border-color:rgba(0,255,170,0.22);}
-.setup-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
-.setup-emoji{font-size:22px;flex-shrink:0;margin-top:2px;}
-.setup-heading{color:#ffcc00;font-size:14px;font-weight:700;margin-bottom:5px;}
-.setup-card.connected .setup-heading{color:#00ffaa;}
-.setup-desc{color:rgba(255,255,255,0.55);font-size:12px;line-height:1.7;}
-.setup-desc a{color:#00ffaa;font-weight:600;text-decoration:none;}
-.setup-desc a:hover{text-decoration:underline;}
-.setup-desc code{background:rgba(255,255,255,0.1);padding:1px 6px;border-radius:4px;font-size:11px;color:#ffcc00;}
-.setup-fields{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
-.setup-inp{flex:1;min-width:180px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,180,0,0.25);border-radius:9px;padding:9px 13px;color:#fff;font-size:12px;font-family:'Poppins',sans-serif;outline:none;transition:border-color 0.3s;}
-.setup-inp:focus{border-color:#00ffaa;}
-.setup-inp::placeholder{color:rgba(255,255,255,0.28);}
-.setup-btn{padding:9px 18px;border-radius:9px;background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;border:none;cursor:pointer;white-space:nowrap;outline:none;transition:all 0.25s;}
-.setup-btn:hover{transform:translateY(-1px);}
-.steps-list{margin-top:12px;display:flex;flex-direction:column;gap:6px;}
-.step-row{display:flex;align-items:flex-start;gap:9px;font-size:12px;color:rgba(255,255,255,0.55);}
-.step-num{width:20px;height:20px;border-radius:6px;background:rgba(255,180,0,0.2);color:#ffcc00;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+/* ── HERO ── */
+.hero{text-align:center;padding:36px 20px 14px;}
+.live-chip{display:inline-flex;align-items:center;gap:7px;background:rgba(0,255,170,.07);border:1px solid rgba(0,255,170,.2);color:#00ffaa;font-size:11px;font-weight:700;padding:5px 15px;border-radius:28px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+.pulse{width:6px;height:6px;border-radius:50%;background:#00ffaa;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.6);}}
+.hero h1{font-size:clamp(24px,5vw,46px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:10px;letter-spacing:-1px;}
+.grad{background:linear-gradient(90deg,#00ffaa,#0088ff,#aa00ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero p{font-size:13px;color:rgba(255,255,255,.46);max-width:500px;margin:0 auto 10px;line-height:1.7;}
+.hero-stats{display:flex;justify-content:center;gap:22px;padding:10px 0 22px;flex-wrap:wrap;}
+.hstat .n{font-size:20px;font-weight:800;color:#00ffaa;text-align:center;}
+.hstat .l{font-size:10px;color:rgba(255,255,255,.36);text-transform:uppercase;letter-spacing:1px;text-align:center;}
 
-/* SYNC BAR */
-.sync-bar{display:flex;align-items:center;justify-content:center;gap:7px;padding:7px 20px;font-size:12px;color:rgba(255,255,255,0.45);position:relative;z-index:2;}
-.sync-dot{width:7px;height:7px;border-radius:50%;background:#555;flex-shrink:0;transition:background 0.3s;}
-.sync-dot.green{background:#00ffaa;box-shadow:0 0 6px rgba(0,255,170,0.55);}
-.sync-dot.yellow{background:#ffcc00;animation:blink 0.8s infinite;}
-.sync-dot.red{background:#ff5555;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
-
-.hero-wrap{text-align:center;padding:26px 20px 14px;}
-.hero-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(0,255,170,0.08);border:1px solid rgba(0,255,170,0.22);color:#00ffaa;font-size:11px;font-weight:700;padding:5px 15px;border-radius:28px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
-.pulse-dot{width:6px;height:6px;border-radius:50%;background:#00ffaa;animation:pulse 1.5s infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.6);}}
-.hero-title{font-size:clamp(22px,5vw,44px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:10px;letter-spacing:-1px;}
-.hero-title .grad{background:linear-gradient(90deg,#00ffaa,#0088ff,#aa00ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-sub{font-size:13px;color:rgba(255,255,255,0.48);max-width:520px;margin:0 auto;line-height:1.7;}
-.stats-bar{display:flex;justify-content:center;gap:22px;padding:12px 0 22px;flex-wrap:wrap;}
-.stat-item{text-align:center;}
-.stat-num{font-size:19px;font-weight:800;color:#00ffaa;}
-.stat-lab{font-size:10px;color:rgba(255,255,255,0.38);text-transform:uppercase;letter-spacing:1px;}
-
-.prog-outer{max-width:840px;margin:0 auto 18px;padding:0 18px;}
+/* ── PROGRESS ── */
+.prog-wrap{max-width:840px;margin:0 auto 16px;padding:0 16px;}
 .prog-info{display:flex;justify-content:space-between;margin-bottom:5px;}
-.prog-info span{font-size:12px;color:rgba(255,255,255,0.38);}
+.prog-info span{font-size:12px;color:rgba(255,255,255,.36);}
 .prog-info strong{font-size:12px;color:#00ffaa;font-weight:700;}
-.prog-track{height:5px;background:rgba(255,255,255,0.07);border-radius:5px;overflow:hidden;}
-.prog-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#00ffaa,#0088ff);transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
+.prog-track{height:5px;background:rgba(255,255,255,.06);border-radius:5px;overflow:hidden;}
+.prog-bar{height:100%;border-radius:5px;background:linear-gradient(90deg,#00ffaa,#0088ff);transition:width .5s cubic-bezier(.4,0,.2,1);}
 
-.card{background:rgba(255,255,255,0.04);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.08);border-radius:20px;max-width:840px;margin:0 auto 18px;overflow:hidden;padding:0 20px;}
-.sec-hd{display:flex;align-items:center;gap:11px;padding:18px 8px 12px;}
-.sec-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
-.sec-icon.blue{background:rgba(0,136,255,0.18);border:1px solid rgba(0,136,255,0.28);}
-.sec-icon.green{background:rgba(0,255,170,0.13);border:1px solid rgba(0,255,170,0.23);}
-.sec-icon.purple{background:rgba(170,0,255,0.18);border:1px solid rgba(170,0,255,0.28);}
+/* ── CARD ── */
+.card{background:rgba(255,255,255,.04);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.07);border-radius:20px;max-width:840px;margin:0 auto 16px;overflow:hidden;padding:0 20px;}
+.sec-head{display:flex;align-items:center;gap:11px;padding:18px 8px 12px;}
+.sec-ico{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.blue{background:rgba(0,136,255,.17);border:1px solid rgba(0,136,255,.27);}
+.green{background:rgba(0,255,170,.12);border:1px solid rgba(0,255,170,.22);}
+.purple{background:rgba(170,0,255,.17);border:1px solid rgba(170,0,255,.27);}
 .sec-title{font-size:14px;font-weight:700;color:#fff;}
-.sec-sub{font-size:11px;color:rgba(255,255,255,0.38);margin-top:1px;}
-.sec-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent);margin:0 8px 16px;}
-.bio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:11px;padding:0 8px 16px;}
-.f-wrap{display:flex;flex-direction:column;gap:5px;}
-.f-label{font-size:11px;font-weight:600;color:rgba(255,255,255,0.52);letter-spacing:0.4px;text-transform:uppercase;}
-.f-label .req{color:#ff6b6b;margin-left:2px;}
-.f-sel,.f-in{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.11);border-radius:10px;padding:9px 13px;color:#fff;font-size:13px;font-family:'Poppins',sans-serif;outline:none;transition:all 0.28s;width:100%;appearance:none;-webkit-appearance:none;}
-.f-sel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%2300ffaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;}
-.f-sel:focus,.f-in:focus{border-color:#00ffaa;background:rgba(0,255,170,0.07);box-shadow:0 0 0 3px rgba(0,255,170,0.1);}
-.f-sel option{background:#0a1628;color:#fff;}
-.f-in::placeholder{color:rgba(255,255,255,0.2);}
-.q-block{padding:0 8px 18px;}
-.q-head{display:flex;align-items:flex-start;gap:9px;margin-bottom:4px;}
-.q-num{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#00ffaa,#0088ff);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#050d1a;flex-shrink:0;margin-top:2px;}
-.q-txt{font-size:14px;font-weight:600;color:#fff;line-height:1.4;}
-.q-hint{font-size:11px;color:rgba(255,255,255,0.3);margin:3px 0 11px 33px;font-style:italic;}
-.radio-list{display:flex;flex-direction:column;gap:6px;margin-left:33px;}
-.r-opt{display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:10px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);cursor:pointer;transition:all 0.2s;user-select:none;}
-.r-opt:hover{background:rgba(0,255,170,0.06);border-color:rgba(0,255,170,0.2);}
-.r-opt.sel{background:rgba(0,255,170,0.1);border-color:#00ffaa;box-shadow:0 0 9px rgba(0,255,170,0.1);}
-.r-circle{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
-.r-opt.sel .r-circle{border-color:#00ffaa;}
-.r-inner{width:8px;height:8px;border-radius:50%;background:#00ffaa;transform:scale(0);transition:transform 0.2s cubic-bezier(0.175,0.885,0.32,1.275);}
-.r-opt.sel .r-inner{transform:scale(1);}
-.r-text{font-size:13px;color:rgba(255,255,255,0.75);}
-.r-opt.sel .r-text{color:#fff;font-weight:500;}
-.scale-outer{margin-left:33px;}
+.sec-sub{font-size:11px;color:rgba(255,255,255,.36);margin-top:1px;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);margin:0 8px 15px;}
+
+/* ── FIELDS ── */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:11px;padding:0 8px 15px;}
+.fw{display:flex;flex-direction:column;gap:5px;}
+.flbl{font-size:11px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.4px;text-transform:uppercase;}
+.flbl .r{color:#ff6b6b;margin-left:2px;}
+.fsel,.fin{background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:9px 13px;color:#fff;font-size:13px;font-family:'Poppins',sans-serif;outline:none;transition:all .25s;width:100%;appearance:none;-webkit-appearance:none;}
+.fsel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%2300ffaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;}
+.fsel:focus,.fin:focus{border-color:#00ffaa;background:rgba(0,255,170,.065);box-shadow:0 0 0 3px rgba(0,255,170,.1);}
+.fsel option{background:#0a1628;color:#fff;}
+.fin::placeholder{color:rgba(255,255,255,.18);}
+
+/* ── QUESTIONS ── */
+.qblock{padding:0 8px 18px;}
+.qhead{display:flex;align-items:flex-start;gap:9px;margin-bottom:4px;}
+.qnum{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#00ffaa,#0088ff);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#050d1a;flex-shrink:0;margin-top:2px;}
+.qtxt{font-size:14px;font-weight:600;color:#fff;line-height:1.4;}
+.qhint{font-size:11px;color:rgba(255,255,255,.28);margin:3px 0 11px 33px;font-style:italic;}
+
+/* RADIO */
+.rlist{display:flex;flex-direction:column;gap:6px;margin-left:33px;}
+.ropt{display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:10px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.025);cursor:pointer;transition:all .2s;user-select:none;}
+.ropt:hover{background:rgba(0,255,170,.055);border-color:rgba(0,255,170,.18);}
+.ropt.sel{background:rgba(0,255,170,.09);border-color:#00ffaa;box-shadow:0 0 8px rgba(0,255,170,.09);}
+.rcircle{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
+.ropt.sel .rcircle{border-color:#00ffaa;}
+.rinner{width:8px;height:8px;border-radius:50%;background:#00ffaa;transform:scale(0);transition:transform .2s cubic-bezier(.175,.885,.32,1.275);}
+.ropt.sel .rinner{transform:scale(1);}
+.rtxt{font-size:13px;color:rgba(255,255,255,.72);}
+.ropt.sel .rtxt{color:#fff;font-weight:500;}
+
+/* SCALE */
+.scale-wrap{margin-left:33px;}
 .scale-ends{display:flex;justify-content:space-between;margin-bottom:6px;}
-.scale-ends span{font-size:10px;color:rgba(255,255,255,0.3);}
+.scale-ends span{font-size:10px;color:rgba(255,255,255,.28);}
 .scale-row{display:flex;gap:6px;}
-.s-btn{flex:1;padding:10px 3px;border-radius:10px;border:1px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.52);font-size:15px;font-weight:800;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;outline:none;}
-.s-btn:hover{background:rgba(0,255,170,0.08);border-color:rgba(0,255,170,0.32);color:#fff;transform:translateY(-2px);}
-.s-btn.sel{background:linear-gradient(135deg,#00ffaa,#0088ff);border-color:transparent;color:#050d1a;transform:translateY(-3px) scale(1.05);box-shadow:0 6px 16px rgba(0,255,170,0.26);}
-.cb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px;margin-left:33px;}
-.cb-opt{display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:10px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);cursor:pointer;transition:all 0.2s;user-select:none;}
-.cb-opt:hover{background:rgba(0,255,170,0.06);border-color:rgba(0,255,170,0.2);}
-.cb-opt.sel{background:rgba(0,255,170,0.1);border-color:#00ffaa;box-shadow:0 0 9px rgba(0,255,170,0.09);}
-.cb-box{width:18px;height:18px;border-radius:5px;border:2px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
-.cb-opt.sel .cb-box{background:#00ffaa;border-color:#00ffaa;}
-.cb-tick{width:9px;height:6px;border-left:2px solid #050d1a;border-bottom:2px solid #050d1a;transform:rotate(-45deg) translateY(-1px);opacity:0;transition:opacity 0.18s;}
-.cb-opt.sel .cb-tick{opacity:1;}
-.cb-text{font-size:13px;color:rgba(255,255,255,0.75);}
-.cb-opt.sel .cb-text{color:#fff;font-weight:500;}
-.num-wrap{margin-left:33px;display:flex;align-items:center;gap:9px;}
-.num-btn{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.11);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-family:'Poppins',sans-serif;outline:none;}
-.num-btn:hover{background:rgba(0,255,170,0.13);border-color:#00ffaa;color:#00ffaa;}
-.num-input{width:72px;text-align:center;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.11);border-radius:10px;padding:8px;color:#fff;font-size:16px;font-weight:700;font-family:'Poppins',sans-serif;outline:none;transition:all 0.28s;}
-.num-input:focus{border-color:#00ffaa;box-shadow:0 0 0 3px rgba(0,255,170,0.1);}
-.num-hint{font-size:11px;color:rgba(255,255,255,0.3);}
-.divider-line{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);margin:4px 8px 16px;}
-.btn-row{display:flex;gap:9px;justify-content:center;padding:16px 8px 8px;flex-wrap:wrap;}
-.btn{padding:11px 24px;border-radius:12px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.28s;border:none;outline:none;}
-.btn-reset{background:rgba(255,80,80,0.1);color:#ff8080;border:1px solid rgba(255,80,80,0.23);}
-.btn-reset:hover{background:rgba(255,80,80,0.19);transform:translateY(-2px);}
-.btn-done{background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;box-shadow:0 3px 16px rgba(0,255,170,0.2);}
-.btn-done:hover{transform:translateY(-3px);box-shadow:0 9px 26px rgba(0,255,170,0.36);}
-.btn-view{background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.13);}
-.btn-view:hover{background:rgba(255,255,255,0.11);transform:translateY(-2px);}
-.btn-dis{opacity:0.45;cursor:not-allowed !important;transform:none !important;box-shadow:none !important;}
+.sbtn{flex:1;padding:10px 3px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);color:rgba(255,255,255,.5);font-size:15px;font-weight:800;cursor:pointer;transition:all .2s;font-family:'Poppins',sans-serif;outline:none;}
+.sbtn:hover{background:rgba(0,255,170,.07);border-color:rgba(0,255,170,.3);color:#fff;transform:translateY(-2px);}
+.sbtn.sel{background:linear-gradient(135deg,#00ffaa,#0088ff);border-color:transparent;color:#050d1a;transform:translateY(-3px) scale(1.05);box-shadow:0 6px 16px rgba(0,255,170,.25);}
 
-/* TOAST */
-.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(120px);padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;transition:transform 0.38s cubic-bezier(0.175,0.885,0.32,1.275);max-width:92%;text-align:center;backdrop-filter:blur(10px);background:rgba(210,55,55,0.95);color:#fff;}
-.toast.show{transform:translateX(-50%) translateY(0);}
-.toast.ok{background:rgba(0,185,105,0.95);}
-.toast.info{background:rgba(0,115,210,0.95);}
+/* CHECKBOXES */
+.cbgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px;margin-left:33px;}
+.cbopt{display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:10px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.025);cursor:pointer;transition:all .2s;user-select:none;}
+.cbopt:hover{background:rgba(0,255,170,.055);border-color:rgba(0,255,170,.18);}
+.cbopt.sel{background:rgba(0,255,170,.09);border-color:#00ffaa;box-shadow:0 0 8px rgba(0,255,170,.08);}
+.cbbox{width:18px;height:18px;border-radius:5px;border:2px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
+.cbopt.sel .cbbox{background:#00ffaa;border-color:#00ffaa;}
+.cbtick{width:9px;height:6px;border-left:2px solid #050d1a;border-bottom:2px solid #050d1a;transform:rotate(-45deg) translateY(-1px);opacity:0;transition:opacity .15s;}
+.cbopt.sel .cbtick{opacity:1;}
+.cbtxt{font-size:13px;color:rgba(255,255,255,.72);}
+.cbopt.sel .cbtxt{color:#fff;font-weight:500;}
 
-/* RECORDS PAGE */
-.rec-content{position:relative;z-index:2;padding:0 0 60px;}
-.rec-hero{text-align:center;padding:30px 20px 8px;}
-.rec-title{font-size:clamp(20px,4vw,34px);font-weight:900;color:#fff;margin-bottom:7px;letter-spacing:-0.5px;}
-.rec-title span{background:linear-gradient(90deg,#00ffaa,#0088ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.rec-sub{font-size:13px;color:rgba(255,255,255,0.4);max-width:460px;margin:0 auto 22px;line-height:1.6;}
-.rec-summary{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:20px;}
-.rstat{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:13px;padding:12px 20px;text-align:center;min-width:80px;}
-.rstat-num{font-size:24px;font-weight:900;color:#00ffaa;}
-.rstat-lab{font-size:10px;color:rgba(255,255,255,0.36);text-transform:uppercase;letter-spacing:0.9px;margin-top:1px;}
-.rec-container{max-width:880px;margin:0 auto;padding:0 16px;}
-.rec-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
-.rec-search{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.11);border-radius:9px;padding:8px 14px;color:#fff;font-size:13px;font-family:'Poppins',sans-serif;outline:none;width:200px;transition:all 0.28s;}
-.rec-search:focus{border-color:#00ffaa;box-shadow:0 0 0 3px rgba(0,255,170,0.1);}
-.rec-search::placeholder{color:rgba(255,255,255,0.25);}
+/* NUMBER */
+.numwrap{margin-left:33px;display:flex;align-items:center;gap:9px;}
+.nmbtn{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.1);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;outline:none;}
+.nmbtn:hover{background:rgba(0,255,170,.13);border-color:#00ffaa;color:#00ffaa;}
+.nminput{width:70px;text-align:center;background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px;color:#fff;font-size:16px;font-weight:700;font-family:'Poppins',sans-serif;outline:none;transition:all .25s;}
+.nminput:focus{border-color:#00ffaa;box-shadow:0 0 0 3px rgba(0,255,170,.1);}
+.nmhint{font-size:11px;color:rgba(255,255,255,.28);}
+
+/* BUTTONS */
+.btnrow{display:flex;gap:9px;justify-content:center;padding:16px 8px 8px;flex-wrap:wrap;}
+.btn{padding:11px 24px;border-radius:12px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .28s;border:none;outline:none;}
+.btn-save{background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;box-shadow:0 3px 16px rgba(0,255,170,.2);}
+.btn-save:hover{transform:translateY(-3px);box-shadow:0 9px 26px rgba(0,255,170,.36);}
+.btn-save:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-reset{background:rgba(255,80,80,.09);color:#ff8080;border:1px solid rgba(255,80,80,.22);}
+.btn-reset:hover{background:rgba(255,80,80,.18);transform:translateY(-2px);}
+.btn-recs{background:rgba(255,255,255,.055);color:#fff;border:1px solid rgba(255,255,255,.12);}
+.btn-recs:hover{background:rgba(255,255,255,.1);transform:translateY(-2px);}
+
+/* ── SUCCESS OVERLAY ── */
+.success-overlay{position:fixed;inset:0;background:rgba(2,8,30,.97);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px);}
+.success-overlay.show{display:flex;}
+.success-box{text-align:center;padding:40px 30px;max-width:420px;width:92%;animation:popIn .5s cubic-bezier(.175,.885,.32,1.275);}
+@keyframes popIn{from{transform:scale(.7);opacity:0;}to{transform:scale(1);opacity:1;}}
+.s-ring{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#00ffaa,#0088ff);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:36px;}
+.s-title{color:#fff;font-size:26px;font-weight:900;margin-bottom:8px;}
+.s-sub{color:rgba(255,255,255,.5);font-size:14px;line-height:1.7;margin-bottom:26px;}
+.s-close{padding:12px 30px;border-radius:13px;background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;border:none;cursor:pointer;outline:none;transition:all .28s;}
+.s-close:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,255,170,.3);}
+
+/* ── RECORDS PAGE ── */
+.rec-wrap{position:relative;z-index:2;padding:0 0 60px;}
+.rec-hero{text-align:center;padding:32px 20px 8px;}
+.rec-hero h1{font-size:clamp(20px,4vw,34px);font-weight:900;color:#fff;margin-bottom:7px;letter-spacing:-.5px;}
+.rec-hero p{font-size:13px;color:rgba(255,255,255,.38);max-width:440px;margin:0 auto 22px;line-height:1.6;}
+.rec-stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:20px;}
+.rst{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:13px;padding:12px 18px;text-align:center;min-width:76px;}
+.rst-n{font-size:24px;font-weight:900;color:#00ffaa;}
+.rst-l{font-size:10px;color:rgba(255,255,255,.34);text-transform:uppercase;letter-spacing:.8px;margin-top:1px;}
+.rec-inner{max-width:880px;margin:0 auto;padding:0 16px;}
+.rec-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+.rsearch{background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:8px 14px;color:#fff;font-size:13px;font-family:'Poppins',sans-serif;outline:none;width:195px;transition:all .25s;}
+.rsearch:focus{border-color:#00ffaa;box-shadow:0 0 0 3px rgba(0,255,170,.1);}
+.rsearch::placeholder{color:rgba(255,255,255,.23);}
 .rec-tools{display:flex;gap:7px;}
-.tool-btn{padding:8px 13px;border-radius:9px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:none;outline:none;transition:all 0.25s;}
-.tool-refresh{background:rgba(0,255,170,0.1);color:#00ffaa;border:1px solid rgba(0,255,170,0.22);}
-.tool-refresh:hover{background:rgba(0,255,170,0.18);}
-.tool-clear{background:rgba(255,80,80,0.09);color:#ff8080;border:1px solid rgba(255,80,80,0.2);}
-.tool-clear:hover{background:rgba(255,80,80,0.18);}
+.tbtn{padding:8px 13px;border-radius:9px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:none;outline:none;transition:all .22s;}
+.t-refresh{background:rgba(0,255,170,.09);color:#00ffaa;border:1px solid rgba(0,255,170,.2);}
+.t-refresh:hover{background:rgba(0,255,170,.17);}
+.t-clear{background:rgba(255,80,80,.08);color:#ff8080;border:1px solid rgba(255,80,80,.18);}
+.t-clear:hover{background:rgba(255,80,80,.18);}
+.t-back{background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;}
+.t-back:hover{transform:translateY(-2px);}
 
-.spinner-wrap{display:flex;align-items:center;justify-content:center;gap:9px;padding:30px;color:rgba(255,255,255,0.38);font-size:13px;}
-.spinner{width:19px;height:19px;border:2px solid rgba(0,255,170,0.18);border-top-color:#00ffaa;border-radius:50%;animation:spin 0.8s linear infinite;}
+.spin-wrap{display:flex;align-items:center;justify-content:center;gap:9px;padding:32px;color:rgba(255,255,255,.35);font-size:13px;}
+.spinner{width:19px;height:19px;border:2px solid rgba(0,255,170,.16);border-top-color:#00ffaa;border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
-
-.rec-empty{text-align:center;padding:44px 20px;color:rgba(255,255,255,0.26);}
-.rec-empty-icon{font-size:42px;margin-bottom:12px;opacity:0.32;}
+.rec-empty{text-align:center;padding:44px 20px;color:rgba(255,255,255,.25);}
+.rec-empty-icon{font-size:40px;margin-bottom:12px;opacity:.3;}
 .rec-empty-txt{font-size:13px;line-height:1.6;}
 
-.rec-list{display:flex;flex-direction:column;gap:9px;}
-.rec-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;transition:all 0.28s;animation:fadeUp 0.32s ease forwards;}
+.rlist{display:flex;flex-direction:column;gap:9px;}
+.rcard{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);border-radius:16px;overflow:hidden;transition:all .25s;animation:fadeUp .3s ease forwards;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-.rec-card:hover{border-color:rgba(0,255,170,0.17);box-shadow:0 3px 18px rgba(0,0,0,0.18);}
-.rec-card-hdr{display:flex;align-items:center;gap:11px;padding:13px 16px;cursor:pointer;user-select:none;}
-.rec-av{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,#00ffaa,#0088ff);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#050d1a;flex-shrink:0;}
-.rec-inf{flex:1;min-width:0;}
-.rec-name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.rec-meta{font-size:11px;color:rgba(255,255,255,0.36);margin-top:1px;}
-.rec-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px;}
-.rt{font-size:10px;font-weight:700;padding:2px 8px;border-radius:16px;}
-.rt.yes{background:rgba(0,255,170,0.11);color:#00ffaa;border:1px solid rgba(0,255,170,0.22);}
-.rt.no{background:rgba(255,80,80,0.11);color:#ff8080;border:1px solid rgba(255,80,80,0.22);}
-.rt.un{background:rgba(255,200,0,0.11);color:#ffc800;border:1px solid rgba(255,200,0,0.22);}
-.rt.prov{background:rgba(0,136,255,0.11);color:#4da6ff;border:1px solid rgba(0,136,255,0.22);}
-.rt.lv{background:rgba(170,0,255,0.11);color:#cc88ff;border:1px solid rgba(170,0,255,0.22);}
-.rec-acts{display:flex;gap:6px;flex-shrink:0;}
-.ico-btn{width:29px;height:29px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;border:none;outline:none;transition:all 0.2s;}
-.expand-btn{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);}
-.expand-btn:hover{background:rgba(0,255,170,0.09);color:#00ffaa;}
-.del-btn{background:rgba(255,80,80,0.08);color:#ff8080;border:1px solid rgba(255,80,80,0.16);}
-.del-btn:hover{background:rgba(255,80,80,0.2);transform:scale(1.05);}
-.rec-det{display:none;border-top:1px solid rgba(255,255,255,0.06);padding:14px 16px;}
-.rec-det.open{display:block;}
-.det-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:8px;}
-.di{background:rgba(255,255,255,0.04);border-radius:9px;padding:9px 12px;}
-.di-lbl{font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:3px;}
+.rcard:hover{border-color:rgba(0,255,170,.16);box-shadow:0 3px 18px rgba(0,0,0,.16);}
+.rcard-hdr{display:flex;align-items:center;gap:11px;padding:13px 16px;cursor:pointer;user-select:none;}
+.rav{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,#00ffaa,#0088ff);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#050d1a;flex-shrink:0;}
+.rinf{flex:1;min-width:0;}
+.rname{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rmeta{font-size:11px;color:rgba(255,255,255,.34);margin-top:1px;}
+.rtags{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px;}
+.tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:15px;}
+.tag.yes{background:rgba(0,255,170,.1);color:#00ffaa;border:1px solid rgba(0,255,170,.2);}
+.tag.no{background:rgba(255,80,80,.1);color:#ff8080;border:1px solid rgba(255,80,80,.2);}
+.tag.un{background:rgba(255,200,0,.1);color:#ffc800;border:1px solid rgba(255,200,0,.2);}
+.tag.pv{background:rgba(0,136,255,.1);color:#4da6ff;border:1px solid rgba(0,136,255,.2);}
+.tag.lv{background:rgba(170,0,255,.1);color:#cc88ff;border:1px solid rgba(170,0,255,.2);}
+.ract{display:flex;gap:6px;flex-shrink:0;}
+.ibtn{width:29px;height:29px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:none;outline:none;transition:all .2s;}
+.exp-btn{background:rgba(255,255,255,.055);color:rgba(255,255,255,.48);}
+.exp-btn:hover{background:rgba(0,255,170,.08);color:#00ffaa;}
+.del-btn{background:rgba(255,80,80,.07);color:#ff8080;border:1px solid rgba(255,80,80,.15);}
+.del-btn:hover{background:rgba(255,80,80,.2);transform:scale(1.05);}
+
+.rdet{display:none;border-top:1px solid rgba(255,255,255,.055);padding:14px 16px;}
+.rdet.open{display:block;}
+.det-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(172px,1fr));gap:8px;}
+.di{background:rgba(255,255,255,.035);border-radius:9px;padding:9px 12px;}
+.di-lbl{font-size:10px;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px;}
 .di-val{font-size:13px;font-weight:600;color:#fff;}
 .di-val.g{color:#00ffaa;}
-.lvbadge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;font-size:11px;font-weight:900;}
-.meth-wrap{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px;}
-.meth-tag{font-size:10px;padding:2px 7px;border-radius:6px;background:rgba(0,255,170,0.09);color:#00ffaa;border:1px solid rgba(0,255,170,0.18);}
-
-.rec-back{display:block;margin:22px auto 0;padding:11px 26px;border-radius:12px;background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;outline:none;transition:all 0.28s;}
-.rec-back:hover{transform:translateY(-2px);box-shadow:0 7px 22px rgba(0,255,170,0.26);}
+.lvb{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;font-size:11px;font-weight:900;}
+.mwrap{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px;}
+.mtag{font-size:10px;padding:2px 7px;border-radius:6px;background:rgba(0,255,170,.08);color:#00ffaa;border:1px solid rgba(0,255,170,.17);}
 
 /* CONFIRM */
-.conf-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.72);z-index:2000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(7px);}
-.conf-overlay.show{display:flex;}
-.conf-box{background:#0d1f3a;border:1px solid rgba(255,255,255,0.11);border-radius:17px;padding:28px;text-align:center;max-width:340px;width:92%;animation:scIn 0.26s cubic-bezier(0.175,0.885,0.32,1.275);}
-@keyframes scIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+.conf-bg{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:2000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(7px);}
+.conf-bg.show{display:flex;}
+.conf-box{background:#0d1f3a;border:1px solid rgba(255,255,255,.1);border-radius:17px;padding:28px;text-align:center;max-width:330px;width:92%;animation:scIn .25s cubic-bezier(.175,.885,.32,1.275);}
+@keyframes scIn{from{transform:scale(.8);opacity:0;}to{transform:scale(1);opacity:1;}}
 .conf-icon{font-size:32px;margin-bottom:11px;}
 .conf-title{color:#fff;font-size:16px;font-weight:700;margin-bottom:6px;}
-.conf-sub{color:rgba(255,255,255,0.45);font-size:12px;margin-bottom:20px;line-height:1.6;}
+.conf-sub{color:rgba(255,255,255,.42);font-size:12px;margin-bottom:20px;line-height:1.6;}
 .conf-btns{display:flex;gap:8px;justify-content:center;}
-.ccancel{padding:9px 20px;border-radius:9px;background:rgba(255,255,255,0.07);color:#fff;border:1px solid rgba(255,255,255,0.13);font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer;outline:none;}
-.cdel{padding:9px 20px;border-radius:9px;background:linear-gradient(135deg,#ff4444,#cc1111);color:#fff;border:none;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;cursor:pointer;outline:none;}
+.cc{padding:9px 20px;border-radius:9px;background:rgba(255,255,255,.065);color:#fff;border:1px solid rgba(255,255,255,.12);font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer;outline:none;}
+.cd{padding:9px 20px;border-radius:9px;background:linear-gradient(135deg,#ff4444,#cc1111);color:#fff;border:none;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;cursor:pointer;outline:none;}
+
+/* TOAST */
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(120px);padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;transition:transform .35s cubic-bezier(.175,.885,.32,1.275);max-width:92%;text-align:center;backdrop-filter:blur(10px);background:rgba(210,55,55,.95);color:#fff;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast.ok{background:rgba(0,185,105,.95);}
+.toast.info{background:rgba(0,115,210,.95);}
 
 @media(max-width:600px){
-.bio-grid,.cb-grid,.det-grid{grid-template-columns:1fr;}
-.scale-row{gap:4px;}.s-btn{font-size:13px;padding:9px 2px;}
-.top-bar{padding:11px 13px;}.card{padding:0 11px;}
-.rec-container{padding:0 11px;}
-.setup-fields{flex-direction:column;}
+.fgrid,.cbgrid,.det-grid{grid-template-columns:1fr;}
+.scale-row{gap:4px;}.sbtn{font-size:13px;padding:9px 2px;}
+.topbar{padding:11px 13px;}.card{padding:0 11px;}
+.rec-inner{padding:0 11px;}
 }
 </style>
 </head>
 <body>
+
+<!--==== INVISIBLE AI AUTOMATION ENGINE ====-->
+<!--
+  HOW IT WORKS (users never see this):
+  When a person clicks "Save Response", JavaScript automatically:
+  1. Collects all their answers silently in the background
+  2. Sends the data to a Google Apps Script Web App using fetch()
+  3. The Web App writes a new row to your Google Sheet instantly
+  4. The user just sees "Saved!" — they have no idea how it happened
+  This is the AI automation that runs completely behind the scenes.
+-->
+
 <canvas class="particles-canvas" id="pCanvas"></canvas>
 <div class="bg-slider">
 <div class="bg-slide active" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80')"></div>
@@ -253,451 +260,609 @@ body{font-family:'Poppins',sans-serif;min-height:100vh;overflow-x:hidden;backgro
 </div>
 <div class="bg-overlay"></div>
 <div id="toastEl" class="toast"></div>
-<div class="conf-overlay" id="confOv">
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOv">
+<div class="success-box">
+<div class="s-ring">&#10003;</div>
+<div class="s-title">Response Saved!</div>
+<div class="s-sub">Thank you for completing the survey.<br>Your response has been recorded successfully.</div>
+<button class="s-close" onclick="closeSuccess()">Fill In Again</button>
+</div>
+</div>
+
+<!-- CONFIRM DIALOG -->
+<div class="conf-bg" id="confBg">
 <div class="conf-box">
 <div class="conf-icon">&#128465;</div>
-<div class="conf-title">Delete record?</div>
-<div class="conf-sub" id="confSub">This removes this person from the shared Google Sheet permanently.</div>
+<div class="conf-title">Delete this record?</div>
+<div class="conf-sub" id="confSub">This permanently removes this response.</div>
 <div class="conf-btns">
-<button class="ccancel" onclick="closeConf()">Cancel</button>
-<button class="cdel" onclick="doDelete()">Yes, Delete</button>
+<button class="cc" onclick="closeConf()">Cancel</button>
+<button class="cd" onclick="doDelete()">Yes, Delete</button>
 </div>
 </div>
 </div>
 
-<!-- PAGE 1 -->
+<!-- ====== PAGE 1 — SURVEY ====== -->
 <div id="page1" class="page active">
-<div class="page-content">
-<div class="top-bar">
-<div class="logo-area">
-<div class="logo-circle">JK</div>
-<div class="brand-name">Junior K Questions<span>Water Research · Grade 12 CAT PAT 2026</span></div>
+<div class="page-wrap">
+
+<div class="topbar">
+<div class="logo">
+<div class="logo-mark">JK</div>
+<div class="brand">Junior K Questions<small>Water Research · CAT PAT 2026</small></div>
 </div>
-<div class="nav-btns">
-<button class="nav-btn records" onclick="goRecords()" type="button">&#128203; Records <span class="badge" id="recBadge">—</span></button>
+<button class="records-link" onclick="openRecords()" type="button">
+&#128203; Responses <span class="cnt" id="topCnt">—</span>
+</button>
+</div>
+
+<div class="hero">
+<div class="live-chip"><div class="pulse"></div>Water Survey</div>
+<h1><span class="grad">Junior K Questions</span><br>Water Research SA</h1>
+<p>Complete this short survey about water usage in South Africa. Your responses contribute to an important Grade 12 CAT research project.</p>
+<div class="hero-stats">
+<div class="hstat"><div class="n">5</div><div class="l">Questions</div></div>
+<div class="hstat"><div class="n" id="heroCount">—</div><div class="l">Responses</div></div>
+<div class="hstat"><div class="n">2min</div><div class="l">Duration</div></div>
 </div>
 </div>
 
-<div class="setup-panel">
-<div class="setup-card" id="setupCard">
-<div class="setup-top">
-<div class="setup-emoji">&#9889;</div>
-<div>
-<div class="setup-heading">Quick Setup — Connect to Google Sheets (Free)</div>
-<div class="setup-desc">Responses will be saved to YOUR Google Sheet and shared across every device. Takes 3 minutes to set up once.</div>
-</div>
-</div>
-<div class="steps-list">
-<div class="step-row"><div class="step-num">1</div><span>Go to <a href="https://script.google.com" target="_blank">script.google.com</a> → click <strong>New Project</strong></span></div>
-<div class="step-row"><div class="step-num">2</div><span>Delete all existing code → paste the Google Apps Script code shown below → click <strong>Save</strong> (floppy disk icon)</span></div>
-<div class="step-row"><div class="step-num">3</div><span>Click <strong>Deploy → New Deployment → Web App</strong> → set "Who has access" to <strong>Anyone</strong> → click <strong>Deploy</strong> → copy the <strong>Web App URL</strong></span></div>
-<div class="step-row"><div class="step-num">4</div><span>Paste the Web App URL below and click <strong>Connect</strong></span></div>
-</div>
-<div style="margin-top:13px;background:rgba(0,0,0,0.3);border-radius:10px;padding:12px 14px;font-size:11px;color:#00ffaa;font-family:monospace;line-height:1.8;overflow-x:auto;">
-<div style="color:rgba(255,255,255,0.4);margin-bottom:6px;font-family:'Poppins',sans-serif;font-size:11px;">— Paste this into Google Apps Script —</div>
-var SHEET_NAME='Responses';<br>
-function doGet(e){<br>
-&nbsp;&nbsp;var ss=SpreadsheetApp.openById(e.parameter.sheetId||PropertiesService.getScriptProperties().getProperty('sheetId'));<br>
-&nbsp;&nbsp;var sh=ss.getSheetByName(SHEET_NAME)||ss.insertSheet(SHEET_NAME);<br>
-&nbsp;&nbsp;var action=e.parameter.action;<br>
-&nbsp;&nbsp;if(action==='read'){var d=sh.getDataRange().getValues();return ok(d);}<br>
-&nbsp;&nbsp;if(action==='delete'){var id=Number(e.parameter.id);var rows=sh.getDataRange().getValues();for(var i=rows.length-1;i>=1;i--){if(rows[i][0]==id){sh.deleteRow(i+1);break;}}return ok('deleted');}<br>
-&nbsp;&nbsp;if(action==='clear'){if(sh.getLastRow()>1)sh.deleteRows(2,sh.getLastRow()-1);return ok('cleared');}<br>
-&nbsp;&nbsp;return ok('ready');<br>
-}<br>
-function doPost(e){<br>
-&nbsp;&nbsp;var data=JSON.parse(e.postData.contents);<br>
-&nbsp;&nbsp;var ss=SpreadsheetApp.openById(data.sheetId);<br>
-&nbsp;&nbsp;var sh=ss.getSheetByName(SHEET_NAME)||ss.insertSheet(SHEET_NAME);<br>
-&nbsp;&nbsp;if(sh.getLastRow()===0){sh.appendRow(['ID','FirstName','LastName','FullName','Gender','Age','Occupation','Province','Email','Phone','Q1_Crisis','Q2_Shortages','Q3_Concern','Q4_Household','Q5_Methods','SavedAt']);}<br>
-&nbsp;&nbsp;sh.appendRow([data.id,data.fn,data.ln,data.fullName,data.gender,data.age,data.occ,data.prov,data.email,data.phone,data.q1,data.q2,data.q3,data.q4,(data.q5||[]).join(', '),data.savedAt]);<br>
-&nbsp;&nbsp;return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);<br>
-}<br>
-function ok(d){return ContentService.createTextOutput(JSON.stringify({ok:true,data:d})).setMimeType(ContentService.MimeType.JSON);}
-</div>
-<div style="margin-top:10px;font-size:11px;color:rgba(255,255,255,0.4);">Also go to <a href="https://sheets.google.com" target="_blank" style="color:#00ffaa;font-weight:600;">sheets.google.com</a> → create a new blank sheet → copy its <strong>Sheet ID</strong> from the URL (the long string between /d/ and /edit)</div>
-<div class="setup-fields" style="margin-top:10px;">
-<input type="text" class="setup-inp" id="urlInp" placeholder="Paste Web App URL here (starts with https://script.google...)">
-<input type="text" class="setup-inp" id="sidInp" placeholder="Paste Google Sheet ID here">
-<button class="setup-btn" onclick="saveSetup()">&#128279; Connect</button>
-</div>
-</div>
-</div>
+<div class="prog-wrap">
+<div class="prog-info"><span>Survey Progress</span><strong id="pct">0%</strong></div>
+<div class="prog-track"><div class="prog-bar" id="pbar" style="width:0%"></div></div>
 </div>
 
-<div class="sync-bar">
-<div class="sync-dot" id="syncDot"></div>
-<span id="syncTxt">Checking connection...</span>
-</div>
-
-<div class="hero-wrap">
-<div class="hero-tag"><div class="pulse-dot"></div>Shared Live Survey</div>
-<h1 class="hero-title"><span class="grad">Junior K Questions</span><br>Water Research SA</h1>
-<p class="hero-sub">Complete this survey as part of a Grade 12 CAT research project on water in South Africa. All responses are shared across every device in real time via Google Sheets.</p>
-<div class="stats-bar">
-<div class="stat-item"><div class="stat-num">5</div><div class="stat-lab">Questions</div></div>
-<div class="stat-item"><div class="stat-num" id="statCnt">—</div><div class="stat-lab">Responses</div></div>
-<div class="stat-item"><div class="stat-num">&#127758;</div><div class="stat-lab">Shared Live</div></div>
-</div>
-</div>
-
-<div class="prog-outer">
-<div class="prog-info"><span>Survey Progress</span><strong id="p1pct">0% complete</strong></div>
-<div class="prog-track"><div class="prog-fill" id="p1bar" style="width:0%"></div></div>
-</div>
-
+<!-- SECTION A -->
 <div class="card">
-<div class="sec-hd"><div class="sec-icon blue">&#128100;</div><div><div class="sec-title">Section A — Biographical Information</div><div class="sec-sub">Background details about you</div></div></div>
-<div class="sec-divider"></div>
-<div class="bio-grid">
-<div class="f-wrap"><label class="f-label">First Name <span class="req">*</span></label><input type="text" class="f-in" id="fn" placeholder="First name" oninput="cp1()"></div>
-<div class="f-wrap"><label class="f-label">Last Name <span class="req">*</span></label><input type="text" class="f-in" id="ln" placeholder="Last name" oninput="cp1()"></div>
-<div class="f-wrap"><label class="f-label">Gender <span class="req">*</span></label><select class="f-sel" id="gender" onchange="cp1()"><option value="">Gender</option><option>Male</option><option>Female</option><option>Prefer not to say</option></select></div>
-<div class="f-wrap"><label class="f-label">Age <span class="req">*</span></label><input type="number" class="f-in" id="age" placeholder="e.g. 17" min="5" max="100" oninput="cp1()"></div>
-<div class="f-wrap"><label class="f-label">Occupation <span class="req">*</span></label><select class="f-sel" id="occ" onchange="cp1()"><option value="">Occupation</option><option>Student</option><option>Employed</option><option>Unemployed</option><option>Self-employed</option><option>Retired</option></select></div>
-<div class="f-wrap"><label class="f-label">Province <span class="req">*</span></label><select class="f-sel" id="prov" onchange="cp1()"><option value="">Province</option><option>Gauteng</option><option>Western Cape</option><option>KwaZulu-Natal</option><option>Eastern Cape</option><option>Limpopo</option><option>Mpumalanga</option><option>North West</option><option>Northern Cape</option><option>Free State</option></select></div>
-<div class="f-wrap"><label class="f-label">Email</label><input type="email" class="f-in" id="em" placeholder="email@example.com" oninput="cp1()"></div>
-<div class="f-wrap"><label class="f-label">Phone</label><input type="text" class="f-in" id="ph" placeholder="071 234 5678" oninput="cp1()"></div>
-</div>
-<div class="divider-line"></div>
-<div class="sec-hd"><div class="sec-icon green">&#127754;</div><div><div class="sec-title">Section B — Water Awareness</div><div class="sec-sub">Your views on South Africa's water situation</div></div></div>
-<div class="sec-divider"></div>
-<div class="q-block">
-<div class="q-head"><div class="q-num">1</div><div class="q-txt">Do you think South Africa is currently facing a water crisis?</div></div>
-<div class="q-hint">Select ONE answer.</div>
-<div class="radio-list" id="q1g">
-<div class="r-opt" onclick="pr('q1g',this,'Yes')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Yes — South Africa is facing a serious water crisis</span></div>
-<div class="r-opt" onclick="pr('q1g',this,'No')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">No — I do not think there is a water crisis</span></div>
-<div class="r-opt" onclick="pr('q1g',this,'Unsure')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Unsure — I am not certain either way</span></div>
+<div class="sec-head"><div class="sec-ico blue">&#128100;</div><div><div class="sec-title">Section A — Biographical Information</div><div class="sec-sub">Tell us a bit about yourself</div></div></div>
+<div class="divider"></div>
+<div class="fgrid">
+<div class="fw"><label class="flbl">First Name <span class="r">*</span></label><input type="text" class="fin" id="fn" placeholder="First name" oninput="cp()"></div>
+<div class="fw"><label class="flbl">Last Name <span class="r">*</span></label><input type="text" class="fin" id="ln" placeholder="Last name" oninput="cp()"></div>
+<div class="fw"><label class="flbl">Gender <span class="r">*</span></label><select class="fsel" id="gdr" onchange="cp()"><option value="">Gender</option><option>Male</option><option>Female</option><option>Prefer not to say</option></select></div>
+<div class="fw"><label class="flbl">Age <span class="r">*</span></label><input type="number" class="fin" id="age" placeholder="e.g. 17" min="5" max="100" oninput="cp()"></div>
+<div class="fw"><label class="flbl">Occupation <span class="r">*</span></label><select class="fsel" id="occ" onchange="cp()"><option value="">Occupation</option><option>Student</option><option>Employed</option><option>Unemployed</option><option>Self-employed</option><option>Retired</option></select></div>
+<div class="fw"><label class="flbl">Province <span class="r">*</span></label><select class="fsel" id="prv" onchange="cp()"><option value="">Province</option><option>Gauteng</option><option>Western Cape</option><option>KwaZulu-Natal</option><option>Eastern Cape</option><option>Limpopo</option><option>Mpumalanga</option><option>North West</option><option>Northern Cape</option><option>Free State</option></select></div>
 </div>
 </div>
-<div class="q-block">
-<div class="q-head"><div class="q-num">2</div><div class="q-txt">How often does your area experience water shortages?</div></div>
-<div class="q-hint">Select ONE answer.</div>
-<div class="radio-list" id="q2g">
-<div class="r-opt" onclick="pr('q2g',this,'Never')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Never — we always have water</span></div>
-<div class="r-opt" onclick="pr('q2g',this,'Rarely')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Rarely — a few times a year</span></div>
-<div class="r-opt" onclick="pr('q2g',this,'Sometimes')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Sometimes — about once a month</span></div>
-<div class="r-opt" onclick="pr('q2g',this,'Often')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Often — about once a week</span></div>
-<div class="r-opt" onclick="pr('q2g',this,'Almost every day')"><div class="r-circle"><div class="r-inner"></div></div><span class="r-text">Almost every day</span></div>
+
+<!-- SECTION B -->
+<div class="card">
+<div class="sec-head"><div class="sec-ico green">&#127754;</div><div><div class="sec-title">Section B — Water Awareness</div><div class="sec-sub">Your views on South Africa's water situation</div></div></div>
+<div class="divider"></div>
+
+<div class="qblock">
+<div class="qhead"><div class="qnum">1</div><div class="qtxt">Do you think South Africa is currently facing a water crisis?</div></div>
+<div class="qhint">Select ONE answer.</div>
+<div class="rlist" id="q1g">
+<div class="ropt" onclick="pr('q1g',this,'Yes')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">Yes — South Africa is facing a serious water crisis</span></div>
+<div class="ropt" onclick="pr('q1g',this,'No')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">No — I do not think there is a water crisis</span></div>
+<div class="ropt" onclick="pr('q1g',this,'Unsure')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">Unsure — I am not certain either way</span></div>
 </div>
 </div>
-<div class="q-block">
-<div class="q-head"><div class="q-num">3</div><div class="q-txt">On a scale of 1 to 5, how concerned are you about water scarcity?</div></div>
-<div class="q-hint">1 = Not concerned at all &nbsp;|&nbsp; 5 = Extremely concerned.</div>
-<div class="scale-outer">
+
+<div class="qblock">
+<div class="qhead"><div class="qnum">2</div><div class="qtxt">How often does your area experience water shortages?</div></div>
+<div class="qhint">Select ONE answer.</div>
+<div class="rlist" id="q2g">
+<div class="ropt" onclick="pr('q2g',this,'Never')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">Never — we always have water</span></div>
+<div class="ropt" onclick="pr('q2g',this,'Rarely')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">Rarely — a few times a year</span></div>
+<div class="ropt" onclick="pr('q2g',this,'Sometimes')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">Sometimes — about once a month</span></div>
+<div class="ropt" onclick="pr('q2g',this,'Often')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">Often — about once a week</span></div>
+<div class="ropt" onclick="pr('q2g',this,'Almost every day')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">Almost every day</span></div>
+</div>
+</div>
+
+<div class="qblock">
+<div class="qhead"><div class="qnum">3</div><div class="qtxt">On a scale of 1 to 5, how concerned are you about water scarcity in South Africa?</div></div>
+<div class="qhint">1 = Not concerned at all &nbsp;|&nbsp; 5 = Extremely concerned.</div>
+<div class="scale-wrap">
 <div class="scale-ends"><span>1 — Not concerned</span><span>5 — Extremely concerned</span></div>
 <div class="scale-row" id="q3s">
-<button class="s-btn" onclick="ps(this,'q3s',1)" type="button">1</button>
-<button class="s-btn" onclick="ps(this,'q3s',2)" type="button">2</button>
-<button class="s-btn" onclick="ps(this,'q3s',3)" type="button">3</button>
-<button class="s-btn" onclick="ps(this,'q3s',4)" type="button">4</button>
-<button class="s-btn" onclick="ps(this,'q3s',5)" type="button">5</button>
-</div>
-</div>
-</div>
-<div class="divider-line"></div>
-<div class="sec-hd"><div class="sec-icon purple">&#127968;</div><div><div class="sec-title">Section C — Water Usage and Conservation</div><div class="sec-sub">Your household habits</div></div></div>
-<div class="sec-divider"></div>
-<div class="q-block">
-<div class="q-head"><div class="q-num">4</div><div class="q-txt">How many people live in your household?</div></div>
-<div class="q-hint">Type or use + / - buttons.</div>
-<div class="num-wrap">
-<button class="num-btn" onclick="cn(-1)" type="button">&#8722;</button>
-<input type="number" class="num-input" id="q4" placeholder="0" min="1" max="30" oninput="cp1()">
-<button class="num-btn" onclick="cn(1)" type="button">&#43;</button>
-<span class="num-hint">people</span>
-</div>
-</div>
-<div class="q-block">
-<div class="q-head"><div class="q-num">5</div><div class="q-txt">Which water saving methods do you practise at home?</div></div>
-<div class="q-hint">Tick ALL that apply.</div>
-<div class="cb-grid">
-<div class="cb-opt" id="cb0" onclick="tc(0)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Fixing leaking taps immediately</span></div>
-<div class="cb-opt" id="cb1" onclick="tc(1)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Taking shorter showers</span></div>
-<div class="cb-opt" id="cb2" onclick="tc(2)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Collecting rainwater</span></div>
-<div class="cb-opt" id="cb3" onclick="tc(3)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Reusing grey water for garden</span></div>
-<div class="cb-opt" id="cb4" onclick="tc(4)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Using a bucket instead of hosepipe</span></div>
-<div class="cb-opt" id="cb5" onclick="tc(5)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">Full loads of laundry only</span></div>
-<div class="cb-opt" id="cb6" onclick="tc(6)"><div class="cb-box"><div class="cb-tick"></div></div><span class="cb-text">None of the above</span></div>
-</div>
-</div>
-<div class="btn-row">
-<button class="btn btn-reset" onclick="reset()" type="button">&#8635; Reset</button>
-<button class="btn btn-view" onclick="goRecords()" type="button">&#128203; Records</button>
-<button class="btn btn-done" id="doneBtn" onclick="save()" type="button">&#10003; Done — Save Response</button>
+<button class="sbtn" onclick="ps(this,'q3s',1)" type="button">1</button>
+<button class="sbtn" onclick="ps(this,'q3s',2)" type="button">2</button>
+<button class="sbtn" onclick="ps(this,'q3s',3)" type="button">3</button>
+<button class="sbtn" onclick="ps(this,'q3s',4)" type="button">4</button>
+<button class="sbtn" onclick="ps(this,'q3s',5)" type="button">5</button>
 </div>
 </div>
 </div>
 </div>
 
-<!-- PAGE 2 RECORDS -->
+<!-- SECTION C -->
+<div class="card">
+<div class="sec-head"><div class="sec-ico purple">&#127968;</div><div><div class="sec-title">Section C — Water Usage and Conservation</div><div class="sec-sub">Your household habits</div></div></div>
+<div class="divider"></div>
+
+<div class="qblock">
+<div class="qhead"><div class="qnum">4</div><div class="qtxt">How many people live in your household?</div></div>
+<div class="qhint">Type or use the + / − buttons.</div>
+<div class="numwrap">
+<button class="nmbtn" onclick="cn(-1)" type="button">&#8722;</button>
+<input type="number" class="nminput" id="q4" placeholder="0" min="1" max="30" oninput="cp()">
+<button class="nmbtn" onclick="cn(1)" type="button">&#43;</button>
+<span class="nmhint">people in household</span>
+</div>
+</div>
+
+<div class="qblock">
+<div class="qhead"><div class="qnum">5</div><div class="qtxt">Which water saving methods do you practise at home?</div></div>
+<div class="qhint">Tick ALL that apply — you may choose more than one.</div>
+<div class="cbgrid">
+<div class="cbopt" id="cb0" onclick="tc(0)"><div class="cbbox"><div class="cbtick"></div></div><span class="cbtxt">Fixing leaking taps immediately</span></div>
+<div class="cbopt" id="cb1" onclick="tc(1)"><div class="cbbox"><div class="cbtick"></div></div><span class="cbtxt">Taking shorter showers</span></div>
+<div class="cbopt" id="cb2" onclick="tc(2)"><div class="cbbox"><div class="cbtick"></div></div><span class="cbtxt">Collecting rainwater</span></div>
+<div class="cbopt" id="cb3" onclick="tc(3)"><div class="cbbox"><div class="cbtick"></div></div><span class="cbtxt">Reusing grey water for garden</span></div>
+<div class="cbopt" id="cb4" onclick="tc(4)"><div class="cbbox"><div class="cbtick"></div></div><span class="cbtxt">Using a bucket instead of hosepipe</span></div>
+<div class="cbopt" id="cb5" onclick="tc(5)"><div class="cbbox"><div class="cbtick"></div></div><span class="cbtxt">Full loads of laundry only</span></div>
+<div class="cbopt" id="cb6" onclick="tc(6)"><div class="cbbox"><div class="cbtick"></div></div><span class="cbtxt">None of the above</span></div>
+</div>
+</div>
+
+<div class="btnrow">
+<button class="btn btn-reset" onclick="resetForm()" type="button">&#8635; Reset</button>
+<button class="btn btn-recs" onclick="openRecords()" type="button">&#128203; View Records</button>
+<button class="btn btn-save" id="saveBtn" onclick="saveResponse()" type="button">&#10003; Save My Response</button>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ====== PAGE 2 — RECORDS ====== -->
 <div id="page2" class="page">
-<div class="rec-content">
-<div class="top-bar">
-<div class="logo-area">
-<div class="logo-circle">JK</div>
-<div class="brand-name">Junior K Questions<span>Shared Responses</span></div>
+<div class="rec-wrap">
+<div class="topbar">
+<div class="logo">
+<div class="logo-mark">JK</div>
+<div class="brand">Junior K Questions<small>Saved Responses</small></div>
 </div>
-<div class="nav-btns">
-<button class="nav-btn survey" onclick="goSurvey()" type="button">&#43; New Response</button>
-</div>
-</div>
-<div class="rec-hero">
-<div class="hero-tag"><div class="pulse-dot"></div>Google Sheets Database</div>
-<h1 class="rec-title"><span>Junior K Questions</span><br>All Saved Responses</h1>
-<p class="rec-sub">Every response from every device is stored in your Google Sheet. Refresh anytime to see the latest data.</p>
-</div>
-<div class="rec-container">
-<div class="rec-summary">
-<div class="rstat"><div class="rstat-num" id="rTotal">—</div><div class="rstat-lab">Total</div></div>
-<div class="rstat"><div class="rstat-num" id="rYes">—</div><div class="rstat-lab">Crisis: Yes</div></div>
-<div class="rstat"><div class="rstat-num" id="rAvg">—</div><div class="rstat-lab">Avg Concern</div></div>
-<div class="rstat"><div class="rstat-num" id="rLeft">—</div><div class="rstat-lab">Slots Left</div></div>
-</div>
-<div class="rec-toolbar">
-<input type="text" class="rec-search" id="recSrch" placeholder="&#128269; Search name or province..." oninput="renderRecs()">
 <div class="rec-tools">
-<button class="tool-btn tool-refresh" onclick="loadRecs()" type="button">&#8635; Refresh</button>
-<button class="tool-btn tool-clear" onclick="clearAll()" type="button">&#128465; Clear All</button>
+<button class="tbtn t-refresh" onclick="loadRecords()" type="button">&#8635; Refresh</button>
+<button class="tbtn t-back" onclick="closePage2()" type="button">&#8592; Back to Survey</button>
 </div>
 </div>
-<div id="recList" class="rec-list"></div>
+
+<div class="rec-hero">
+<div class="live-chip"><div class="pulse"></div>Live Data</div>
+<h1><span class="grad">All Responses</span></h1>
+<p>Every submission from every device is automatically saved to your Google Sheet. Data refreshes every time you open this page.</p>
+</div>
+
+<div class="rec-inner">
+<div class="rec-stats">
+<div class="rst"><div class="rst-n" id="rTotal">—</div><div class="rst-l">Total</div></div>
+<div class="rst"><div class="rst-n" id="rYes">—</div><div class="rst-l">Crisis: Yes</div></div>
+<div class="rst"><div class="rst-n" id="rAvg">—</div><div class="rst-l">Avg Concern</div></div>
+<div class="rst"><div class="rst-n" id="rLeft">—</div><div class="rst-l">Slots Left</div></div>
+</div>
+
+<div class="rec-bar">
+<input type="text" class="rsearch" id="rsrch" placeholder="&#128269; Search name or province..." oninput="renderRecs()">
+<div class="rec-tools">
+<button class="tbtn t-clear" onclick="clearAll()" type="button">&#128465; Clear All</button>
+</div>
+</div>
+
+<div id="recList" class="rlist"></div>
 <div id="recEmpty" class="rec-empty" style="display:none;"><div class="rec-empty-icon">&#128203;</div><div class="rec-empty-txt">No responses yet.<br>Be the first to complete the survey.</div></div>
-<div id="recLoad" class="spinner-wrap"><div class="spinner"></div><span>Loading from Google Sheets...</span></div>
-<button class="rec-back" onclick="goSurvey()" type="button">&#8592; Back to Survey</button>
+<div id="recLoading" class="spin-wrap"><div class="spinner"></div><span>Loading responses...</span></div>
 </div>
 </div>
 </div>
 
 <script>
-var CFG='jkq_gs_v1';
-var ans={q1:'',q2:'',q3:0};
-var cbs=[false,false,false,false,false,false,false];
-var cbL=['Fixing leaking taps','Shorter showers','Collecting rainwater','Reusing grey water','Bucket not hosepipe','Full loads only','None of the above'];
-var allRecs=[];
-var pendId=null;
-var busy=false;
+// ================================================================
+// ██████╗  █████╗  ██████╗██╗  ██╗███████╗███╗   ██╗██████╗
+// ██╔══██╗██╔══██╗██╔════╝██║ ██╔╝██╔════╝████╗  ██║██╔══██╗
+// ██████╔╝███████║██║     █████╔╝ █████╗  ██╔██╗ ██║██║  ██║
+// ██╔══██╗██╔══██║██║     ██╔═██╗ ██╔══╝  ██║╚██╗██║██║  ██║
+// ██████╔╝██║  ██║╚██████╗██║  ██╗███████╗██║ ╚████║██████╔╝
+// ╚═════╝ ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═════╝
+//
+// AI AUTOMATION ENGINE — INVISIBLE TO USERS
+// ================================================================
+// CONFIGURATION — PASTE YOUR WEB APP URL BELOW
+// After deploying your Google Apps Script, replace the placeholder
+// URL below with your actual Web App URL. That is the ONLY change
+// you ever need to make to this file.
+// ================================================================
 
-function cfg(){try{var d=localStorage.getItem(CFG);return d?JSON.parse(d):null;}catch(e){return null;}}
-function saveCfg(u,s){try{localStorage.setItem(CFG,JSON.stringify({url:u,sid:s}));}catch(e){}}
+var WEBAPP_URL = 'PASTE_YOUR_WEBAPP_URL_HERE';
 
-function saveSetup(){
-  var u=g('urlInp').value.trim();
-  var s=g('sidInp').value.trim();
-  if(!u||!s){toast('Paste both the Web App URL and the Sheet ID.');return;}
-  if(!u.startsWith('https://script.google')){toast('Web App URL should start with https://script.google.com...');return;}
-  saveCfg(u,s);
-  g('setupCard').style.display='none';
-  toast('Connected! Testing...','info');
-  pingCheck();
+// ================================================================
+// HOW THE AUTOMATION WORKS (behind the scenes):
+//
+// SAVE:   User clicks Save → JS collects form data silently →
+//         fetch() sends it as JSON to WEBAPP_URL → Google Apps
+//         Script receives it → writes a new row to Google Sheet →
+//         JS shows success screen. User never sees any of this.
+//
+// READ:   Records page opens → fetch() asks WEBAPP_URL for data →
+//         Google Apps Script reads the sheet → returns JSON array →
+//         JS renders the cards. Completely invisible pipeline.
+//
+// DELETE: User clicks delete → fetch() sends the row ID →
+//         Google Apps Script finds and removes that row → JS
+//         re-renders the list.
+// ================================================================
+
+var ans = { q1:'', q2:'', q3:0 };
+var cbs = [false,false,false,false,false,false,false];
+var cbL = ['Fixing leaking taps','Shorter showers','Collecting rainwater','Reusing grey water','Bucket not hosepipe','Full loads only','None of the above'];
+var allRecs = [];
+var pendId = null;
+var busy = false;
+
+// ── FORM INTERACTIONS ──────────────────────────────────────────
+function g(id){ return document.getElementById(id); }
+
+function pr(gid, el, val){
+  document.querySelectorAll('#'+gid+' .ropt').forEach(function(o){ o.classList.remove('sel'); });
+  el.classList.add('sel');
+  if(gid==='q1g') ans.q1=val;
+  if(gid==='q2g') ans.q2=val;
+  cp();
 }
 
-async function pingCheck(){
-  var c=cfg();
-  if(!c){setSS('red','Not connected — complete setup');g('setupCard').style.display='block';updateBadge('—');return;}
-  setSS('yellow','Connecting to Google Sheets...');
+function ps(btn, gid, val){
+  document.querySelectorAll('#'+gid+' .sbtn').forEach(function(b){ b.classList.remove('sel'); });
+  btn.classList.add('sel');
+  ans.q3 = val;
+  cp();
+}
+
+function tc(i){
+  if(i===6){
+    if(!cbs[6]){ for(var j=0;j<6;j++){ cbs[j]=false; g('cb'+j).classList.remove('sel'); } }
+    cbs[6] = !cbs[6];
+  } else {
+    cbs[6] = false; g('cb6').classList.remove('sel');
+    cbs[i] = !cbs[i];
+  }
+  g('cb'+i).classList[cbs[i]?'add':'remove']('sel');
+  cp();
+}
+
+function cn(d){
+  var el=g('q4'); var v=parseInt(el.value)||0;
+  v=Math.max(1,Math.min(30,v+d)); el.value=v; cp();
+}
+
+function cp(){
+  var done=0, tot=9;
+  if(g('fn').value.trim()) done++;
+  if(g('ln').value.trim()) done++;
+  if(g('gdr').value) done++;
+  if(g('age').value) done++;
+  if(g('occ').value) done++;
+  if(g('prv').value) done++;
+  if(ans.q1) done++;
+  if(ans.q2) done++;
+  if(ans.q3) done++;
+  var pct=Math.round(done/tot*100);
+  g('pbar').style.width=pct+'%';
+  g('pct').textContent=pct+'%';
+}
+
+function resetForm(){
+  g('fn').value=''; g('ln').value=''; g('gdr').value='';
+  g('age').value=''; g('occ').value=''; g('prv').value='';
+  document.querySelectorAll('.ropt').forEach(function(o){ o.classList.remove('sel'); });
+  document.querySelectorAll('.sbtn').forEach(function(b){ b.classList.remove('sel'); });
+  for(var i=0;i<cbs.length;i++){ cbs[i]=false; g('cb'+i).classList.remove('sel'); }
+  g('q4').value='';
+  ans={q1:'',q2:'',q3:0};
+  cp();
+}
+
+// ── AI AUTOMATION — SAVE RESPONSE ─────────────────────────────
+// This function runs silently in the background when user clicks Save.
+// The user only sees the success screen — they never see any URLs,
+// network requests, or anything technical.
+async function saveResponse(){
+  if(busy) return;
+
+  // Validate
+  if(!g('fn').value.trim()||!g('ln').value.trim()){ toast('Enter your First Name and Last Name.'); return; }
+  if(!g('gdr').value){ toast('Please select your Gender.'); return; }
+  if(!g('age').value){ toast('Please enter your Age.'); return; }
+  if(!g('occ').value){ toast('Please select your Occupation.'); return; }
+  if(!g('prv').value){ toast('Please select your Province.'); return; }
+  if(!ans.q1){ toast('Please answer Question 1.'); return; }
+  if(!ans.q2){ toast('Please answer Question 2.'); return; }
+  if(!ans.q3){ toast('Please select a number for Question 3.'); return; }
+  if(!g('q4').value){ toast('Please enter household size for Question 4.'); return; }
+  if(!cbs.some(function(s){ return s; })){ toast('Please select at least one option for Question 5.'); return; }
+
+  if(WEBAPP_URL === 'PASTE_YOUR_WEBAPP_URL_HERE'){
+    toast('Web App URL not configured yet. See setup instructions.');
+    return;
+  }
+
+  busy = true;
+  var btn = g('saveBtn');
+  btn.textContent = 'Saving...';
+  btn.disabled = true;
+
+  // Build data record
+  var methods = cbL.filter(function(_,i){ return cbs[i]; });
+  var now = new Date().toLocaleString('en-ZA',{
+    day:'2-digit', month:'short', year:'numeric',
+    hour:'2-digit', minute:'2-digit'
+  });
+
+  var record = {
+    action: 'save',
+    id: Date.now(),
+    fn: g('fn').value.trim(),
+    ln: g('ln').value.trim(),
+    fullName: g('fn').value.trim()+' '+g('ln').value.trim(),
+    gender: g('gdr').value,
+    age: g('age').value,
+    occ: g('occ').value,
+    prov: g('prv').value,
+    q1: ans.q1,
+    q2: ans.q2,
+    q3: ans.q3,
+    q4: g('q4').value,
+    q5: methods.join(', '),
+    savedAt: now
+  };
+
+  // ── SILENT BACKGROUND SEND TO GOOGLE SHEETS ──
   try{
-    var r=await fetch(c.url+'?action=ping&sheetId='+encodeURIComponent(c.sid));
-    if(r.ok){setSS('green','Connected to Google Sheets');g('setupCard').style.display='none';loadCount();}
-    else{setSS('red','Connection failed — check URL and Sheet ID');g('setupCard').style.display='block';}
-  }catch(e){setSS('red','Connection failed — check URL');g('setupCard').style.display='block';}
+    var res = await fetch(WEBAPP_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(record)
+    });
+    var json = await res.json();
+    if(json.ok){
+      resetForm();
+      g('successOv').classList.add('show');
+      loadCount(); // silently refresh the count badge
+    } else {
+      toast('Something went wrong. Please try again.');
+    }
+  } catch(e){
+    toast('Could not save. Check your internet and try again.');
+  }
+
+  busy = false;
+  btn.textContent = '✓ Save My Response';
+  btn.disabled = false;
 }
 
-async function loadCount(){
-  var c=cfg();if(!c)return;
-  try{
-    var r=await fetch(c.url+'?action=read&sheetId='+encodeURIComponent(c.sid));
-    var j=await r.json();
-    var rows=(j.data||[]).slice(1);
-    updateBadge(rows.length);
-    setSS('green','Connected — '+rows.length+' response'+(rows.length===1?'':'s'));
-  }catch(e){}
+function closeSuccess(){
+  g('successOv').classList.remove('show');
 }
 
-async function loadRecs(){
-  var c=cfg();
-  g('recLoad').style.display='flex';
+// ── AI AUTOMATION — LOAD RECORDS ───────────────────────────────
+// Silently fetches all rows from Google Sheet and renders them.
+async function loadRecords(){
+  g('recLoading').style.display='flex';
   g('recList').style.display='none';
   g('recEmpty').style.display='none';
-  if(!c){g('recLoad').style.display='none';g('recEmpty').style.display='block';return;}
-  try{
-    var r=await fetch(c.url+'?action=read&sheetId='+encodeURIComponent(c.sid));
-    var j=await r.json();
-    var rows=(j.data||[]).slice(1);
-    allRecs=rows.map(function(row){
-      return {id:row[0],fn:row[1],ln:row[2],fullName:row[3],gender:row[4],age:row[5],occ:row[6],prov:row[7],email:row[8],phone:row[9],q1:row[10],q2:row[11],q3:row[12],q4:row[13],q5:(row[14]||'').split(', ').filter(Boolean),savedAt:row[15]};
-    });
-    g('recLoad').style.display='none';
-    updateBadge(allRecs.length);
-    updateStats(allRecs);
-    renderRecs();
-  }catch(e){
-    g('recLoad').style.display='none';
+
+  if(WEBAPP_URL === 'PASTE_YOUR_WEBAPP_URL_HERE'){
+    g('recLoading').style.display='none';
     g('recEmpty').style.display='block';
-    toast('Failed to load. Check connection.');
+    return;
+  }
+
+  try{
+    var res = await fetch(WEBAPP_URL+'?action=read&t='+Date.now());
+    var json = await res.json();
+    var rows = (json.data || []).slice(1); // skip header row
+    allRecs = rows.map(function(r){
+      return {
+        id:r[0], fn:r[1], ln:r[2], fullName:r[3],
+        gender:r[4], age:r[5], occ:r[6], prov:r[7],
+        q1:r[8], q2:r[9], q3:r[10], q4:r[11],
+        q5:(r[12]||'').split(', ').filter(Boolean),
+        savedAt:r[13]
+      };
+    });
+    g('recLoading').style.display='none';
+    updateStats(allRecs);
+    updateBadge(allRecs.length);
+    renderRecs();
+  } catch(e){
+    g('recLoading').style.display='none';
+    g('recEmpty').style.display='block';
+    toast('Could not load records. Check internet connection.');
   }
 }
 
+async function loadCount(){
+  if(WEBAPP_URL==='PASTE_YOUR_WEBAPP_URL_HERE'){ updateBadge(0); return; }
+  try{
+    var res=await fetch(WEBAPP_URL+'?action=read&t='+Date.now());
+    var json=await res.json();
+    var n=(json.data||[]).length-1;
+    updateBadge(Math.max(0,n));
+  } catch(e){}
+}
+
+// ── RENDER RECORDS ─────────────────────────────────────────────
 function renderRecs(){
-  var q=g('recSrch').value.trim().toLowerCase();
-  var filtered=allRecs.filter(function(r){return (r.fullName||'').toLowerCase().includes(q)||(r.prov||'').toLowerCase().includes(q);});
-  var list=g('recList'),empty=g('recEmpty');
+  var q=(g('rsrch').value||'').trim().toLowerCase();
+  var filtered=allRecs.filter(function(r){
+    return (r.fullName||'').toLowerCase().includes(q)||(r.prov||'').toLowerCase().includes(q);
+  });
+  var list=g('recList'), empty=g('recEmpty');
   list.innerHTML='';
-  if(filtered.length===0){list.style.display='none';empty.style.display='block';}
+  if(filtered.length===0){ list.style.display='none'; empty.style.display='block'; }
   else{
-    list.style.display='flex';empty.style.display='none';
+    list.style.display='flex'; empty.style.display='none';
     filtered.forEach(function(r,i){
       var init=((r.fn||'?')[0]+(r.ln||'?')[0]).toUpperCase();
       var qc=r.q1==='Yes'?'yes':r.q1==='No'?'no':'un';
-      var mhtml=(r.q5||[]).map(function(m){return '<span class="meth-tag">'+esc(m)+'</span>';}).join('');
+      var mhtml=(r.q5||[]).map(function(m){ return '<span class="mtag">'+esc(m)+'</span>'; }).join('');
       var d=document.createElement('div');
-      d.className='rec-card';
-      d.innerHTML='<div class="rec-card-hdr" onclick="expand(\''+r.id+'\')">'
-        +'<div class="rec-av">'+init+'</div>'
-        +'<div class="rec-inf"><div class="rec-name">'+(i+1)+'. '+esc(r.fullName||'')+'</div>'
-        +'<div class="rec-meta">'+esc(r.gender||'')+' &middot; Age '+esc(String(r.age||''))+' &middot; '+esc(r.savedAt||'')+'</div>'
-        +'<div class="rec-tags"><span class="rt '+qc+'">Crisis: '+esc(r.q1||'')+'</span><span class="rt prov">'+esc(r.prov||'')+'</span><span class="rt lv">Concern: '+esc(String(r.q3||''))+'/5</span></div>'
+      d.className='rcard';
+      d.innerHTML=
+        '<div class="rcard-hdr" onclick="expand(\''+r.id+'\')">'
+        +'<div class="rav">'+init+'</div>'
+        +'<div class="rinf">'
+        +'<div class="rname">'+(i+1)+'. '+esc(r.fullName||'')+'</div>'
+        +'<div class="rmeta">'+esc(r.gender||'')+' &middot; Age '+esc(String(r.age||''))+' &middot; '+esc(r.savedAt||'')+'</div>'
+        +'<div class="rtags"><span class="tag '+qc+'">Crisis: '+esc(r.q1||'')+'</span>'
+        +'<span class="tag pv">'+esc(r.prov||'')+'</span>'
+        +'<span class="tag lv">Concern: '+esc(String(r.q3||''))+'/5</span></div>'
         +'</div>'
-        +'<div class="rec-acts">'
-        +'<button class="ico-btn expand-btn" onclick="event.stopPropagation();expand(\''+r.id+'\')" type="button">&#9660;</button>'
-        +'<button class="ico-btn del-btn" onclick="event.stopPropagation();askDel(\''+r.id+'\',\''+escQ(r.fullName||'')+'\')" type="button">&#128465;</button>'
-        +'</div></div>'
-        +'<div class="rec-det" id="det_'+r.id+'">'
+        +'<div class="ract">'
+        +'<button class="ibtn exp-btn" onclick="event.stopPropagation();expand(\''+r.id+'\')" type="button">&#9660;</button>'
+        +'<button class="ibtn del-btn" onclick="event.stopPropagation();askDel(\''+r.id+'\',\''+escQ(r.fullName||'')+'\')" type="button">&#128465;</button>'
+        +'</div>'
+        +'</div>'
+        +'<div class="rdet" id="rd_'+r.id+'">'
         +'<div class="det-grid">'
         +'<div class="di"><div class="di-lbl">Full Name</div><div class="di-val g">'+esc(r.fullName||'')+'</div></div>'
         +'<div class="di"><div class="di-lbl">Gender</div><div class="di-val">'+esc(r.gender||'')+'</div></div>'
         +'<div class="di"><div class="di-lbl">Age</div><div class="di-val">'+esc(String(r.age||''))+'</div></div>'
         +'<div class="di"><div class="di-lbl">Occupation</div><div class="di-val">'+esc(r.occ||'')+'</div></div>'
         +'<div class="di"><div class="di-lbl">Province</div><div class="di-val">'+esc(r.prov||'')+'</div></div>'
-        +'<div class="di"><div class="di-lbl">Email</div><div class="di-val">'+esc(r.email||'Not provided')+'</div></div>'
-        +'<div class="di"><div class="di-lbl">Phone</div><div class="di-val">'+esc(r.phone||'Not provided')+'</div></div>'
         +'<div class="di"><div class="di-lbl">Q1 — Water Crisis</div><div class="di-val g">'+esc(r.q1||'')+'</div></div>'
         +'<div class="di"><div class="di-lbl">Q2 — Shortages</div><div class="di-val">'+esc(r.q2||'')+'</div></div>'
-        +'<div class="di"><div class="di-lbl">Q3 — Concern</div><div class="di-val"><span class="lvbadge">'+esc(String(r.q3||''))+'</span></div></div>'
+        +'<div class="di"><div class="di-lbl">Q3 — Concern</div><div class="di-val"><span class="lvb">'+esc(String(r.q3||''))+'</span></div></div>'
         +'<div class="di"><div class="di-lbl">Q4 — Household</div><div class="di-val">'+esc(String(r.q4||''))+' people</div></div>'
-        +'<div class="di" style="grid-column:1/-1"><div class="di-lbl">Q5 — Methods</div><div class="meth-wrap">'+mhtml+'</div></div>'
-        +'</div></div>';
+        +'<div class="di" style="grid-column:1/-1"><div class="di-lbl">Q5 — Methods</div><div class="mwrap">'+mhtml+'</div></div>'
+        +'</div>'
+        +'</div>';
       list.appendChild(d);
     });
   }
 }
 
 function expand(id){
-  var det=g('det_'+id);if(!det)return;
+  var det=g('rd_'+id); if(!det) return;
   det.classList.toggle('open');
-  var btn=det.previousElementSibling.querySelector('.expand-btn');
-  if(btn)btn.innerHTML=det.classList.contains('open')?'&#9650;':'&#9660;';
+  var btn=det.previousElementSibling.querySelector('.exp-btn');
+  if(btn) btn.innerHTML=det.classList.contains('open')?'&#9650;':'&#9660;';
 }
 
-function askDel(id,name){pendId=id;g('confSub').textContent='This will permanently remove '+name+"'s response from the Google Sheet for everyone.";g('confOv').classList.add('show');}
-function closeConf(){g('confOv').classList.remove('show');pendId=null;}
+// ── AI AUTOMATION — DELETE ─────────────────────────────────────
+function askDel(id,name){
+  pendId=id;
+  g('confSub').textContent='This permanently removes '+name+"'s response from the Google Sheet.";
+  g('confBg').classList.add('show');
+}
+function closeConf(){ g('confBg').classList.remove('show'); pendId=null; }
+
 async function doDelete(){
-  if(!pendId)return;
+  if(!pendId) return;
   closeConf();
-  setSS('yellow','Deleting...');
-  var c=cfg();if(!c)return;
+  toast('Deleting...','info');
   try{
-    await fetch(c.url+'?action=delete&id='+encodeURIComponent(pendId)+'&sheetId='+encodeURIComponent(c.sid));
-    toast('Record deleted.','ok');
-    await loadRecs();
-    setSS('green','Deleted successfully');
-  }catch(e){toast('Delete failed. Try again.');}
+    var res=await fetch(WEBAPP_URL+'?action=delete&id='+encodeURIComponent(pendId));
+    var json=await res.json();
+    if(json.ok){ toast('Record deleted.','ok'); await loadRecords(); }
+    else{ toast('Delete failed. Try again.'); }
+  } catch(e){ toast('Delete failed. Check connection.'); }
 }
 
+// ── AI AUTOMATION — CLEAR ALL ──────────────────────────────────
 async function clearAll(){
-  if(allRecs.length===0){toast('No records to clear.');return;}
-  if(!confirm('Delete ALL '+allRecs.length+' responses from the shared Google Sheet? This cannot be undone.'))return;
-  var c=cfg();if(!c)return;
-  setSS('yellow','Clearing...');
+  if(allRecs.length===0){ toast('No records to clear.'); return; }
+  if(!confirm('Delete ALL '+allRecs.length+' responses from Google Sheets? This cannot be undone.')) return;
+  toast('Clearing all records...','info');
   try{
-    await fetch(c.url+'?action=clear&sheetId='+encodeURIComponent(c.sid));
-    toast('All records cleared.','ok');
-    await loadRecs();
-    setSS('green','All records cleared');
-  }catch(e){toast('Clear failed.');}
+    var res=await fetch(WEBAPP_URL+'?action=clear');
+    var json=await res.json();
+    if(json.ok){ toast('All records cleared.','ok'); await loadRecords(); }
+    else{ toast('Clear failed.'); }
+  } catch(e){ toast('Clear failed.'); }
 }
 
 function updateStats(recs){
   g('rTotal').textContent=recs.length;
   g('rLeft').textContent=Math.max(0,20-recs.length);
-  var yes=recs.filter(function(r){return r.q1==='Yes';}).length;
+  var yes=recs.filter(function(r){ return r.q1==='Yes'; }).length;
   g('rYes').textContent=yes;
-  if(recs.length>0){var avg=recs.reduce(function(s,r){return s+Number(r.q3);},0)/recs.length;g('rAvg').textContent=avg.toFixed(1);}
-  else g('rAvg').textContent='—';
+  if(recs.length>0){
+    var avg=recs.reduce(function(s,r){ return s+Number(r.q3); },0)/recs.length;
+    g('rAvg').textContent=avg.toFixed(1);
+  } else g('rAvg').textContent='—';
 }
 
-function updateBadge(n){g('recBadge').textContent=n;g('statCnt').textContent=n;}
-function setSS(col,txt){var d=g('syncDot');d.className='sync-dot '+col;g('syncTxt').textContent=txt;}
-
-// FORM
-function g(id){return document.getElementById(id);}
-function pr(gid,el,val){document.querySelectorAll('#'+gid+' .r-opt').forEach(function(o){o.classList.remove('sel');});el.classList.add('sel');if(gid==='q1g')ans.q1=val;if(gid==='q2g')ans.q2=val;cp1();}
-function ps(btn,gid,val){document.querySelectorAll('#'+gid+' .s-btn').forEach(function(b){b.classList.remove('sel');});btn.classList.add('sel');ans.q3=val;cp1();}
-function tc(i){if(i===6){if(!cbs[6]){for(var j=0;j<6;j++){cbs[j]=false;g('cb'+j).classList.remove('sel');}}cbs[6]=!cbs[6];}else{cbs[6]=false;g('cb6').classList.remove('sel');cbs[i]=!cbs[i];}g('cb'+i).classList[cbs[i]?'add':'remove']('sel');cp1();}
-function cn(d){var el=g('q4');var v=parseInt(el.value)||0;v=Math.max(1,Math.min(30,v+d));el.value=v;cp1();}
-function cp1(){var done=0,tot=10;if(g('fn').value.trim())done++;if(g('ln').value.trim())done++;if(g('gender').value)done++;if(g('age').value)done++;if(g('occ').value)done++;if(g('prov').value)done++;if(ans.q1)done++;if(ans.q2)done++;if(ans.q3)done++;if(g('q4').value)done++;var pct=Math.round(done/tot*100);g('p1bar').style.width=pct+'%';g('p1pct').textContent=pct+'% complete';}
-
-function reset(){
-  if(!confirm('Clear all your current answers? Saved records are NOT affected.'))return;
-  g('fn').value='';g('ln').value='';g('gender').value='';g('age').value='';g('occ').value='';g('prov').value='';g('em').value='';g('ph').value='';
-  document.querySelectorAll('.r-opt').forEach(function(o){o.classList.remove('sel');});
-  document.querySelectorAll('.s-btn').forEach(function(b){b.classList.remove('sel');});
-  for(var i=0;i<cbs.length;i++){cbs[i]=false;g('cb'+i).classList.remove('sel');}
-  g('q4').value='';ans={q1:'',q2:'',q3:0};cp1();
-  toast('Form cleared. Records untouched.','info');
+function updateBadge(n){
+  g('topCnt').textContent=n;
+  g('heroCount').textContent=n;
 }
 
-async function save(){
-  if(busy)return;
-  var fn=g('fn').value.trim(),ln=g('ln').value.trim();
-  if(!fn||!ln){toast('Enter your First Name and Last Name.');return;}
-  if(!g('gender').value){toast('Please select your Gender.');return;}
-  if(!g('age').value){toast('Please enter your Age.');return;}
-  if(!g('occ').value){toast('Please select your Occupation.');return;}
-  if(!g('prov').value){toast('Please select your Province.');return;}
-  if(!ans.q1){toast('Please answer Question 1.');return;}
-  if(!ans.q2){toast('Please answer Question 2.');return;}
-  if(!ans.q3){toast('Please select a number for Question 3.');return;}
-  if(!g('q4').value){toast('Please enter household size for Question 4.');return;}
-  if(!cbs.some(function(s){return s;})){toast('Please select at least one option for Question 5.');return;}
-  var c=cfg();
-  if(!c){toast('Google Sheets not connected. Complete setup first.');return;}
-  busy=true;
-  var db=g('doneBtn');db.textContent='Saving...';db.classList.add('btn-dis');
-  setSS('yellow','Saving to Google Sheets...');
-  var methods=cbL.filter(function(_,i){return cbs[i];});
-  var now=new Date().toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
-  var rec={id:Date.now(),fn:fn,ln:ln,fullName:fn+' '+ln,gender:g('gender').value,age:g('age').value,occ:g('occ').value,prov:g('prov').value,email:g('em').value||'Not provided',phone:g('ph').value||'Not provided',q1:ans.q1,q2:ans.q2,q3:ans.q3,q4:g('q4').value,q5:methods,savedAt:now,sheetId:c.sid};
-  try{
-    var r=await fetch(c.url,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(rec)});
-    var j=await r.json();
-    if(j.ok){
-      setSS('green','Saved to Google Sheets!');
-      toast(fn+' '+ln+"'s response saved and shared with everyone!",'ok');
-      reset();
-      loadCount();
-    }else{setSS('red','Save failed');toast('Google Sheets returned an error. Check your script.');}
-  }catch(e){setSS('red','Save failed');toast('Could not reach Google Sheets. Check your Web App URL.');}
-  busy=false;db.textContent='✓ Done — Save Response';db.classList.remove('btn-dis');
+// ── NAVIGATION ─────────────────────────────────────────────────
+function openRecords(){
+  g('page1').classList.remove('active');
+  g('page2').classList.add('active');
+  loadRecords();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function closePage2(){
+  g('page2').classList.remove('active');
+  g('page1').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function goRecords(){g('page1').classList.remove('active');g('page2').classList.add('active');loadRecs();window.scrollTo({top:0,behavior:'smooth'});}
-function goSurvey(){g('page2').classList.remove('active');g('page1').classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+// ── HELPERS ────────────────────────────────────────────────────
+function toast(msg,type){
+  var t=g('toastEl');
+  t.textContent=msg;
+  t.className='toast'+(type==='ok'?' ok':type==='info'?' info':'');
+  setTimeout(function(){ t.classList.add('show'); },10);
+  setTimeout(function(){ t.classList.remove('show'); },4000);
+}
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escQ(s){ return (s||'').replace(/'/g,"\\'"); }
 
-function toast(msg,type){var t=g('toastEl');t.textContent=msg;t.className='toast'+(type==='ok'?' ok':type==='info'?' info':'');setTimeout(function(){t.classList.add('show');},10);setTimeout(function(){t.classList.remove('show');},4200);}
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function escQ(s){return (s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
+// ── BACKGROUND SLIDER ──────────────────────────────────────────
+var bgI=0; var bgS=document.querySelectorAll('.bg-slide');
+setInterval(function(){
+  bgS[bgI].classList.remove('active');
+  bgI=(bgI+1)%bgS.length;
+  bgS[bgI].classList.add('active');
+},5000);
 
-// BG SLIDER
-var bgI=0;var bgS=document.querySelectorAll('.bg-slide');
-setInterval(function(){bgS[bgI].classList.remove('active');bgI=(bgI+1)%bgS.length;bgS[bgI].classList.add('active');},5000);
+// ── PARTICLES ──────────────────────────────────────────────────
+(function(){
+  var c=g('pCanvas'); var ctx=c.getContext('2d');
+  function rs(){ c.width=window.innerWidth; c.height=window.innerHeight; }
+  rs(); window.addEventListener('resize',rs);
+  var pts=[];
+  for(var i=0;i<32;i++){
+    pts.push({
+      x:Math.random()*window.innerWidth, y:Math.random()*window.innerHeight,
+      r:Math.random()*2+0.4,
+      vx:(Math.random()-0.5)*0.26, vy:-(Math.random()*0.36+0.1),
+      op:Math.random()*0.4+0.08,
+      col:Math.random()>0.5?'0,255,170':'0,136,255'
+    });
+  }
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach(function(p){
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.y<-8){ p.y=c.height+8; p.x=Math.random()*c.width; }
+      if(p.x<0||p.x>c.width) p.vx*=-1;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba('+p.col+','+p.op+')'; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 
-// PARTICLES
-(function(){var c=g('pCanvas');var ctx=c.getContext('2d');function rs(){c.width=window.innerWidth;c.height=window.innerHeight;}rs();window.addEventListener('resize',rs);var pts=[];for(var i=0;i<32;i++){pts.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*2+0.4,vx:(Math.random()-0.5)*0.28,vy:-(Math.random()*0.38+0.12),op:Math.random()*0.42+0.09,col:Math.random()>0.5?'0,255,170':'0,136,255'});}function draw(){ctx.clearRect(0,0,c.width,c.height);pts.forEach(function(p){p.x+=p.vx;p.y+=p.vy;if(p.y<-8){p.y=c.height+8;p.x=Math.random()*c.width;}if(p.x<0||p.x>c.width)p.vx*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba('+p.col+','+p.op+')';ctx.fill();});requestAnimationFrame(draw);}draw();})();
-
-// INIT
-(function(){var c=cfg();if(!c){g('setupCard').style.display='block';setSS('red','Not connected — complete setup');updateBadge('—');}else{g('setupCard').style.display='none';pingCheck();}})();
+// ── STARTUP ────────────────────────────────────────────────────
+loadCount();
 </script>
 </body>
 </html>
+HTMLEOF
+echo "Done"
+Output
+
+Done
+Done
