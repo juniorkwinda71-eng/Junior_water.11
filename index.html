@@ -3,859 +3,869 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Junior K Questions</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Water as a Vital Resource in South Africa – PAT Report</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'Poppins',sans-serif;min-height:100vh;overflow-x:hidden;background:#050d1a;}
+  :root {
+    --dk: #0f2d1a;
+    --md: #1e6b3c;
+    --lt: #2e8b57;
+    --pale: #e8f5ee;
+    --gold: #c9a84c;
+    --gold-lt: #f5e9c8;
+    --white: #fafaf8;
+    --off: #f2f5f1;
+    --border: #c8dfd0;
+    --text: #1a2e22;
+    --muted: #4a6b55;
+    --light-text: #7a9b85;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+  }
 
-/* ── BACKGROUND ── */
-.bg-slider{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;}
-.bg-slide{position:absolute;inset:0;opacity:0;transition:opacity 2s ease;background-size:cover;background-position:center;}
-.bg-slide.active{opacity:1;}
-.bg-overlay{position:fixed;inset:0;background:linear-gradient(135deg,rgba(2,8,30,.92) 0%,rgba(0,38,22,.88) 100%);z-index:1;}
-.particles-canvas{position:fixed;inset:0;z-index:1;pointer-events:none;}
+  /* NAV */
+  nav {
+    background: var(--dk);
+    padding: 0 2rem;
+    display: flex;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--gold);
+  }
+  nav button {
+    background: none;
+    border: none;
+    color: #7aab8a;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 14px 18px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: color .2s, border-color .2s;
+    letter-spacing: .02em;
+  }
+  nav button:hover { color: #c8e6d0; }
+  nav button.active { color: var(--gold); border-bottom-color: var(--gold); }
 
-/* ── LAYOUT ── */
-.page{display:none;min-height:100vh;position:relative;}
-.page.active{display:block;}
-.page-wrap{position:relative;z-index:2;padding:0 0 80px;}
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--dk) 0%, #1a4d2b 50%, #0d2416 100%);
+    padding: 3.5rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 80%, rgba(46,139,87,.25) 0%, transparent 70%);
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: .75rem;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: #e8f5ee;
+    line-height: 1.2;
+    margin-bottom: .5rem;
+    position: relative;
+  }
+  .hero h1 em { color: var(--gold); font-style: italic; }
+  .hero-sub {
+    color: #7aab8a;
+    font-size: 14px;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 10px;
+    padding: .75rem 1.25rem;
+    min-width: 100px;
+  }
+  .hero-stat .val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    display: block;
+  }
+  .hero-stat .lbl {
+    font-size: 11px;
+    color: #7aab8a;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
 
-/* ── TOP BAR ── */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:13px 28px;background:rgba(255,255,255,0.035);backdrop-filter:blur(22px);border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px;}
-.logo{display:flex;align-items:center;gap:11px;}
-.logo-mark{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#00ffaa,#0044ff);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;overflow:hidden;position:relative;flex-shrink:0;}
-.logo-mark::after{content:'';position:absolute;inset:-50%;background:linear-gradient(transparent,rgba(255,255,255,.14),transparent);animation:sh 3s infinite;}
-@keyframes sh{0%{transform:translateX(-100%) rotate(45deg);}100%{transform:translateX(100%) rotate(45deg);}}
-.brand{color:#fff;font-size:15px;font-weight:800;line-height:1.15;}
-.brand small{display:block;font-size:10px;font-weight:400;color:rgba(255,255,255,.38);letter-spacing:1px;text-transform:uppercase;}
-.records-link{padding:7px 15px;border-radius:9px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.13);font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;outline:none;transition:all .25s;}
-.records-link:hover{background:rgba(255,255,255,.13);transform:translateY(-1px);}
-.records-link .cnt{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;padding:0 4px;border-radius:8px;background:#00ffaa;color:#050d1a;font-size:10px;font-weight:900;margin-left:5px;}
+  /* PAGES */
+  .page { display: none; padding: 2rem; max-width: 1100px; margin: 0 auto; }
+  .page.active { display: block; }
 
-/* ── HERO ── */
-.hero{text-align:center;padding:36px 20px 14px;}
-.live-chip{display:inline-flex;align-items:center;gap:7px;background:rgba(0,255,170,.07);border:1px solid rgba(0,255,170,.2);color:#00ffaa;font-size:11px;font-weight:700;padding:5px 15px;border-radius:28px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
-.pulse{width:6px;height:6px;border-radius:50%;background:#00ffaa;animation:pulse 1.5s infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.6);}}
-.hero h1{font-size:clamp(24px,5vw,46px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:10px;letter-spacing:-1px;}
-.grad{background:linear-gradient(90deg,#00ffaa,#0088ff,#aa00ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero p{font-size:13px;color:rgba(255,255,255,.46);max-width:500px;margin:0 auto 10px;line-height:1.7;}
-.hero-stats{display:flex;justify-content:center;gap:22px;padding:10px 0 22px;flex-wrap:wrap;}
-.hstat .n{font-size:20px;font-weight:800;color:#00ffaa;text-align:center;}
-.hstat .l{font-size:10px;color:rgba(255,255,255,.36);text-transform:uppercase;letter-spacing:1px;text-align:center;}
+  /* SECTION HEADER */
+  .sec-hdr {
+    background: var(--md);
+    color: white;
+    padding: .6rem 1rem;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .sec-hdr:first-child { margin-top: 0; }
+  .sec-hdr .badge {
+    background: var(--gold);
+    color: var(--dk);
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+  }
 
-/* ── PROGRESS ── */
-.prog-wrap{max-width:840px;margin:0 auto 16px;padding:0 16px;}
-.prog-info{display:flex;justify-content:space-between;margin-bottom:5px;}
-.prog-info span{font-size:12px;color:rgba(255,255,255,.36);}
-.prog-info strong{font-size:12px;color:#00ffaa;font-weight:700;}
-.prog-track{height:5px;background:rgba(255,255,255,.06);border-radius:5px;overflow:hidden;}
-.prog-bar{height:100%;border-radius:5px;background:linear-gradient(90deg,#00ffaa,#0088ff);transition:width .5s cubic-bezier(.4,0,.2,1);}
+  /* TABLES */
+  .tbl-wrap { overflow-x: auto; margin-bottom: 1.5rem; border-radius: 8px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--lt); }
+  thead th { color: white; padding: 9px 12px; font-weight: 600; text-align: left; font-size: 12px; letter-spacing: .04em; white-space: nowrap; }
+  tbody tr:nth-child(even) { background: var(--pale); }
+  tbody tr:nth-child(odd) { background: white; }
+  tbody tr:hover { background: #d4ead9; }
+  td { padding: 7px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.ctr { text-align: center; }
+  td.formula { font-family: 'DM Sans', monospace; font-size: 11px; color: #2a6040; background: #edf6f0; border-radius: 3px; padding: 3px 6px; white-space: nowrap; }
+  .tfoot-row td { background: var(--pale); font-weight: 600; border-top: 2px solid var(--border); }
 
-/* ── CARD ── */
-.card{background:rgba(255,255,255,.04);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.07);border-radius:20px;max-width:840px;margin:0 auto 16px;overflow:hidden;padding:0 20px;}
-.sec-head{display:flex;align-items:center;gap:11px;padding:18px 8px 12px;}
-.sec-ico{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
-.blue{background:rgba(0,136,255,.17);border:1px solid rgba(0,136,255,.27);}
-.green{background:rgba(0,255,170,.12);border:1px solid rgba(0,255,170,.22);}
-.purple{background:rgba(170,0,255,.17);border:1px solid rgba(170,0,255,.27);}
-.sec-title{font-size:14px;font-weight:700;color:#fff;}
-.sec-sub{font-size:11px;color:rgba(255,255,255,.36);margin-top:1px;}
-.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);margin:0 8px 15px;}
+  /* METRIC CARDS */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+  .metric-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .9rem 1rem;
+    border-left: 3px solid var(--md);
+  }
+  .metric-card .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+  .metric-card .value { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--dk); }
+  .metric-card .formula-tag { font-size: 10px; color: var(--light-text); margin-top: 2px; font-style: italic; }
+  .metric-card.gold { border-left-color: var(--gold); }
+  .metric-card.gold .value { color: #7a5c00; }
 
-/* ── FIELDS ── */
-.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:11px;padding:0 8px 15px;}
-.fw{display:flex;flex-direction:column;gap:5px;}
-.flbl{font-size:11px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.4px;text-transform:uppercase;}
-.flbl .r{color:#ff6b6b;margin-left:2px;}
-.fsel,.fin{background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:9px 13px;color:#fff;font-size:13px;font-family:'Poppins',sans-serif;outline:none;transition:all .25s;width:100%;appearance:none;-webkit-appearance:none;}
-.fsel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%2300ffaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;}
-.fsel:focus,.fin:focus{border-color:#00ffaa;background:rgba(0,255,170,.065);box-shadow:0 0 0 3px rgba(0,255,170,.1);}
-.fsel option{background:#0a1628;color:#fff;}
-.fin::placeholder{color:rgba(255,255,255,.18);}
+  /* CHART CONTAINERS */
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+  @media (max-width: 680px) { .chart-row { grid-template-columns: 1fr; } }
+  .chart-box { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; }
+  .chart-box h3 { font-size: 13px; font-weight: 600; color: var(--dk); margin-bottom: 1rem; padding-bottom: .5rem; border-bottom: 1px solid var(--border); }
+  .chart-full { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; margin-bottom: 1.5rem; }
+  .chart-full h3 { font-size: 13px; font-weight: 600; color: var(--dk); margin-bottom: 1rem; }
 
-/* ── QUESTIONS ── */
-.qblock{padding:0 8px 18px;}
-.qhead{display:flex;align-items:flex-start;gap:9px;margin-bottom:4px;}
-.qnum{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#00ffaa,#0088ff);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#050d1a;flex-shrink:0;margin-top:2px;}
-.qtxt{font-size:14px;font-weight:600;color:#fff;line-height:1.4;}
-.qhint{font-size:11px;color:rgba(255,255,255,.28);margin:3px 0 11px 33px;font-style:italic;}
+  /* LEGEND */
+  .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 10px; font-size: 12px; color: var(--muted); }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 
-/* RADIO */
-.rlist{display:flex;flex-direction:column;gap:6px;margin-left:33px;}
-.ropt{display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:10px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.025);cursor:pointer;transition:all .2s;user-select:none;}
-.ropt:hover{background:rgba(0,255,170,.055);border-color:rgba(0,255,170,.18);}
-.ropt.sel{background:rgba(0,255,170,.09);border-color:#00ffaa;box-shadow:0 0 8px rgba(0,255,170,.09);}
-.rcircle{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
-.ropt.sel .rcircle{border-color:#00ffaa;}
-.rinner{width:8px;height:8px;border-radius:50%;background:#00ffaa;transform:scale(0);transition:transform .2s cubic-bezier(.175,.885,.32,1.275);}
-.ropt.sel .rinner{transform:scale(1);}
-.rtxt{font-size:13px;color:rgba(255,255,255,.72);}
-.ropt.sel .rtxt{color:#fff;font-weight:500;}
+  /* CONCERN BADGE */
+  .concern-1 { background: #d4edda; color: #155724; }
+  .concern-2 { background: #d1ecf1; color: #0c5460; }
+  .concern-3 { background: #fff3cd; color: #856404; }
+  .concern-4 { background: #ffe5b4; color: #7d4e00; }
+  .concern-5 { background: #f8d7da; color: #721c24; }
+  .concern-badge { padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
 
-/* SCALE */
-.scale-wrap{margin-left:33px;}
-.scale-ends{display:flex;justify-content:space-between;margin-bottom:6px;}
-.scale-ends span{font-size:10px;color:rgba(255,255,255,.28);}
-.scale-row{display:flex;gap:6px;}
-.sbtn{flex:1;padding:10px 3px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);color:rgba(255,255,255,.5);font-size:15px;font-weight:800;cursor:pointer;transition:all .2s;font-family:'Poppins',sans-serif;outline:none;}
-.sbtn:hover{background:rgba(0,255,170,.07);border-color:rgba(0,255,170,.3);color:#fff;transform:translateY(-2px);}
-.sbtn.sel{background:linear-gradient(135deg,#00ffaa,#0088ff);border-color:transparent;color:#050d1a;transform:translateY(-3px) scale(1.05);box-shadow:0 6px 16px rgba(0,255,170,.25);}
+  /* GENDER BADGE */
+  .badge-male { background: #d0e8ff; color: #0a3d6b; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+  .badge-female { background: #ffe0ec; color: #7b1836; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 500; }
 
-/* CHECKBOXES */
-.cbgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px;margin-left:33px;}
-.cbopt{display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:10px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.025);cursor:pointer;transition:all .2s;user-select:none;}
-.cbopt:hover{background:rgba(0,255,170,.055);border-color:rgba(0,255,170,.18);}
-.cbopt.sel{background:rgba(0,255,170,.09);border-color:#00ffaa;box-shadow:0 0 8px rgba(0,255,170,.08);}
-.cbbox{width:18px;height:18px;border-radius:5px;border:2px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
-.cbopt.sel .cbbox{background:#00ffaa;border-color:#00ffaa;}
-.cbtick{width:9px;height:6px;border-left:2px solid #050d1a;border-bottom:2px solid #050d1a;transform:rotate(-45deg) translateY(-1px);opacity:0;transition:opacity .15s;}
-.cbopt.sel .cbtick{opacity:1;}
-.cbtxt{font-size:13px;color:rgba(255,255,255,.72);}
-.cbopt.sel .cbtxt{color:#fff;font-weight:500;}
+  /* PILL */
+  .pill { background: var(--pale); color: var(--md); border-radius: 20px; padding: 2px 8px; font-size: 11px; font-weight: 500; }
 
-/* NUMBER */
-.numwrap{margin-left:33px;display:flex;align-items:center;gap:9px;}
-.nmbtn{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.1);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;outline:none;}
-.nmbtn:hover{background:rgba(0,255,170,.13);border-color:#00ffaa;color:#00ffaa;}
-.nminput{width:70px;text-align:center;background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px;color:#fff;font-size:16px;font-weight:700;font-family:'Poppins',sans-serif;outline:none;transition:all .25s;}
-.nminput:focus{border-color:#00ffaa;box-shadow:0 0 0 3px rgba(0,255,170,.1);}
-.nmhint{font-size:11px;color:rgba(255,255,255,.28);}
+  /* SEARCH */
+  .search-bar { position: relative; margin-bottom: 1rem; }
+  .search-bar input { width: 100%; padding: 8px 12px 8px 36px; border: 1px solid var(--border); border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; background: white; }
+  .search-bar input:focus { border-color: var(--lt); }
+  .search-bar svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); opacity: .4; }
 
-/* BUTTONS */
-.btnrow{display:flex;gap:9px;justify-content:center;padding:16px 8px 8px;flex-wrap:wrap;}
-.btn{padding:11px 24px;border-radius:12px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .28s;border:none;outline:none;}
-.btn-save{background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;box-shadow:0 3px 16px rgba(0,255,170,.2);}
-.btn-save:hover{transform:translateY(-3px);box-shadow:0 9px 26px rgba(0,255,170,.36);}
-.btn-save:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
-.btn-reset{background:rgba(255,80,80,.09);color:#ff8080;border:1px solid rgba(255,80,80,.22);}
-.btn-reset:hover{background:rgba(255,80,80,.18);transform:translateY(-2px);}
-.btn-recs{background:rgba(255,255,255,.055);color:#fff;border:1px solid rgba(255,255,255,.12);}
-.btn-recs:hover{background:rgba(255,255,255,.1);transform:translateY(-2px);}
+  /* FUNCTIONS TABLE */
+  .fn-level { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; }
+  .fn-l1 { background: #3b82f6; }
+  .fn-l2 { background: #10b981; }
+  .fn-l3 { background: #f59e0b; }
+  .fn-l4 { background: #ef4444; }
 
-/* ── SUCCESS OVERLAY ── */
-.success-overlay{position:fixed;inset:0;background:rgba(2,8,30,.97);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px);}
-.success-overlay.show{display:flex;}
-.success-box{text-align:center;padding:40px 30px;max-width:420px;width:92%;animation:popIn .5s cubic-bezier(.175,.885,.32,1.275);}
-@keyframes popIn{from{transform:scale(.7);opacity:0;}to{transform:scale(1);opacity:1;}}
-.s-ring{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#00ffaa,#0088ff);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:36px;}
-.s-title{color:#fff;font-size:26px;font-weight:900;margin-bottom:8px;}
-.s-sub{color:rgba(255,255,255,.5);font-size:14px;line-height:1.7;margin-bottom:26px;}
-.s-close{padding:12px 30px;border-radius:13px;background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;border:none;cursor:pointer;outline:none;transition:all .28s;}
-.s-close:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,255,170,.3);}
+  /* SAVING METHOD BARS */
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .bar-label { font-size: 12px; color: var(--muted); min-width: 190px; }
+  .bar-track { flex: 1; background: var(--border); border-radius: 4px; height: 16px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--md); border-radius: 4px; transition: width .5s; }
+  .bar-fill.gold { background: var(--gold); }
+  .bar-count { font-size: 12px; color: var(--muted); min-width: 24px; text-align: right; }
 
-/* ── RECORDS PAGE ── */
-.rec-wrap{position:relative;z-index:2;padding:0 0 60px;}
-.rec-hero{text-align:center;padding:32px 20px 8px;}
-.rec-hero h1{font-size:clamp(20px,4vw,34px);font-weight:900;color:#fff;margin-bottom:7px;letter-spacing:-.5px;}
-.rec-hero p{font-size:13px;color:rgba(255,255,255,.38);max-width:440px;margin:0 auto 22px;line-height:1.6;}
-.rec-stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:20px;}
-.rst{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:13px;padding:12px 18px;text-align:center;min-width:76px;}
-.rst-n{font-size:24px;font-weight:900;color:#00ffaa;}
-.rst-l{font-size:10px;color:rgba(255,255,255,.34);text-transform:uppercase;letter-spacing:.8px;margin-top:1px;}
-.rec-inner{max-width:880px;margin:0 auto;padding:0 16px;}
-.rec-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
-.rsearch{background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:8px 14px;color:#fff;font-size:13px;font-family:'Poppins',sans-serif;outline:none;width:195px;transition:all .25s;}
-.rsearch:focus{border-color:#00ffaa;box-shadow:0 0 0 3px rgba(0,255,170,.1);}
-.rsearch::placeholder{color:rgba(255,255,255,.23);}
-.rec-tools{display:flex;gap:7px;}
-.tbtn{padding:8px 13px;border-radius:9px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:none;outline:none;transition:all .22s;}
-.t-refresh{background:rgba(0,255,170,.09);color:#00ffaa;border:1px solid rgba(0,255,170,.2);}
-.t-refresh:hover{background:rgba(0,255,170,.17);}
-.t-clear{background:rgba(255,80,80,.08);color:#ff8080;border:1px solid rgba(255,80,80,.18);}
-.t-clear:hover{background:rgba(255,80,80,.18);}
-.t-back{background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;}
-.t-back:hover{transform:translateY(-2px);}
+  /* INSIGHTS */
+  .insight-box { background: var(--gold-lt); border-left: 3px solid var(--gold); border-radius: 8px; padding: .75rem 1rem; font-size: 13px; margin-bottom: 1rem; }
+  .insight-box strong { color: #6b4a00; }
 
-.spin-wrap{display:flex;align-items:center;justify-content:center;gap:9px;padding:32px;color:rgba(255,255,255,.35);font-size:13px;}
-.spinner{width:19px;height:19px;border:2px solid rgba(0,255,170,.16);border-top-color:#00ffaa;border-radius:50%;animation:spin .8s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.rec-empty{text-align:center;padding:44px 20px;color:rgba(255,255,255,.25);}
-.rec-empty-icon{font-size:40px;margin-bottom:12px;opacity:.3;}
-.rec-empty-txt{font-size:13px;line-height:1.6;}
+  /* VLOOKUP TABLE */
+  .vlook-table { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 1rem; }
+  .vlook-table table { margin: 0; }
 
-.rlist{display:flex;flex-direction:column;gap:9px;}
-.rcard{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);border-radius:16px;overflow:hidden;transition:all .25s;animation:fadeUp .3s ease forwards;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-.rcard:hover{border-color:rgba(0,255,170,.16);box-shadow:0 3px 18px rgba(0,0,0,.16);}
-.rcard-hdr{display:flex;align-items:center;gap:11px;padding:13px 16px;cursor:pointer;user-select:none;}
-.rav{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,#00ffaa,#0088ff);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#050d1a;flex-shrink:0;}
-.rinf{flex:1;min-width:0;}
-.rname{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.rmeta{font-size:11px;color:rgba(255,255,255,.34);margin-top:1px;}
-.rtags{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px;}
-.tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:15px;}
-.tag.yes{background:rgba(0,255,170,.1);color:#00ffaa;border:1px solid rgba(0,255,170,.2);}
-.tag.no{background:rgba(255,80,80,.1);color:#ff8080;border:1px solid rgba(255,80,80,.2);}
-.tag.un{background:rgba(255,200,0,.1);color:#ffc800;border:1px solid rgba(255,200,0,.2);}
-.tag.pv{background:rgba(0,136,255,.1);color:#4da6ff;border:1px solid rgba(0,136,255,.2);}
-.tag.lv{background:rgba(170,0,255,.1);color:#cc88ff;border:1px solid rgba(170,0,255,.2);}
-.ract{display:flex;gap:6px;flex-shrink:0;}
-.ibtn{width:29px;height:29px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:none;outline:none;transition:all .2s;}
-.exp-btn{background:rgba(255,255,255,.055);color:rgba(255,255,255,.48);}
-.exp-btn:hover{background:rgba(0,255,170,.08);color:#00ffaa;}
-.del-btn{background:rgba(255,80,80,.07);color:#ff8080;border:1px solid rgba(255,80,80,.15);}
-.del-btn:hover{background:rgba(255,80,80,.2);transform:scale(1.05);}
+  /* TAG cloud */
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+  .tag { background: var(--pale); border: 1px solid var(--border); color: var(--md); border-radius: 20px; padding: 4px 10px; font-size: 12px; font-weight: 500; cursor: default; }
+  .tag:hover { background: var(--md); color: white; }
 
-.rdet{display:none;border-top:1px solid rgba(255,255,255,.055);padding:14px 16px;}
-.rdet.open{display:block;}
-.det-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(172px,1fr));gap:8px;}
-.di{background:rgba(255,255,255,.035);border-radius:9px;padding:9px 12px;}
-.di-lbl{font-size:10px;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px;}
-.di-val{font-size:13px;font-weight:600;color:#fff;}
-.di-val.g{color:#00ffaa;}
-.lvb{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#00ffaa,#0088ff);color:#050d1a;font-size:11px;font-weight:900;}
-.mwrap{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px;}
-.mtag{font-size:10px;padding:2px 7px;border-radius:6px;background:rgba(0,255,170,.08);color:#00ffaa;border:1px solid rgba(0,255,170,.17);}
+  /* PRINT / PAGE TITLE */
+  .page-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--dk); margin-bottom: 1.25rem; padding-bottom: .5rem; border-bottom: 2px solid var(--border); }
 
-/* CONFIRM */
-.conf-bg{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:2000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(7px);}
-.conf-bg.show{display:flex;}
-.conf-box{background:#0d1f3a;border:1px solid rgba(255,255,255,.1);border-radius:17px;padding:28px;text-align:center;max-width:330px;width:92%;animation:scIn .25s cubic-bezier(.175,.885,.32,1.275);}
-@keyframes scIn{from{transform:scale(.8);opacity:0;}to{transform:scale(1);opacity:1;}}
-.conf-icon{font-size:32px;margin-bottom:11px;}
-.conf-title{color:#fff;font-size:16px;font-weight:700;margin-bottom:6px;}
-.conf-sub{color:rgba(255,255,255,.42);font-size:12px;margin-bottom:20px;line-height:1.6;}
-.conf-btns{display:flex;gap:8px;justify-content:center;}
-.cc{padding:9px 20px;border-radius:9px;background:rgba(255,255,255,.065);color:#fff;border:1px solid rgba(255,255,255,.12);font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer;outline:none;}
-.cd{padding:9px 20px;border-radius:9px;background:linear-gradient(135deg,#ff4444,#cc1111);color:#fff;border:none;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;cursor:pointer;outline:none;}
-
-/* TOAST */
-.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(120px);padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;transition:transform .35s cubic-bezier(.175,.885,.32,1.275);max-width:92%;text-align:center;backdrop-filter:blur(10px);background:rgba(210,55,55,.95);color:#fff;}
-.toast.show{transform:translateX(-50%) translateY(0);}
-.toast.ok{background:rgba(0,185,105,.95);}
-.toast.info{background:rgba(0,115,210,.95);}
-
-@media(max-width:600px){
-.fgrid,.cbgrid,.det-grid{grid-template-columns:1fr;}
-.scale-row{gap:4px;}.sbtn{font-size:13px;padding:9px 2px;}
-.topbar{padding:11px 13px;}.card{padding:0 11px;}
-.rec-inner{padding:0 11px;}
-}
+  /* RESPONSIVE */
+  @media (max-width: 520px) { nav button { padding: 12px 10px; font-size: 11px; } }
 </style>
 </head>
 <body>
 
-<!--==== INVISIBLE AI AUTOMATION ENGINE ====-->
-<!--
-  HOW IT WORKS (users never see this):
-  When a person clicks "Save Response", JavaScript automatically:
-  1. Collects all their answers silently in the background
-  2. Sends the data to a Google Apps Script Web App using fetch()
-  3. The Web App writes a new row to your Google Sheet instantly
-  4. The user just sees "Saved!" — they have no idea how it happened
-  This is the AI automation that runs completely behind the scenes.
--->
-
-<canvas class="particles-canvas" id="pCanvas"></canvas>
-<div class="bg-slider">
-<div class="bg-slide active" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80')"></div>
-<div class="bg-slide" style="background-image:url('https://images.unsplash.com/photo-1559825481-12a05cc00344?w=1600&q=80')"></div>
-<div class="bg-slide" style="background-image:url('https://images.unsplash.com/photo-1544966503-7cc5ac882d5d?w=1600&q=80')"></div>
-<div class="bg-slide" style="background-image:url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1600&q=80')"></div>
-<div class="bg-slide" style="background-image:url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=1600&q=80')"></div>
-</div>
-<div class="bg-overlay"></div>
-<div id="toastEl" class="toast"></div>
-
-<!-- SUCCESS OVERLAY -->
-<div class="success-overlay" id="successOv">
-<div class="success-box">
-<div class="s-ring">&#10003;</div>
-<div class="s-title">Response Saved!</div>
-<div class="s-sub">Thank you for completing the survey.<br>Your response has been recorded successfully.</div>
-<button class="s-close" onclick="closeSuccess()">Fill In Again</button>
-</div>
-</div>
-
-<!-- CONFIRM DIALOG -->
-<div class="conf-bg" id="confBg">
-<div class="conf-box">
-<div class="conf-icon">&#128465;</div>
-<div class="conf-title">Delete this record?</div>
-<div class="conf-sub" id="confSub">This permanently removes this response.</div>
-<div class="conf-btns">
-<button class="cc" onclick="closeConf()">Cancel</button>
-<button class="cd" onclick="doDelete()">Yes, Delete</button>
-</div>
-</div>
-</div>
-
-<!-- ====== PAGE 1 — SURVEY ====== -->
-<div id="page1" class="page active">
-<div class="page-wrap">
-
-<div class="topbar">
-<div class="logo">
-<div class="logo-mark">JK</div>
-<div class="brand">Junior K Questions<small>Water Research · CAT PAT 2026</small></div>
-</div>
-<button class="records-link" onclick="openRecords()" type="button">
-&#128203; Responses <span class="cnt" id="topCnt">—</span>
-</button>
-</div>
-
+<!-- HERO -->
 <div class="hero">
-<div class="live-chip"><div class="pulse"></div>Water Survey</div>
-<h1><span class="grad">Junior K Questions</span><br>Water Research SA</h1>
-<p>Complete this short survey about water usage in South Africa. Your responses contribute to an important Grade 12 CAT research project.</p>
-<div class="hero-stats">
-<div class="hstat"><div class="n">5</div><div class="l">Questions</div></div>
-<div class="hstat"><div class="n" id="heroCount">—</div><div class="l">Responses</div></div>
-<div class="hstat"><div class="n">2min</div><div class="l">Duration</div></div>
-</div>
-</div>
-
-<div class="prog-wrap">
-<div class="prog-info"><span>Survey Progress</span><strong id="pct">0%</strong></div>
-<div class="prog-track"><div class="prog-bar" id="pbar" style="width:0%"></div></div>
+  <div class="hero-eyebrow">Practical Assessment Task · Life Sciences / Geography</div>
+  <h1>Water as a <em>Vital Resource</em><br>in South Africa</h1>
+  <div class="hero-sub">Survey of 20 respondents · Thabazimbi, Limpopo</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="val">20</span><span class="lbl">Respondents</span></div>
+    <div class="hero-stat"><span class="val">85%</span><span class="lbl">Crisis Aware</span></div>
+    <div class="hero-stat"><span class="val">3.7</span><span class="lbl">Avg Concern</span></div>
+    <div class="hero-stat"><span class="val">4.4</span><span class="lbl">Avg Household</span></div>
+    <div class="hero-stat"><span class="val">17.7</span><span class="lbl">Avg Age</span></div>
+  </div>
 </div>
 
-<!-- SECTION A -->
-<div class="card">
-<div class="sec-head"><div class="sec-ico blue">&#128100;</div><div><div class="sec-title">Section A — Biographical Information</div><div class="sec-sub">Tell us a bit about yourself</div></div></div>
-<div class="divider"></div>
-<div class="fgrid">
-<div class="fw"><label class="flbl">First Name <span class="r">*</span></label><input type="text" class="fin" id="fn" placeholder="First name" oninput="cp()"></div>
-<div class="fw"><label class="flbl">Last Name <span class="r">*</span></label><input type="text" class="fin" id="ln" placeholder="Last name" oninput="cp()"></div>
-<div class="fw"><label class="flbl">Gender <span class="r">*</span></label><select class="fsel" id="gdr" onchange="cp()"><option value="">Gender</option><option>Male</option><option>Female</option><option>Prefer not to say</option></select></div>
-<div class="fw"><label class="flbl">Age <span class="r">*</span></label><input type="number" class="fin" id="age" placeholder="e.g. 17" min="5" max="100" oninput="cp()"></div>
-<div class="fw"><label class="flbl">Occupation <span class="r">*</span></label><select class="fsel" id="occ" onchange="cp()"><option value="">Occupation</option><option>Student</option><option>Employed</option><option>Unemployed</option><option>Self-employed</option><option>Retired</option></select></div>
-<div class="fw"><label class="flbl">Province <span class="r">*</span></label><select class="fsel" id="prv" onchange="cp()"><option value="">Province</option><option>Gauteng</option><option>Western Cape</option><option>KwaZulu-Natal</option><option>Eastern Cape</option><option>Limpopo</option><option>Mpumalanga</option><option>North West</option><option>Northern Cape</option><option>Free State</option></select></div>
-</div>
+<!-- NAV -->
+<nav>
+  <button class="active" onclick="showPage('raw')">Raw Data</button>
+  <button onclick="showPage('analysis')">Analysis</button>
+  <button onclick="showPage('summary')">Summary Stats</button>
+  <button onclick="showPage('charts')">Charts</button>
+  <button onclick="showPage('saving')">Saving Methods</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 1: RAW SURVEY DATA
+     ═══════════════════════════════════════════════ -->
+<div id="page-raw" class="page active">
+  <div class="page-title">Raw Survey Data</div>
+
+  <div class="search-bar">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="rawSearch" placeholder="Filter by name, gender, occupation…" oninput="filterRaw()">
+  </div>
+
+  <div class="tbl-wrap">
+    <table id="rawTable">
+      <thead>
+        <tr>
+          <th>#</th><th>Gender</th><th>Age</th><th>Occupation</th>
+          <th>Water Crisis?</th><th>Shortage Frequency</th>
+          <th>Concern</th><th>Household Size</th>
+          <th>Saving Method 1</th><th>Saving Method 2</th>
+        </tr>
+      </thead>
+      <tbody id="rawBody"></tbody>
+    </table>
+  </div>
 </div>
 
-<!-- SECTION B -->
-<div class="card">
-<div class="sec-head"><div class="sec-ico green">&#127754;</div><div><div class="sec-title">Section B — Water Awareness</div><div class="sec-sub">Your views on South Africa's water situation</div></div></div>
-<div class="divider"></div>
+<!-- ═══════════════════════════════════════════════
+     PAGE 2: ANALYSIS & FUNCTIONS
+     ═══════════════════════════════════════════════ -->
+<div id="page-analysis" class="page">
+  <div class="page-title">Analysis &amp; Functions</div>
 
-<div class="qblock">
-<div class="qhead"><div class="qnum">1</div><div class="qtxt">Do you think South Africa is currently facing a water crisis?</div></div>
-<div class="qhint">Select ONE answer.</div>
-<div class="rlist" id="q1g">
-<div class="ropt" onclick="pr('q1g',this,'Yes')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">Yes — South Africa is facing a serious water crisis</span></div>
-<div class="ropt" onclick="pr('q1g',this,'No')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">No — I do not think there is a water crisis</span></div>
-<div class="ropt" onclick="pr('q1g',this,'Unsure')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">Unsure — I am not certain either way</span></div>
-</div>
-</div>
+  <!-- LEVEL 1 -->
+  <div class="sec-hdr"><span class="badge">A</span> Level 1 Functions — Basic Statistics</div>
+  <div class="card-grid" id="l1cards"></div>
 
-<div class="qblock">
-<div class="qhead"><div class="qnum">2</div><div class="qtxt">How often does your area experience water shortages?</div></div>
-<div class="qhint">Select ONE answer.</div>
-<div class="rlist" id="q2g">
-<div class="ropt" onclick="pr('q2g',this,'Never')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">Never — we always have water</span></div>
-<div class="ropt" onclick="pr('q2g',this,'Rarely')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">Rarely — a few times a year</span></div>
-<div class="ropt" onclick="pr('q2g',this,'Sometimes')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">Sometimes — about once a month</span></div>
-<div class="ropt" onclick="pr('q2g',this,'Often')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">Often — about once a week</span></div>
-<div class="ropt" onclick="pr('q2g',this,'Almost every day')"><div class="rcircle"><div class="rinner"></div></div><span class="rtxt">Almost every day</span></div>
-</div>
-</div>
+  <!-- LEVEL 2 -->
+  <div class="sec-hdr"><span class="badge">B</span> Level 2 Functions — COUNTIF / SUMIF / ROUND</div>
+  <div class="tbl-wrap">
+    <table id="l2table">
+      <thead><tr><th>Metric</th><th>Excel Formula</th><th>Result</th></tr></thead>
+      <tbody id="l2body"></tbody>
+    </table>
+  </div>
 
-<div class="qblock">
-<div class="qhead"><div class="qnum">3</div><div class="qtxt">On a scale of 1 to 5, how concerned are you about water scarcity in South Africa?</div></div>
-<div class="qhint">1 = Not concerned at all &nbsp;|&nbsp; 5 = Extremely concerned.</div>
-<div class="scale-wrap">
-<div class="scale-ends"><span>1 — Not concerned</span><span>5 — Extremely concerned</span></div>
-<div class="scale-row" id="q3s">
-<button class="sbtn" onclick="ps(this,'q3s',1)" type="button">1</button>
-<button class="sbtn" onclick="ps(this,'q3s',2)" type="button">2</button>
-<button class="sbtn" onclick="ps(this,'q3s',3)" type="button">3</button>
-<button class="sbtn" onclick="ps(this,'q3s',4)" type="button">4</button>
-<button class="sbtn" onclick="ps(this,'q3s',5)" type="button">5</button>
-</div>
-</div>
-</div>
-</div>
+  <!-- LEVEL 3 -->
+  <div class="sec-hdr"><span class="badge">C</span> Level 3 Functions — COUNTIFS / IF / SUMIFS</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th>Excel Formula</th><th>Result</th></tr></thead>
+      <tbody id="l3body"></tbody>
+    </table>
+  </div>
 
-<!-- SECTION C -->
-<div class="card">
-<div class="sec-head"><div class="sec-ico purple">&#127968;</div><div><div class="sec-title">Section C — Water Usage and Conservation</div><div class="sec-sub">Your household habits</div></div></div>
-<div class="divider"></div>
-
-<div class="qblock">
-<div class="qhead"><div class="qnum">4</div><div class="qtxt">How many people live in your household?</div></div>
-<div class="qhint">Type or use the + / − buttons.</div>
-<div class="numwrap">
-<button class="nmbtn" onclick="cn(-1)" type="button">&#8722;</button>
-<input type="number" class="nminput" id="q4" placeholder="0" min="1" max="30" oninput="cp()">
-<button class="nmbtn" onclick="cn(1)" type="button">&#43;</button>
-<span class="nmhint">people in household</span>
-</div>
-</div>
-
-<div class="qblock">
-<div class="qhead"><div class="qnum">5</div><div class="qtxt">Which water saving methods do you practise at home?</div></div>
-<div class="qhint">Tick ALL that apply — you may choose more than one.</div>
-<div class="cbgrid">
-<div class="cbopt" id="cb0" onclick="tc(0)"><div class="cbbox"><div class="cbtick"></div></div><span class="cbtxt">Fixing leaking taps immediately</span></div>
-<div class="cbopt" id="cb1" onclick="tc(1)"><div class="cbbox"><div class="cbtick"></div></div><span class="cbtxt">Taking shorter showers</span></div>
-<div class="cbopt" id="cb2" onclick="tc(2)"><div class="cbbox"><div class="cbtick"></div></div><span class="cbtxt">Collecting rainwater</span></div>
-<div class="cbopt" id="cb3" onclick="tc(3)"><div class="cbbox"><div class="cbtick"></div></div><span class="cbtxt">Reusing grey water for garden</span></div>
-<div class="cbopt" id="cb4" onclick="tc(4)"><div class="cbbox"><div class="cbtick"></div></div><span class="cbtxt">Using a bucket instead of hosepipe</span></div>
-<div class="cbopt" id="cb5" onclick="tc(5)"><div class="cbbox"><div class="cbtick"></div></div><span class="cbtxt">Full loads of laundry only</span></div>
-<div class="cbopt" id="cb6" onclick="tc(6)"><div class="cbbox"><div class="cbtick"></div></div><span class="cbtxt">None of the above</span></div>
-</div>
+  <!-- LEVEL 4 -->
+  <div class="sec-hdr"><span class="badge">D</span> Level 4 Functions — VLOOKUP / Nested IF</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+    <div>
+      <p style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em;">Lookup Reference Table</p>
+      <div class="vlook-table">
+        <table>
+          <thead><tr><th>Level</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td class="ctr">1</td><td>Very Low</td></tr>
+            <tr><td class="ctr">2</td><td>Low</td></tr>
+            <tr><td class="ctr">3</td><td>Moderate</td></tr>
+            <tr><td class="ctr">4</td><td>High</td></tr>
+            <tr><td class="ctr">5</td><td>Very High</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em;">VLOOKUP &amp; Nested IF Results</p>
+      <div class="tbl-wrap" style="margin:0">
+        <table>
+          <thead><tr><th>Metric</th><th>Formula</th><th>Result</th></tr></thead>
+          <tbody id="l4body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="btnrow">
-<button class="btn btn-reset" onclick="resetForm()" type="button">&#8635; Reset</button>
-<button class="btn btn-recs" onclick="openRecords()" type="button">&#128203; View Records</button>
-<button class="btn btn-save" id="saveBtn" onclick="saveResponse()" type="button">&#10003; Save My Response</button>
-</div>
+<!-- ═══════════════════════════════════════════════
+     PAGE 3: SUMMARY STATISTICS
+     ═══════════════════════════════════════════════ -->
+<div id="page-summary" class="page">
+  <div class="page-title">Summary Statistics</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+    <!-- Gender -->
+    <div>
+      <div class="sec-hdr" style="margin-top:0"><span class="badge">1</span> Gender Breakdown</div>
+      <div class="tbl-wrap" style="margin:0">
+        <table>
+          <thead><tr><th>Gender</th><th class="num">Count</th><th class="num">%</th><th class="num">Avg Concern</th></tr></thead>
+          <tbody id="genderBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Occupation -->
+    <div>
+      <div class="sec-hdr" style="margin-top:0"><span class="badge">4</span> Occupation Breakdown</div>
+      <div class="tbl-wrap" style="margin:0">
+        <table>
+          <thead><tr><th>Occupation</th><th class="num">Count</th><th class="num">%</th><th class="num">Avg Concern</th></tr></thead>
+          <tbody id="occBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+    <!-- Shortage Freq -->
+    <div>
+      <div class="sec-hdr" style="margin-top:0"><span class="badge">2</span> Shortage Frequency</div>
+      <div class="tbl-wrap" style="margin:0">
+        <table>
+          <thead><tr><th>Frequency</th><th class="num">Count</th><th class="num">%</th><th class="num">Cumulative %</th></tr></thead>
+          <tbody id="freqBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Concern Level -->
+    <div>
+      <div class="sec-hdr" style="margin-top:0"><span class="badge">3</span> Concern Level Frequency</div>
+      <div class="tbl-wrap" style="margin:0">
+        <table>
+          <thead><tr><th>Level</th><th>Description</th><th class="num">Count</th><th class="num">%</th></tr></thead>
+          <tbody id="concernBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <strong>Key Insight:</strong> 85% of respondents acknowledge South Africa's water crisis. Among students, the average concern level is 3.67/5. The dominant shortage frequency reported is "Rarely (a few times a year)" — indicating intermittent but recurring stress on household water supply.
+  </div>
 </div>
 
-</div>
+<!-- ═══════════════════════════════════════════════
+     PAGE 4: CHARTS
+     ═══════════════════════════════════════════════ -->
+<div id="page-charts" class="page">
+  <div class="page-title">Data Visualisation</div>
+
+  <div class="chart-row">
+    <div class="chart-box">
+      <h3>Water Shortage Frequency Among Respondents</h3>
+      <div class="legend">
+        <span class="legend-item"><span class="legend-swatch" style="background:#1e6b3c"></span>Never</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#2e8b57"></span>Rarely</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#c9a84c"></span>Sometimes</span>
+      </div>
+      <div style="position:relative;height:240px">
+        <canvas id="chart1" role="img" aria-label="Bar chart showing water shortage frequency: Never 6, Rarely 9, Sometimes 5">Bar chart of shortage frequency.</canvas>
+      </div>
+    </div>
+    <div class="chart-box">
+      <h3>Distribution of Concern Levels</h3>
+      <div class="legend" id="pieLegend"></div>
+      <div style="position:relative;height:240px">
+        <canvas id="chart2" role="img" aria-label="Pie chart showing distribution of concern levels 1–5">Pie chart of concern levels.</canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-full">
+    <h3>Concern Level by Gender</h3>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-swatch" style="background:#1e6b3c"></span>Female</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#4ba3c3;border-left:3px dashed #4ba3c3;width:16px;height:0"></span>Male</span>
+    </div>
+    <div style="position:relative;height:260px">
+      <canvas id="chart3" role="img" aria-label="Grouped bar chart comparing concern levels between female and male respondents">Grouped bar chart by gender concern.</canvas>
+    </div>
+  </div>
+
+  <div class="chart-full">
+    <h3>Age Distribution of Respondents</h3>
+    <div style="position:relative;height:200px">
+      <canvas id="chart4" role="img" aria-label="Bar chart showing age distribution of the 20 respondents">Age distribution bar chart.</canvas>
+    </div>
+  </div>
 </div>
 
-<!-- ====== PAGE 2 — RECORDS ====== -->
-<div id="page2" class="page">
-<div class="rec-wrap">
-<div class="topbar">
-<div class="logo">
-<div class="logo-mark">JK</div>
-<div class="brand">Junior K Questions<small>Saved Responses</small></div>
-</div>
-<div class="rec-tools">
-<button class="tbtn t-refresh" onclick="loadRecords()" type="button">&#8635; Refresh</button>
-<button class="tbtn t-back" onclick="closePage2()" type="button">&#8592; Back to Survey</button>
-</div>
-</div>
+<!-- ═══════════════════════════════════════════════
+     PAGE 5: WATER SAVING METHODS
+     ═══════════════════════════════════════════════ -->
+<div id="page-saving" class="page">
+  <div class="page-title">Water Saving Methods</div>
 
-<div class="rec-hero">
-<div class="live-chip"><div class="pulse"></div>Live Data</div>
-<h1><span class="grad">All Responses</span></h1>
-<p>Every submission from every device is automatically saved to your Google Sheet. Data refreshes every time you open this page.</p>
-</div>
+  <div class="sec-hdr" style="margin-top:0">Frequency Analysis — Method 1 + Method 2 Combined</div>
 
-<div class="rec-inner">
-<div class="rec-stats">
-<div class="rst"><div class="rst-n" id="rTotal">—</div><div class="rst-l">Total</div></div>
-<div class="rst"><div class="rst-n" id="rYes">—</div><div class="rst-l">Crisis: Yes</div></div>
-<div class="rst"><div class="rst-n" id="rAvg">—</div><div class="rst-l">Avg Concern</div></div>
-<div class="rst"><div class="rst-n" id="rLeft">—</div><div class="rst-l">Slots Left</div></div>
-</div>
+  <div class="insight-box" style="margin-bottom:1rem">
+    <strong>Most common method:</strong> Taking short showers (mentioned 9 times across both columns).&nbsp;
+    <strong>2 respondents</strong> listed no saving method ("Non") — suggesting a small gap in household water conservation awareness.
+  </div>
 
-<div class="rec-bar">
-<input type="text" class="rsearch" id="rsrch" placeholder="&#128269; Search name or province..." oninput="renderRecs()">
-<div class="rec-tools">
-<button class="tbtn t-clear" onclick="clearAll()" type="button">&#128465; Clear All</button>
-</div>
-</div>
+  <div id="savingBars"></div>
 
-<div id="recList" class="rlist"></div>
-<div id="recEmpty" class="rec-empty" style="display:none;"><div class="rec-empty-icon">&#128203;</div><div class="rec-empty-txt">No responses yet.<br>Be the first to complete the survey.</div></div>
-<div id="recLoading" class="spin-wrap"><div class="spinner"></div><span>Loading responses...</span></div>
-</div>
-</div>
+  <div class="sec-hdr">All Methods Table</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Saving Method</th><th class="num">Method 1 Count</th><th class="num">Method 2 Count</th><th class="num">Total</th></tr></thead>
+      <tbody id="savingBody"></tbody>
+    </table>
+  </div>
+
+  <div class="sec-hdr">Tag Cloud — All Mentioned Practices</div>
+  <div class="tag-cloud" id="tagCloud"></div>
 </div>
 
 <script>
-// ================================================================
-// ██████╗  █████╗  ██████╗██╗  ██╗███████╗███╗   ██╗██████╗
-// ██╔══██╗██╔══██╗██╔════╝██║ ██╔╝██╔════╝████╗  ██║██╔══██╗
-// ██████╔╝███████║██║     █████╔╝ █████╗  ██╔██╗ ██║██║  ██║
-// ██╔══██╗██╔══██║██║     ██╔═██╗ ██╔══╝  ██║╚██╗██║██║  ██║
-// ██████╔╝██║  ██║╚██████╗██║  ██╗███████╗██║ ╚████║██████╔╝
-// ╚═════╝ ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═════╝
-//
-// AI AUTOMATION ENGINE — INVISIBLE TO USERS
-// ================================================================
-// CONFIGURATION — PASTE YOUR WEB APP URL BELOW
-// After deploying your Google Apps Script, replace the placeholder
-// URL below with your actual Web App URL. That is the ONLY change
-// you ever need to make to this file.
-// ================================================================
+// ───────────────────────────────────────────────────────────────────────────
+// RAW DATA
+// ───────────────────────────────────────────────────────────────────────────
+const raw = [
+  [1,"Female",17,"Student","Yes","Rarely (a few times a year)",5,5,"Taking short showers","Using water tanks"],
+  [2,"Male",18,"Student","Yes","Never",3,5,"Using water tanks","Fixing taps"],
+  [3,"Female",17,"Student","Yes","Rarely (a few times a year)",5,5,"Fixing leaks in taps","Turning off tap always"],
+  [4,"Male",19,"Self-employed","Yes","Sometimes (monthly)",5,4,"Using buckets","Drinking water from fridge"],
+  [5,"Female",17,"Student","Yes","Rarely (a few times a year)",2,5,"Taking short showers","Collecting rain water"],
+  [6,"Male",17,"Student","Yes","Sometimes (monthly)",3,3,"Closing taps always","Taking short showers"],
+  [7,"Male",17,"Student","Yes","Rarely (a few times a year)",2,5,"Fixing leaks in taps","Taking short showers"],
+  [8,"Female",18,"Student","Yes","Rarely (a few times a year)",3,5,"Use a cup while brushing teeth","Water plants with cans"],
+  [9,"Female",18,"Student","Yes","Never",4,5,"Use less water","Recycle"],
+  [10,"Male",17,"Student","Yes","Never",5,5,"Taking short showers","Use a cup to brush teeth"],
+  [11,"Female",18,"Student","Yes","Never",4,5,"Closing taps always","Taking short showers"],
+  [12,"Female",17,"Student","Yes","Rarely (a few times a year)",3,5,"Using jar for water","Taking short showers"],
+  [13,"Female",18,"Student","Unsure","Never",3,5,"Taking short showers","Fixing taps"],
+  [14,"Female",18,"Student","Yes","Rarely (a few times a year)",4,4,"Fixing leaks in taps","Taking short showers"],
+  [15,"Female",18,"Student","Yes","Never",3,5,"Taking short showers","Using water tanks"],
+  [16,"Male",17,"Self-employed","Yes","Sometimes (monthly)",4,5,"Closing taps always","Taking short showers"],
+  [17,"Male",18,"Student","Unsure","Never",4,3,"Non","Non"],
+  [18,"Male",19,"Self-employed","Yes","Rarely (a few times a year)",4,2,"Non","Non"],
+  [19,"Female",17,"Student","Yes","Sometimes (monthly)",3,4,"Closing taps always","Use less water"],
+  [20,"Male",18,"Student","Yes","Rarely (a few times a year)",5,4,"Taking short showers","Using water tanks"],
+];
 
-var WEBAPP_URL = 'PASTE_YOUR_WEBAPP_URL_HERE';
+const concernDesc = {1:"Very Low",2:"Low",3:"Moderate",4:"High",5:"Very High"};
 
-// ================================================================
-// HOW THE AUTOMATION WORKS (behind the scenes):
-//
-// SAVE:   User clicks Save → JS collects form data silently →
-//         fetch() sends it as JSON to WEBAPP_URL → Google Apps
-//         Script receives it → writes a new row to Google Sheet →
-//         JS shows success screen. User never sees any of this.
-//
-// READ:   Records page opens → fetch() asks WEBAPP_URL for data →
-//         Google Apps Script reads the sheet → returns JSON array →
-//         JS renders the cards. Completely invisible pipeline.
-//
-// DELETE: User clicks delete → fetch() sends the row ID →
-//         Google Apps Script finds and removes that row → JS
-//         re-renders the list.
-// ================================================================
-
-var ans = { q1:'', q2:'', q3:0 };
-var cbs = [false,false,false,false,false,false,false];
-var cbL = ['Fixing leaking taps','Shorter showers','Collecting rainwater','Reusing grey water','Bucket not hosepipe','Full loads only','None of the above'];
-var allRecs = [];
-var pendId = null;
-var busy = false;
-
-// ── FORM INTERACTIONS ──────────────────────────────────────────
-function g(id){ return document.getElementById(id); }
-
-function pr(gid, el, val){
-  document.querySelectorAll('#'+gid+' .ropt').forEach(function(o){ o.classList.remove('sel'); });
-  el.classList.add('sel');
-  if(gid==='q1g') ans.q1=val;
-  if(gid==='q2g') ans.q2=val;
-  cp();
+// ─── PAGE SWITCHER ───────────────────────────────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (id === 'charts' && !chartsBuilt) buildCharts();
 }
 
-function ps(btn, gid, val){
-  document.querySelectorAll('#'+gid+' .sbtn').forEach(function(b){ b.classList.remove('sel'); });
-  btn.classList.add('sel');
-  ans.q3 = val;
-  cp();
-}
-
-function tc(i){
-  if(i===6){
-    if(!cbs[6]){ for(var j=0;j<6;j++){ cbs[j]=false; g('cb'+j).classList.remove('sel'); } }
-    cbs[6] = !cbs[6];
-  } else {
-    cbs[6] = false; g('cb6').classList.remove('sel');
-    cbs[i] = !cbs[i];
-  }
-  g('cb'+i).classList[cbs[i]?'add':'remove']('sel');
-  cp();
-}
-
-function cn(d){
-  var el=g('q4'); var v=parseInt(el.value)||0;
-  v=Math.max(1,Math.min(30,v+d)); el.value=v; cp();
-}
-
-function cp(){
-  var done=0, tot=9;
-  if(g('fn').value.trim()) done++;
-  if(g('ln').value.trim()) done++;
-  if(g('gdr').value) done++;
-  if(g('age').value) done++;
-  if(g('occ').value) done++;
-  if(g('prv').value) done++;
-  if(ans.q1) done++;
-  if(ans.q2) done++;
-  if(ans.q3) done++;
-  var pct=Math.round(done/tot*100);
-  g('pbar').style.width=pct+'%';
-  g('pct').textContent=pct+'%';
-}
-
-function resetForm(){
-  g('fn').value=''; g('ln').value=''; g('gdr').value='';
-  g('age').value=''; g('occ').value=''; g('prv').value='';
-  document.querySelectorAll('.ropt').forEach(function(o){ o.classList.remove('sel'); });
-  document.querySelectorAll('.sbtn').forEach(function(b){ b.classList.remove('sel'); });
-  for(var i=0;i<cbs.length;i++){ cbs[i]=false; g('cb'+i).classList.remove('sel'); }
-  g('q4').value='';
-  ans={q1:'',q2:'',q3:0};
-  cp();
-}
-
-// ── AI AUTOMATION — SAVE RESPONSE ─────────────────────────────
-// This function runs silently in the background when user clicks Save.
-// The user only sees the success screen — they never see any URLs,
-// network requests, or anything technical.
-async function saveResponse(){
-  if(busy) return;
-
-  // Validate
-  if(!g('fn').value.trim()||!g('ln').value.trim()){ toast('Enter your First Name and Last Name.'); return; }
-  if(!g('gdr').value){ toast('Please select your Gender.'); return; }
-  if(!g('age').value){ toast('Please enter your Age.'); return; }
-  if(!g('occ').value){ toast('Please select your Occupation.'); return; }
-  if(!g('prv').value){ toast('Please select your Province.'); return; }
-  if(!ans.q1){ toast('Please answer Question 1.'); return; }
-  if(!ans.q2){ toast('Please answer Question 2.'); return; }
-  if(!ans.q3){ toast('Please select a number for Question 3.'); return; }
-  if(!g('q4').value){ toast('Please enter household size for Question 4.'); return; }
-  if(!cbs.some(function(s){ return s; })){ toast('Please select at least one option for Question 5.'); return; }
-
-  if(WEBAPP_URL === 'PASTE_YOUR_WEBAPP_URL_HERE'){
-    toast('Web App URL not configured yet. See setup instructions.');
-    return;
-  }
-
-  busy = true;
-  var btn = g('saveBtn');
-  btn.textContent = 'Saving...';
-  btn.disabled = true;
-
-  // Build data record
-  var methods = cbL.filter(function(_,i){ return cbs[i]; });
-  var now = new Date().toLocaleString('en-ZA',{
-    day:'2-digit', month:'short', year:'numeric',
-    hour:'2-digit', minute:'2-digit'
+// ─── RAW DATA TABLE ──────────────────────────────────────────────────────────
+function buildRaw(filter = '') {
+  const tb = document.getElementById('rawBody');
+  tb.innerHTML = '';
+  const f = filter.toLowerCase();
+  raw.forEach(r => {
+    if (f && !r.join(' ').toLowerCase().includes(f)) return;
+    const cl = r[6];
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="ctr" style="font-weight:600;color:var(--md)">${r[0]}</td>
+      <td><span class="${r[1]==='Female'?'badge-female':'badge-male'}">${r[1]}</span></td>
+      <td class="ctr">${r[2]}</td>
+      <td><span class="pill">${r[3]}</span></td>
+      <td class="ctr" style="color:${r[4]==='Yes'?'#155724':r[4]==='No'?'#721c24':'#856404'};font-weight:600">${r[4]}</td>
+      <td style="font-size:12px">${r[5]}</td>
+      <td class="ctr"><span class="concern-badge concern-${cl}">${cl} – ${concernDesc[cl]}</span></td>
+      <td class="ctr">${r[7]}</td>
+      <td style="font-size:12px">${r[8]}</td>
+      <td style="font-size:12px">${r[9]}</td>
+    `;
+    tb.appendChild(tr);
   });
+}
+buildRaw();
 
-  var record = {
-    action: 'save',
-    id: Date.now(),
-    fn: g('fn').value.trim(),
-    ln: g('ln').value.trim(),
-    fullName: g('fn').value.trim()+' '+g('ln').value.trim(),
-    gender: g('gdr').value,
-    age: g('age').value,
-    occ: g('occ').value,
-    prov: g('prv').value,
-    q1: ans.q1,
-    q2: ans.q2,
-    q3: ans.q3,
-    q4: g('q4').value,
-    q5: methods.join(', '),
-    savedAt: now
-  };
+function filterRaw() {
+  buildRaw(document.getElementById('rawSearch').value);
+}
 
-  // ── SILENT BACKGROUND SEND TO GOOGLE SHEETS ──
-  try{
-    var res = await fetch(WEBAPP_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(record)
-    });
-    var json = await res.json();
-    if(json.ok){
-      resetForm();
-      g('successOv').classList.add('show');
-      loadCount(); // silently refresh the count badge
-    } else {
-      toast('Something went wrong. Please try again.');
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+const countWhere = (col, val) => raw.filter(r => r[col] === val).length;
+const avg = arr => arr.reduce((a,b)=>a+b,0)/arr.length;
+const round2 = n => Math.round(n * 100) / 100;
+const round1 = n => Math.round(n * 10) / 10;
+
+const femaleRows = raw.filter(r => r[1]==='Female');
+const maleRows   = raw.filter(r => r[1]==='Male');
+const yesRows    = raw.filter(r => r[4]==='Yes');
+const studentRows= raw.filter(r => r[3]==='Student');
+const selfRows   = raw.filter(r => r[3]==='Self-employed');
+const ages       = raw.map(r=>r[2]);
+const concerns   = raw.map(r=>r[6]);
+const households = raw.map(r=>r[7]);
+
+const never    = countWhere(5,'Never');
+const rarely   = countWhere(5,'Rarely (a few times a year)');
+const sometimes= countWhere(5,'Sometimes (monthly)');
+
+// ─── LEVEL 1 CARDS ───────────────────────────────────────────────────────────
+const l1 = [
+  {label:"Total Respondents", val:raw.length, formula:"=COUNTA(A3:A22)"},
+  {label:"Average Age", val:round1(avg(ages)), formula:"=AVERAGE(C3:C22)"},
+  {label:"Min Concern Level", val:Math.min(...concerns), formula:"=MIN(G3:G22)"},
+  {label:"Max Concern Level", val:Math.max(...concerns), formula:"=MAX(G3:G22)"},
+  {label:"Average Concern", val:round2(avg(concerns)), formula:"=AVERAGE(G3:G22)", gold:true},
+  {label:"Median Concern", val:3, formula:"=MEDIAN(G3:G22)"},
+  {label:"Mode Concern", val:5, formula:"=MODE(G3:G22)"},
+  {label:"Avg Household Size", val:round2(avg(households)), formula:"=AVERAGE(H3:H22)"},
+  {label:"Min Household Size", val:Math.min(...households), formula:"=MIN(H3:H22)"},
+  {label:"Max Household Size", val:Math.max(...households), formula:"=MAX(H3:H22)"},
+  {label:"Total Male", val:maleRows.length, formula:'=COUNTIF(B3:B22,"Male")'},
+  {label:"Total Female", val:femaleRows.length, formula:'=COUNTIF(B3:B22,"Female")', gold:true},
+];
+const c1 = document.getElementById('l1cards');
+l1.forEach(d => {
+  c1.innerHTML += `<div class="metric-card${d.gold?' gold':''}">
+    <div class="label">${d.label}</div>
+    <div class="value">${d.val}</div>
+    <div class="formula-tag">${d.formula}</div>
+  </div>`;
+});
+
+// ─── LEVEL 2 ─────────────────────────────────────────────────────────────────
+const avgConcernStudents = round2(avg(studentRows.map(r=>r[6])));
+const l2data = [
+  ['Respondents saying "Yes" to Water Crisis', '=COUNTIF(E3:E22,"Yes")', countWhere(4,'Yes')],
+  ['Respondents saying "No" to Water Crisis', '=COUNTIF(E3:E22,"No")', countWhere(4,'No')],
+  ['Respondents saying "Unsure"', '=COUNTIF(E3:E22,"Unsure")', countWhere(4,'Unsure')],
+  ['Count – Shortage "Never"', '=COUNTIF(F3:F22,"Never")', never],
+  ['Count – Shortage "Rarely"', '=COUNTIF(F3:F22,"Rarely…")', rarely],
+  ['Count – Shortage "Sometimes"', '=COUNTIF(F3:F22,"Sometimes…")', sometimes],
+  ['% Female (rounded 1 dp)', '=ROUND(COUNTIF…/COUNTA…*100,1)', round1(femaleRows.length/20*100)+'%'],
+  ['% Male (rounded 1 dp)', '=ROUND(COUNTIF…/COUNTA…*100,1)', round1(maleRows.length/20*100)+'%'],
+  ['Largest Household Size', '=LARGE(H3:H22,1)', Math.max(...households)],
+  ['2nd Largest Household Size', '=LARGE(H3:H22,2)', [...households].sort((a,b)=>b-a)[1]],
+  ['Smallest Household Size', '=SMALL(H3:H22,1)', Math.min(...households)],
+  ['Students – Avg Concern Level', '=ROUND(SUMIF…/COUNTIF…,2)', avgConcernStudents],
+];
+const tb2 = document.getElementById('l2body');
+l2data.forEach(([lbl,fml,res]) => {
+  tb2.innerHTML += `<tr><td>${lbl}</td><td><span class="formula">${fml}</span></td><td class="num" style="font-weight:600;color:var(--dk)">${res}</td></tr>`;
+});
+
+// ─── LEVEL 3 ─────────────────────────────────────────────────────────────────
+const femStudYes = raw.filter(r=>r[1]==='Female'&&r[3]==='Student'&&r[4]==='Yes').length;
+const malStudYes = raw.filter(r=>r[1]==='Male'&&r[3]==='Student'&&r[4]==='Yes').length;
+const highConcern= raw.filter(r=>r[6]>=4).length;
+const lowConcern = raw.filter(r=>r[6]<=2).length;
+const avgAgeFem  = round2(avg(femaleRows.map(r=>r[2])));
+const avgAgeMal  = round2(avg(maleRows.map(r=>r[2])));
+const pctYes     = yesRows.length/20;
+const awareness  = pctYes > 0.75 ? 'High awareness' : 'Moderate awareness';
+const selfCount  = selfRows.length;
+const avgHH_Yes  = Math.ceil(avg(yesRows.map(r=>r[7]))*10)/10;
+const avgConcSelf= round2(avg(selfRows.map(r=>r[6])));
+const l3data = [
+  ['Female Students saying "Yes"', '=COUNTIFS(B…"Female",D…"Student",E…"Yes")', femStudYes],
+  ['Male Students saying "Yes"', '=COUNTIFS(B…"Male",D…"Student",E…"Yes")', malStudYes],
+  ['High Concern (level ≥ 4)', '=COUNTIFS(G3:G22,">="&4)', highConcern],
+  ['Low Concern (level ≤ 2)', '=COUNTIFS(G3:G22,"<="&2)', lowConcern],
+  ['Avg Age – Female Respondents', '=SUMIFS(C…,B…,"Female")/COUNTIF(…"Female")', avgAgeFem],
+  ['Avg Age – Male Respondents', '=SUMIFS(C…,B…,"Male")/COUNTIF(…"Male")', avgAgeMal],
+  ['Crisis Awareness (Yes > 75%?)', '=IF(COUNTIF…/COUNTA…>0.75,"High","Moderate")', awareness],
+  ['Self-employed count', '=COUNTIF(D3:D22,"Self-employed")', selfCount],
+  ['Avg Household Size – "Yes" Crisis', '=ROUNDUP(SUMIFS…/COUNTIF…,1)', avgHH_Yes],
+  ['Avg Concern – Self-employed', '=IF(COUNTIF…>0,SUMIFS…/COUNTIF…,"N/A")', avgConcSelf],
+];
+const tb3 = document.getElementById('l3body');
+l3data.forEach(([lbl,fml,res]) => {
+  tb3.innerHTML += `<tr><td>${lbl}</td><td><span class="formula">${fml}</span></td><td class="num" style="font-weight:600;color:var(--dk)">${res}</td></tr>`;
+});
+
+// ─── LEVEL 4 ─────────────────────────────────────────────────────────────────
+const ageCategory = age => age < 18 ? 'Minor' : age < 25 ? 'Youth' : 'Adult';
+const riskRating = pctYes >= 0.8 ? 'HIGH RISK' : pctYes >= 0.5 ? 'MEDIUM RISK' : 'LOW RISK';
+const riskColor = riskRating === 'HIGH RISK' ? '#dc3545' : riskRating === 'MEDIUM RISK' ? '#856404' : '#155724';
+const l4data = [
+  ['Concern desc – Respondent 1', '=VLOOKUP(G3,$A$48:$B$52,2,FALSE)', `${raw[0][6]} → ${concernDesc[raw[0][6]]}`],
+  ['Concern desc – Respondent 10', '=VLOOKUP(G12,$A$48:$B$52,2,FALSE)', `${raw[9][6]} → ${concernDesc[raw[9][6]]}`],
+  ['Concern desc – Respondent 20', '=VLOOKUP(G22,$A$48:$B$52,2,FALSE)', `${raw[19][6]} → ${concernDesc[raw[19][6]]}`],
+  ['Age category – Respondent 1', '=IF(C3<18,"Minor",IF(C3<25,"Youth","Adult"))', `${raw[0][2]} → ${ageCategory(raw[0][2])}`],
+  ['Overall water risk rating', '=IF(COUNTIF…/20>=0.8,"HIGH RISK",IF(…>=0.5,"MEDIUM RISK","LOW RISK"))', `<span style="color:${riskColor};font-weight:700">${riskRating}</span>`],
+];
+const tb4 = document.getElementById('l4body');
+l4data.forEach(([lbl,fml,res]) => {
+  tb4.innerHTML += `<tr><td style="font-size:12px">${lbl}</td><td><span class="formula" style="font-size:10px">${fml}</span></td><td class="num">${res}</td></tr>`;
+});
+
+// ─── SUMMARY TABLES ──────────────────────────────────────────────────────────
+// Gender
+const avgConcFem = round2(avg(femaleRows.map(r=>r[6])));
+const avgConcMal = round2(avg(maleRows.map(r=>r[6])));
+const avgConcAll = round2(avg(concerns));
+document.getElementById('genderBody').innerHTML = `
+  <tr><td><span class="badge-female">Female</span></td><td class="num">${femaleRows.length}</td><td class="num">${round1(femaleRows.length/20*100)}%</td><td class="num">${avgConcFem}</td></tr>
+  <tr><td><span class="badge-male">Male</span></td><td class="num">${maleRows.length}</td><td class="num">${round1(maleRows.length/20*100)}%</td><td class="num">${avgConcMal}</td></tr>
+  <tr class="tfoot-row"><td>Total</td><td class="num">20</td><td class="num">100%</td><td class="num">${avgConcAll}</td></tr>`;
+
+// Shortage Freq
+let cumul = 0;
+const freqRows = [
+  ['Never', never],
+  ['Rarely (a few times/year)', rarely],
+  ['Sometimes (monthly)', sometimes],
+];
+const fBody = document.getElementById('freqBody');
+freqRows.forEach(([lbl,cnt], i) => {
+  const pct = round1(cnt/20*100);
+  cumul += pct;
+  fBody.innerHTML += `<tr><td>${lbl}</td><td class="num">${cnt}</td><td class="num">${pct}%</td><td class="num">${round1(cumul)}%</td></tr>`;
+});
+fBody.innerHTML += `<tr class="tfoot-row"><td>Total</td><td class="num">20</td><td class="num">100%</td><td class="num"></td></tr>`;
+
+// Concern Level
+const cBody = document.getElementById('concernBody');
+let totalC = 0;
+for (let i=1; i<=5; i++) {
+  const cnt = raw.filter(r=>r[6]===i).length;
+  totalC += cnt;
+  cBody.innerHTML += `<tr><td class="ctr"><span class="concern-badge concern-${i}">${i}</span></td><td>${concernDesc[i]}</td><td class="num">${cnt}</td><td class="num">${round1(cnt/20*100)}%</td></tr>`;
+}
+cBody.innerHTML += `<tr class="tfoot-row"><td colspan="2">Total</td><td class="num">${totalC}</td><td class="num">100%</td></tr>`;
+
+// Occupation
+const avgConcStd = round2(avg(studentRows.map(r=>r[6])));
+const avgConcSelf2 = round2(avg(selfRows.map(r=>r[6])));
+document.getElementById('occBody').innerHTML = `
+  <tr><td><span class="pill">Student</span></td><td class="num">${studentRows.length}</td><td class="num">${round1(studentRows.length/20*100)}%</td><td class="num">${avgConcStd}</td></tr>
+  <tr><td><span class="pill">Self-employed</span></td><td class="num">${selfRows.length}</td><td class="num">${round1(selfRows.length/20*100)}%</td><td class="num">${avgConcSelf2}</td></tr>
+  <tr class="tfoot-row"><td>Total</td><td class="num">20</td><td class="num">100%</td><td class="num"></td></tr>`;
+
+// ─── SAVING METHODS ───────────────────────────────────────────────────────────
+const methods = [
+  "Taking short showers","Using water tanks","Fixing leaks in taps",
+  "Turning off tap always","Using buckets","Drinking water from fridge",
+  "Collecting rain water","Closing taps always","Use a cup while brushing teeth",
+  "Water plants with cans","Use less water","Recycle",
+  "Use a cup to brush teeth","Using jar for water","Fixing taps","Non"
+];
+const col8 = raw.map(r=>r[8]);
+const col9 = raw.map(r=>r[9]);
+const getCount = (col, m) => col.filter(v=>v===m).length;
+const methodData = methods.map(m => {
+  const c1 = getCount(col8, m), c2 = getCount(col9, m);
+  return {m, c1, c2, total: c1+c2};
+}).sort((a,b)=>b.total-a.total);
+
+// Bars
+const barsDiv = document.getElementById('savingBars');
+const maxTotal = Math.max(...methodData.map(d=>d.total));
+methodData.forEach(d => {
+  if (d.m === 'Non') return;
+  const pct = Math.round(d.total / maxTotal * 100);
+  barsDiv.innerHTML += `<div class="bar-row">
+    <span class="bar-label">${d.m}</span>
+    <div class="bar-track"><div class="bar-fill ${d.m==='Taking short showers'?'gold':''}" style="width:${pct}%"></div></div>
+    <span class="bar-count">${d.total}</span>
+  </div>`;
+});
+
+// Table
+const sBody = document.getElementById('savingBody');
+methodData.forEach(d => {
+  sBody.innerHTML += `<tr>
+    <td>${d.m}</td><td class="num">${d.c1}</td><td class="num">${d.c2}</td>
+    <td class="num" style="font-weight:600;color:var(--dk)">${d.total}</td>
+  </tr>`;
+});
+// Totals
+const t1 = methodData.reduce((a,d)=>a+d.c1,0);
+const t2 = methodData.reduce((a,d)=>a+d.c2,0);
+sBody.innerHTML += `<tr class="tfoot-row"><td>Total</td><td class="num">${t1}</td><td class="num">${t2}</td><td class="num">${t1+t2}</td></tr>`;
+
+// Tags
+const tagCloud = document.getElementById('tagCloud');
+methodData.filter(d=>d.m!=='Non').forEach(d => {
+  tagCloud.innerHTML += `<span class="tag">${d.m} <strong>${d.total}</strong></span>`;
+});
+
+// ─── CHARTS ───────────────────────────────────────────────────────────────────
+let chartsBuilt = false;
+function buildCharts() {
+  chartsBuilt = true;
+
+  // Chart 1: Bar – Shortage Frequency
+  new Chart(document.getElementById('chart1'), {
+    type: 'bar',
+    data: {
+      labels: ['Never','Rarely\n(few times/yr)','Sometimes\n(monthly)'],
+      datasets: [{
+        label: 'Respondents',
+        data: [never, rarely, sometimes],
+        backgroundColor: ['#1e6b3c','#2e8b57','#c9a84c'],
+        borderRadius: 5,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: {display:false} },
+      scales: {
+        y: { beginAtZero:true, max:12, ticks:{stepSize:2,font:{size:11}} },
+        x: { ticks:{font:{size:11}} }
+      }
     }
-  } catch(e){
-    toast('Could not save. Check your internet and try again.');
-  }
-
-  busy = false;
-  btn.textContent = '✓ Save My Response';
-  btn.disabled = false;
-}
-
-function closeSuccess(){
-  g('successOv').classList.remove('show');
-}
-
-// ── AI AUTOMATION — LOAD RECORDS ───────────────────────────────
-// Silently fetches all rows from Google Sheet and renders them.
-async function loadRecords(){
-  g('recLoading').style.display='flex';
-  g('recList').style.display='none';
-  g('recEmpty').style.display='none';
-
-  if(WEBAPP_URL === 'PASTE_YOUR_WEBAPP_URL_HERE'){
-    g('recLoading').style.display='none';
-    g('recEmpty').style.display='block';
-    return;
-  }
-
-  try{
-    var res = await fetch(WEBAPP_URL+'?action=read&t='+Date.now());
-    var json = await res.json();
-    var rows = (json.data || []).slice(1); // skip header row
-    allRecs = rows.map(function(r){
-      return {
-        id:r[0], fn:r[1], ln:r[2], fullName:r[3],
-        gender:r[4], age:r[5], occ:r[6], prov:r[7],
-        q1:r[8], q2:r[9], q3:r[10], q4:r[11],
-        q5:(r[12]||'').split(', ').filter(Boolean),
-        savedAt:r[13]
-      };
-    });
-    g('recLoading').style.display='none';
-    updateStats(allRecs);
-    updateBadge(allRecs.length);
-    renderRecs();
-  } catch(e){
-    g('recLoading').style.display='none';
-    g('recEmpty').style.display='block';
-    toast('Could not load records. Check internet connection.');
-  }
-}
-
-async function loadCount(){
-  if(WEBAPP_URL==='PASTE_YOUR_WEBAPP_URL_HERE'){ updateBadge(0); return; }
-  try{
-    var res=await fetch(WEBAPP_URL+'?action=read&t='+Date.now());
-    var json=await res.json();
-    var n=(json.data||[]).length-1;
-    updateBadge(Math.max(0,n));
-  } catch(e){}
-}
-
-// ── RENDER RECORDS ─────────────────────────────────────────────
-function renderRecs(){
-  var q=(g('rsrch').value||'').trim().toLowerCase();
-  var filtered=allRecs.filter(function(r){
-    return (r.fullName||'').toLowerCase().includes(q)||(r.prov||'').toLowerCase().includes(q);
   });
-  var list=g('recList'), empty=g('recEmpty');
-  list.innerHTML='';
-  if(filtered.length===0){ list.style.display='none'; empty.style.display='block'; }
-  else{
-    list.style.display='flex'; empty.style.display='none';
-    filtered.forEach(function(r,i){
-      var init=((r.fn||'?')[0]+(r.ln||'?')[0]).toUpperCase();
-      var qc=r.q1==='Yes'?'yes':r.q1==='No'?'no':'un';
-      var mhtml=(r.q5||[]).map(function(m){ return '<span class="mtag">'+esc(m)+'</span>'; }).join('');
-      var d=document.createElement('div');
-      d.className='rcard';
-      d.innerHTML=
-        '<div class="rcard-hdr" onclick="expand(\''+r.id+'\')">'
-        +'<div class="rav">'+init+'</div>'
-        +'<div class="rinf">'
-        +'<div class="rname">'+(i+1)+'. '+esc(r.fullName||'')+'</div>'
-        +'<div class="rmeta">'+esc(r.gender||'')+' &middot; Age '+esc(String(r.age||''))+' &middot; '+esc(r.savedAt||'')+'</div>'
-        +'<div class="rtags"><span class="tag '+qc+'">Crisis: '+esc(r.q1||'')+'</span>'
-        +'<span class="tag pv">'+esc(r.prov||'')+'</span>'
-        +'<span class="tag lv">Concern: '+esc(String(r.q3||''))+'/5</span></div>'
-        +'</div>'
-        +'<div class="ract">'
-        +'<button class="ibtn exp-btn" onclick="event.stopPropagation();expand(\''+r.id+'\')" type="button">&#9660;</button>'
-        +'<button class="ibtn del-btn" onclick="event.stopPropagation();askDel(\''+r.id+'\',\''+escQ(r.fullName||'')+'\')" type="button">&#128465;</button>'
-        +'</div>'
-        +'</div>'
-        +'<div class="rdet" id="rd_'+r.id+'">'
-        +'<div class="det-grid">'
-        +'<div class="di"><div class="di-lbl">Full Name</div><div class="di-val g">'+esc(r.fullName||'')+'</div></div>'
-        +'<div class="di"><div class="di-lbl">Gender</div><div class="di-val">'+esc(r.gender||'')+'</div></div>'
-        +'<div class="di"><div class="di-lbl">Age</div><div class="di-val">'+esc(String(r.age||''))+'</div></div>'
-        +'<div class="di"><div class="di-lbl">Occupation</div><div class="di-val">'+esc(r.occ||'')+'</div></div>'
-        +'<div class="di"><div class="di-lbl">Province</div><div class="di-val">'+esc(r.prov||'')+'</div></div>'
-        +'<div class="di"><div class="di-lbl">Q1 — Water Crisis</div><div class="di-val g">'+esc(r.q1||'')+'</div></div>'
-        +'<div class="di"><div class="di-lbl">Q2 — Shortages</div><div class="di-val">'+esc(r.q2||'')+'</div></div>'
-        +'<div class="di"><div class="di-lbl">Q3 — Concern</div><div class="di-val"><span class="lvb">'+esc(String(r.q3||''))+'</span></div></div>'
-        +'<div class="di"><div class="di-lbl">Q4 — Household</div><div class="di-val">'+esc(String(r.q4||''))+' people</div></div>'
-        +'<div class="di" style="grid-column:1/-1"><div class="di-lbl">Q5 — Methods</div><div class="mwrap">'+mhtml+'</div></div>'
-        +'</div>'
-        +'</div>';
-      list.appendChild(d);
-    });
-  }
+
+  // Chart 2: Pie – Concern levels
+  const pieColors = ['#c8e6d0','#7fbf9e','#2e8b57','#c9a84c','#8b3a1a'];
+  const pieCounts = [1,2,3,4,5].map(i=>raw.filter(r=>r[6]===i).length);
+  const pieLegend = document.getElementById('pieLegend');
+  [1,2,3,4,5].forEach((i,idx) => {
+    pieLegend.innerHTML += `<span class="legend-item"><span class="legend-swatch" style="background:${pieColors[idx]}"></span>${concernDesc[i]} (${pieCounts[idx]})</span>`;
+  });
+  new Chart(document.getElementById('chart2'), {
+    type: 'pie',
+    data: {
+      labels: Object.values(concernDesc),
+      datasets: [{
+        data: pieCounts,
+        backgroundColor: pieColors,
+        borderWidth: 2,
+        borderColor: '#fff',
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend:{display:false} }
+    }
+  });
+
+  // Chart 3: Grouped Bar – Concern by Gender
+  const concernByGender = (rows, level) => rows.filter(r=>r[6]===level).length;
+  new Chart(document.getElementById('chart3'), {
+    type: 'bar',
+    data: {
+      labels: ['Very Low (1)','Low (2)','Moderate (3)','High (4)','Very High (5)'],
+      datasets: [
+        {
+          label: 'Female',
+          data: [1,2,3,4,5].map(i=>concernByGender(femaleRows,i)),
+          backgroundColor: '#1e6b3c',
+          borderRadius: 4,
+        },
+        {
+          label: 'Male',
+          data: [1,2,3,4,5].map(i=>concernByGender(maleRows,i)),
+          backgroundColor: '#4ba3c3',
+          borderRadius: 4,
+          borderSkipped: false,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend:{display:false} },
+      scales: {
+        y: {beginAtZero:true, ticks:{stepSize:1,font:{size:11}}},
+        x: {ticks:{font:{size:11}}}
+      }
+    }
+  });
+
+  // Chart 4: Age distribution
+  const ageCounts = {};
+  ages.forEach(a => { ageCounts[a] = (ageCounts[a]||0)+1; });
+  const ageLabels = Object.keys(ageCounts).sort((a,b)=>a-b);
+  new Chart(document.getElementById('chart4'), {
+    type: 'bar',
+    data: {
+      labels: ageLabels.map(a => 'Age '+a),
+      datasets: [{
+        label: 'Respondents',
+        data: ageLabels.map(a=>ageCounts[a]),
+        backgroundColor: ageLabels.map((_,i)=>['#1e6b3c','#2e8b57','#c9a84c'][i%3]),
+        borderRadius: 5,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {legend:{display:false}},
+      scales: {
+        y:{beginAtZero:true,ticks:{stepSize:1,font:{size:11}}},
+        x:{ticks:{font:{size:11}}}
+      }
+    }
+  });
 }
-
-function expand(id){
-  var det=g('rd_'+id); if(!det) return;
-  det.classList.toggle('open');
-  var btn=det.previousElementSibling.querySelector('.exp-btn');
-  if(btn) btn.innerHTML=det.classList.contains('open')?'&#9650;':'&#9660;';
-}
-
-// ── AI AUTOMATION — DELETE ─────────────────────────────────────
-function askDel(id,name){
-  pendId=id;
-  g('confSub').textContent='This permanently removes '+name+"'s response from the Google Sheet.";
-  g('confBg').classList.add('show');
-}
-function closeConf(){ g('confBg').classList.remove('show'); pendId=null; }
-
-async function doDelete(){
-  if(!pendId) return;
-  closeConf();
-  toast('Deleting...','info');
-  try{
-    var res=await fetch(WEBAPP_URL+'?action=delete&id='+encodeURIComponent(pendId));
-    var json=await res.json();
-    if(json.ok){ toast('Record deleted.','ok'); await loadRecords(); }
-    else{ toast('Delete failed. Try again.'); }
-  } catch(e){ toast('Delete failed. Check connection.'); }
-}
-
-// ── AI AUTOMATION — CLEAR ALL ──────────────────────────────────
-async function clearAll(){
-  if(allRecs.length===0){ toast('No records to clear.'); return; }
-  if(!confirm('Delete ALL '+allRecs.length+' responses from Google Sheets? This cannot be undone.')) return;
-  toast('Clearing all records...','info');
-  try{
-    var res=await fetch(WEBAPP_URL+'?action=clear');
-    var json=await res.json();
-    if(json.ok){ toast('All records cleared.','ok'); await loadRecords(); }
-    else{ toast('Clear failed.'); }
-  } catch(e){ toast('Clear failed.'); }
-}
-
-function updateStats(recs){
-  g('rTotal').textContent=recs.length;
-  g('rLeft').textContent=Math.max(0,20-recs.length);
-  var yes=recs.filter(function(r){ return r.q1==='Yes'; }).length;
-  g('rYes').textContent=yes;
-  if(recs.length>0){
-    var avg=recs.reduce(function(s,r){ return s+Number(r.q3); },0)/recs.length;
-    g('rAvg').textContent=avg.toFixed(1);
-  } else g('rAvg').textContent='—';
-}
-
-function updateBadge(n){
-  g('topCnt').textContent=n;
-  g('heroCount').textContent=n;
-}
-
-// ── NAVIGATION ─────────────────────────────────────────────────
-function openRecords(){
-  g('page1').classList.remove('active');
-  g('page2').classList.add('active');
-  loadRecords();
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function closePage2(){
-  g('page2').classList.remove('active');
-  g('page1').classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-// ── HELPERS ────────────────────────────────────────────────────
-function toast(msg,type){
-  var t=g('toastEl');
-  t.textContent=msg;
-  t.className='toast'+(type==='ok'?' ok':type==='info'?' info':'');
-  setTimeout(function(){ t.classList.add('show'); },10);
-  setTimeout(function(){ t.classList.remove('show'); },4000);
-}
-function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function escQ(s){ return (s||'').replace(/'/g,"\\'"); }
-
-// ── BACKGROUND SLIDER ──────────────────────────────────────────
-var bgI=0; var bgS=document.querySelectorAll('.bg-slide');
-setInterval(function(){
-  bgS[bgI].classList.remove('active');
-  bgI=(bgI+1)%bgS.length;
-  bgS[bgI].classList.add('active');
-},5000);
-
-// ── PARTICLES ──────────────────────────────────────────────────
-(function(){
-  var c=g('pCanvas'); var ctx=c.getContext('2d');
-  function rs(){ c.width=window.innerWidth; c.height=window.innerHeight; }
-  rs(); window.addEventListener('resize',rs);
-  var pts=[];
-  for(var i=0;i<32;i++){
-    pts.push({
-      x:Math.random()*window.innerWidth, y:Math.random()*window.innerHeight,
-      r:Math.random()*2+0.4,
-      vx:(Math.random()-0.5)*0.26, vy:-(Math.random()*0.36+0.1),
-      op:Math.random()*0.4+0.08,
-      col:Math.random()>0.5?'0,255,170':'0,136,255'
-    });
-  }
-  function draw(){
-    ctx.clearRect(0,0,c.width,c.height);
-    pts.forEach(function(p){
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.y<-8){ p.y=c.height+8; p.x=Math.random()*c.width; }
-      if(p.x<0||p.x>c.width) p.vx*=-1;
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba('+p.col+','+p.op+')'; ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-// ── STARTUP ────────────────────────────────────────────────────
-loadCount();
 </script>
 </body>
 </html>
