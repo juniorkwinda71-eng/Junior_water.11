@@ -1,871 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Water as a Vital Resource in South Africa – PAT Report</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Junior K Arena_11</title>
 <style>
-  :root {
-    --dk: #0f2d1a;
-    --md: #1e6b3c;
-    --lt: #2e8b57;
-    --pale: #e8f5ee;
-    --gold: #c9a84c;
-    --gold-lt: #f5e9c8;
-    --white: #fafaf8;
-    --off: #f2f5f1;
-    --border: #c8dfd0;
-    --text: #1a2e22;
-    --muted: #4a6b55;
-    --light-text: #7a9b85;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--off);
-    color: var(--text);
-    font-size: 14px;
-    line-height: 1.6;
-  }
-
-  /* NAV */
-  nav {
-    background: var(--dk);
-    padding: 0 2rem;
-    display: flex;
-    gap: 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 2px solid var(--gold);
-  }
-  nav button {
-    background: none;
-    border: none;
-    color: #7aab8a;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    padding: 14px 18px;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -2px;
-    transition: color .2s, border-color .2s;
-    letter-spacing: .02em;
-  }
-  nav button:hover { color: #c8e6d0; }
-  nav button.active { color: var(--gold); border-bottom-color: var(--gold); }
-
-  /* HERO */
-  .hero {
-    background: linear-gradient(135deg, var(--dk) 0%, #1a4d2b 50%, #0d2416 100%);
-    padding: 3.5rem 2rem 2.5rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 60% 40% at 50% 80%, rgba(46,139,87,.25) 0%, transparent 70%);
-  }
-  .hero-eyebrow {
-    font-size: 11px;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 600;
-    margin-bottom: .75rem;
-    position: relative;
-  }
-  .hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    color: #e8f5ee;
-    line-height: 1.2;
-    margin-bottom: .5rem;
-    position: relative;
-  }
-  .hero h1 em { color: var(--gold); font-style: italic; }
-  .hero-sub {
-    color: #7aab8a;
-    font-size: 14px;
-    position: relative;
-    margin-bottom: 2rem;
-  }
-  .hero-stats {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    position: relative;
-  }
-  .hero-stat {
-    background: rgba(255,255,255,.07);
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius: 10px;
-    padding: .75rem 1.25rem;
-    min-width: 100px;
-  }
-  .hero-stat .val {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.6rem;
-    color: var(--gold);
-    display: block;
-  }
-  .hero-stat .lbl {
-    font-size: 11px;
-    color: #7aab8a;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-  }
-
-  /* PAGES */
-  .page { display: none; padding: 2rem; max-width: 1100px; margin: 0 auto; }
-  .page.active { display: block; }
-
-  /* SECTION HEADER */
-  .sec-hdr {
-    background: var(--md);
-    color: white;
-    padding: .6rem 1rem;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    margin-top: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-  }
-  .sec-hdr:first-child { margin-top: 0; }
-  .sec-hdr .badge {
-    background: var(--gold);
-    color: var(--dk);
-    padding: 2px 8px;
-    border-radius: 20px;
-    font-size: 10px;
-    font-weight: 700;
-  }
-
-  /* TABLES */
-  .tbl-wrap { overflow-x: auto; margin-bottom: 1.5rem; border-radius: 8px; border: 1px solid var(--border); }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  thead tr { background: var(--lt); }
-  thead th { color: white; padding: 9px 12px; font-weight: 600; text-align: left; font-size: 12px; letter-spacing: .04em; white-space: nowrap; }
-  tbody tr:nth-child(even) { background: var(--pale); }
-  tbody tr:nth-child(odd) { background: white; }
-  tbody tr:hover { background: #d4ead9; }
-  td { padding: 7px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
-  td.num { text-align: right; font-variant-numeric: tabular-nums; }
-  td.ctr { text-align: center; }
-  td.formula { font-family: 'DM Sans', monospace; font-size: 11px; color: #2a6040; background: #edf6f0; border-radius: 3px; padding: 3px 6px; white-space: nowrap; }
-  .tfoot-row td { background: var(--pale); font-weight: 600; border-top: 2px solid var(--border); }
-
-  /* METRIC CARDS */
-  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
-  .metric-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: .9rem 1rem;
-    border-left: 3px solid var(--md);
-  }
-  .metric-card .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
-  .metric-card .value { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--dk); }
-  .metric-card .formula-tag { font-size: 10px; color: var(--light-text); margin-top: 2px; font-style: italic; }
-  .metric-card.gold { border-left-color: var(--gold); }
-  .metric-card.gold .value { color: #7a5c00; }
-
-  /* CHART CONTAINERS */
-  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
-  @media (max-width: 680px) { .chart-row { grid-template-columns: 1fr; } }
-  .chart-box { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; }
-  .chart-box h3 { font-size: 13px; font-weight: 600; color: var(--dk); margin-bottom: 1rem; padding-bottom: .5rem; border-bottom: 1px solid var(--border); }
-  .chart-full { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; margin-bottom: 1.5rem; }
-  .chart-full h3 { font-size: 13px; font-weight: 600; color: var(--dk); margin-bottom: 1rem; }
-
-  /* LEGEND */
-  .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 10px; font-size: 12px; color: var(--muted); }
-  .legend-item { display: flex; align-items: center; gap: 5px; }
-  .legend-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-
-  /* CONCERN BADGE */
-  .concern-1 { background: #d4edda; color: #155724; }
-  .concern-2 { background: #d1ecf1; color: #0c5460; }
-  .concern-3 { background: #fff3cd; color: #856404; }
-  .concern-4 { background: #ffe5b4; color: #7d4e00; }
-  .concern-5 { background: #f8d7da; color: #721c24; }
-  .concern-badge { padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-
-  /* GENDER BADGE */
-  .badge-male { background: #d0e8ff; color: #0a3d6b; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 500; }
-  .badge-female { background: #ffe0ec; color: #7b1836; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 500; }
-
-  /* PILL */
-  .pill { background: var(--pale); color: var(--md); border-radius: 20px; padding: 2px 8px; font-size: 11px; font-weight: 500; }
-
-  /* SEARCH */
-  .search-bar { position: relative; margin-bottom: 1rem; }
-  .search-bar input { width: 100%; padding: 8px 12px 8px 36px; border: 1px solid var(--border); border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; background: white; }
-  .search-bar input:focus { border-color: var(--lt); }
-  .search-bar svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); opacity: .4; }
-
-  /* FUNCTIONS TABLE */
-  .fn-level { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; }
-  .fn-l1 { background: #3b82f6; }
-  .fn-l2 { background: #10b981; }
-  .fn-l3 { background: #f59e0b; }
-  .fn-l4 { background: #ef4444; }
-
-  /* SAVING METHOD BARS */
-  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-  .bar-label { font-size: 12px; color: var(--muted); min-width: 190px; }
-  .bar-track { flex: 1; background: var(--border); border-radius: 4px; height: 16px; overflow: hidden; }
-  .bar-fill { height: 100%; background: var(--md); border-radius: 4px; transition: width .5s; }
-  .bar-fill.gold { background: var(--gold); }
-  .bar-count { font-size: 12px; color: var(--muted); min-width: 24px; text-align: right; }
-
-  /* INSIGHTS */
-  .insight-box { background: var(--gold-lt); border-left: 3px solid var(--gold); border-radius: 8px; padding: .75rem 1rem; font-size: 13px; margin-bottom: 1rem; }
-  .insight-box strong { color: #6b4a00; }
-
-  /* VLOOKUP TABLE */
-  .vlook-table { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 1rem; }
-  .vlook-table table { margin: 0; }
-
-  /* TAG cloud */
-  .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
-  .tag { background: var(--pale); border: 1px solid var(--border); color: var(--md); border-radius: 20px; padding: 4px 10px; font-size: 12px; font-weight: 500; cursor: default; }
-  .tag:hover { background: var(--md); color: white; }
-
-  /* PRINT / PAGE TITLE */
-  .page-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--dk); margin-bottom: 1.25rem; padding-bottom: .5rem; border-bottom: 2px solid var(--border); }
-
-  /* RESPONSIVE */
-  @media (max-width: 520px) { nav button { padding: 12px 10px; font-size: 11px; } }
-</style>
-</head>
-<body>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-eyebrow">Practical Assessment Task · Life Sciences / Geography</div>
-  <h1>Water as a <em>Vital Resource</em><br>in South Africa</h1>
-  <div class="hero-sub">Survey of 20 respondents · Thabazimbi, Limpopo</div>
-  <div class="hero-stats">
-    <div class="hero-stat"><span class="val">20</span><span class="lbl">Respondents</span></div>
-    <div class="hero-stat"><span class="val">85%</span><span class="lbl">Crisis Aware</span></div>
-    <div class="hero-stat"><span class="val">3.7</span><span class="lbl">Avg Concern</span></div>
-    <div class="hero-stat"><span class="val">4.4</span><span class="lbl">Avg Household</span></div>
-    <div class="hero-stat"><span class="val">17.7</span><span class="lbl">Avg Age</span></div>
-  </div>
-</div>
-
-<!-- NAV -->
-<nav>
-  <button class="active" onclick="showPage('raw')">Raw Data</button>
-  <button onclick="showPage('analysis')">Analysis</button>
-  <button onclick="showPage('summary')">Summary Stats</button>
-  <button onclick="showPage('charts')">Charts</button>
-  <button onclick="showPage('saving')">Saving Methods</button>
-</nav>
-
-<!-- ═══════════════════════════════════════════════
-     PAGE 1: RAW SURVEY DATA
-     ═══════════════════════════════════════════════ -->
-<div id="page-raw" class="page active">
-  <div class="page-title">Raw Survey Data</div>
-
-  <div class="search-bar">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" id="rawSearch" placeholder="Filter by name, gender, occupation…" oninput="filterRaw()">
-  </div>
-
-  <div class="tbl-wrap">
-    <table id="rawTable">
-      <thead>
-        <tr>
-          <th>#</th><th>Gender</th><th>Age</th><th>Occupation</th>
-          <th>Water Crisis?</th><th>Shortage Frequency</th>
-          <th>Concern</th><th>Household Size</th>
-          <th>Saving Method 1</th><th>Saving Method 2</th>
-        </tr>
-      </thead>
-      <tbody id="rawBody"></tbody>
-    </table>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     PAGE 2: ANALYSIS & FUNCTIONS
-     ═══════════════════════════════════════════════ -->
-<div id="page-analysis" class="page">
-  <div class="page-title">Analysis &amp; Functions</div>
-
-  <!-- LEVEL 1 -->
-  <div class="sec-hdr"><span class="badge">A</span> Level 1 Functions — Basic Statistics</div>
-  <div class="card-grid" id="l1cards"></div>
-
-  <!-- LEVEL 2 -->
-  <div class="sec-hdr"><span class="badge">B</span> Level 2 Functions — COUNTIF / SUMIF / ROUND</div>
-  <div class="tbl-wrap">
-    <table id="l2table">
-      <thead><tr><th>Metric</th><th>Excel Formula</th><th>Result</th></tr></thead>
-      <tbody id="l2body"></tbody>
-    </table>
-  </div>
-
-  <!-- LEVEL 3 -->
-  <div class="sec-hdr"><span class="badge">C</span> Level 3 Functions — COUNTIFS / IF / SUMIFS</div>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Metric</th><th>Excel Formula</th><th>Result</th></tr></thead>
-      <tbody id="l3body"></tbody>
-    </table>
-  </div>
-
-  <!-- LEVEL 4 -->
-  <div class="sec-hdr"><span class="badge">D</span> Level 4 Functions — VLOOKUP / Nested IF</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
-    <div>
-      <p style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em;">Lookup Reference Table</p>
-      <div class="vlook-table">
-        <table>
-          <thead><tr><th>Level</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr><td class="ctr">1</td><td>Very Low</td></tr>
-            <tr><td class="ctr">2</td><td>Low</td></tr>
-            <tr><td class="ctr">3</td><td>Moderate</td></tr>
-            <tr><td class="ctr">4</td><td>High</td></tr>
-            <tr><td class="ctr">5</td><td>Very High</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div>
-      <p style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em;">VLOOKUP &amp; Nested IF Results</p>
-      <div class="tbl-wrap" style="margin:0">
-        <table>
-          <thead><tr><th>Metric</th><th>Formula</th><th>Result</th></tr></thead>
-          <tbody id="l4body"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     PAGE 3: SUMMARY STATISTICS
-     ═══════════════════════════════════════════════ -->
-<div id="page-summary" class="page">
-  <div class="page-title">Summary Statistics</div>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
-    <!-- Gender -->
-    <div>
-      <div class="sec-hdr" style="margin-top:0"><span class="badge">1</span> Gender Breakdown</div>
-      <div class="tbl-wrap" style="margin:0">
-        <table>
-          <thead><tr><th>Gender</th><th class="num">Count</th><th class="num">%</th><th class="num">Avg Concern</th></tr></thead>
-          <tbody id="genderBody"></tbody>
-        </table>
-      </div>
-    </div>
-    <!-- Occupation -->
-    <div>
-      <div class="sec-hdr" style="margin-top:0"><span class="badge">4</span> Occupation Breakdown</div>
-      <div class="tbl-wrap" style="margin:0">
-        <table>
-          <thead><tr><th>Occupation</th><th class="num">Count</th><th class="num">%</th><th class="num">Avg Concern</th></tr></thead>
-          <tbody id="occBody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
-    <!-- Shortage Freq -->
-    <div>
-      <div class="sec-hdr" style="margin-top:0"><span class="badge">2</span> Shortage Frequency</div>
-      <div class="tbl-wrap" style="margin:0">
-        <table>
-          <thead><tr><th>Frequency</th><th class="num">Count</th><th class="num">%</th><th class="num">Cumulative %</th></tr></thead>
-          <tbody id="freqBody"></tbody>
-        </table>
-      </div>
-    </div>
-    <!-- Concern Level -->
-    <div>
-      <div class="sec-hdr" style="margin-top:0"><span class="badge">3</span> Concern Level Frequency</div>
-      <div class="tbl-wrap" style="margin:0">
-        <table>
-          <thead><tr><th>Level</th><th>Description</th><th class="num">Count</th><th class="num">%</th></tr></thead>
-          <tbody id="concernBody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <div class="insight-box">
-    <strong>Key Insight:</strong> 85% of respondents acknowledge South Africa's water crisis. Among students, the average concern level is 3.67/5. The dominant shortage frequency reported is "Rarely (a few times a year)" — indicating intermittent but recurring stress on household water supply.
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     PAGE 4: CHARTS
-     ═══════════════════════════════════════════════ -->
-<div id="page-charts" class="page">
-  <div class="page-title">Data Visualisation</div>
-
-  <div class="chart-row">
-    <div class="chart-box">
-      <h3>Water Shortage Frequency Among Respondents</h3>
-      <div class="legend">
-        <span class="legend-item"><span class="legend-swatch" style="background:#1e6b3c"></span>Never</span>
-        <span class="legend-item"><span class="legend-swatch" style="background:#2e8b57"></span>Rarely</span>
-        <span class="legend-item"><span class="legend-swatch" style="background:#c9a84c"></span>Sometimes</span>
-      </div>
-      <div style="position:relative;height:240px">
-        <canvas id="chart1" role="img" aria-label="Bar chart showing water shortage frequency: Never 6, Rarely 9, Sometimes 5">Bar chart of shortage frequency.</canvas>
-      </div>
-    </div>
-    <div class="chart-box">
-      <h3>Distribution of Concern Levels</h3>
-      <div class="legend" id="pieLegend"></div>
-      <div style="position:relative;height:240px">
-        <canvas id="chart2" role="img" aria-label="Pie chart showing distribution of concern levels 1–5">Pie chart of concern levels.</canvas>
-      </div>
-    </div>
-  </div>
-
-  <div class="chart-full">
-    <h3>Concern Level by Gender</h3>
-    <div class="legend">
-      <span class="legend-item"><span class="legend-swatch" style="background:#1e6b3c"></span>Female</span>
-      <span class="legend-item"><span class="legend-swatch" style="background:#4ba3c3;border-left:3px dashed #4ba3c3;width:16px;height:0"></span>Male</span>
-    </div>
-    <div style="position:relative;height:260px">
-      <canvas id="chart3" role="img" aria-label="Grouped bar chart comparing concern levels between female and male respondents">Grouped bar chart by gender concern.</canvas>
-    </div>
-  </div>
-
-  <div class="chart-full">
-    <h3>Age Distribution of Respondents</h3>
-    <div style="position:relative;height:200px">
-      <canvas id="chart4" role="img" aria-label="Bar chart showing age distribution of the 20 respondents">Age distribution bar chart.</canvas>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     PAGE 5: WATER SAVING METHODS
-     ═══════════════════════════════════════════════ -->
-<div id="page-saving" class="page">
-  <div class="page-title">Water Saving Methods</div>
-
-  <div class="sec-hdr" style="margin-top:0">Frequency Analysis — Method 1 + Method 2 Combined</div>
-
-  <div class="insight-box" style="margin-bottom:1rem">
-    <strong>Most common method:</strong> Taking short showers (mentioned 9 times across both columns).&nbsp;
-    <strong>2 respondents</strong> listed no saving method ("Non") — suggesting a small gap in household water conservation awareness.
-  </div>
-
-  <div id="savingBars"></div>
-
-  <div class="sec-hdr">All Methods Table</div>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Saving Method</th><th class="num">Method 1 Count</th><th class="num">Method 2 Count</th><th class="num">Total</th></tr></thead>
-      <tbody id="savingBody"></tbody>
-    </table>
-  </div>
-
-  <div class="sec-hdr">Tag Cloud — All Mentioned Practices</div>
-  <div class="tag-cloud" id="tagCloud"></div>
-</div>
-
-<script>
-// ───────────────────────────────────────────────────────────────────────────
-// RAW DATA
-// ───────────────────────────────────────────────────────────────────────────
-const raw = [
-  [1,"Female",17,"Student","Yes","Rarely (a few times a year)",5,5,"Taking short showers","Using water tanks"],
-  [2,"Male",18,"Student","Yes","Never",3,5,"Using water tanks","Fixing taps"],
-  [3,"Female",17,"Student","Yes","Rarely (a few times a year)",5,5,"Fixing leaks in taps","Turning off tap always"],
-  [4,"Male",19,"Self-employed","Yes","Sometimes (monthly)",5,4,"Using buckets","Drinking water from fridge"],
-  [5,"Female",17,"Student","Yes","Rarely (a few times a year)",2,5,"Taking short showers","Collecting rain water"],
-  [6,"Male",17,"Student","Yes","Sometimes (monthly)",3,3,"Closing taps always","Taking short showers"],
-  [7,"Male",17,"Student","Yes","Rarely (a few times a year)",2,5,"Fixing leaks in taps","Taking short showers"],
-  [8,"Female",18,"Student","Yes","Rarely (a few times a year)",3,5,"Use a cup while brushing teeth","Water plants with cans"],
-  [9,"Female",18,"Student","Yes","Never",4,5,"Use less water","Recycle"],
-  [10,"Male",17,"Student","Yes","Never",5,5,"Taking short showers","Use a cup to brush teeth"],
-  [11,"Female",18,"Student","Yes","Never",4,5,"Closing taps always","Taking short showers"],
-  [12,"Female",17,"Student","Yes","Rarely (a few times a year)",3,5,"Using jar for water","Taking short showers"],
-  [13,"Female",18,"Student","Unsure","Never",3,5,"Taking short showers","Fixing taps"],
-  [14,"Female",18,"Student","Yes","Rarely (a few times a year)",4,4,"Fixing leaks in taps","Taking short showers"],
-  [15,"Female",18,"Student","Yes","Never",3,5,"Taking short showers","Using water tanks"],
-  [16,"Male",17,"Self-employed","Yes","Sometimes (monthly)",4,5,"Closing taps always","Taking short showers"],
-  [17,"Male",18,"Student","Unsure","Never",4,3,"Non","Non"],
-  [18,"Male",19,"Self-employed","Yes","Rarely (a few times a year)",4,2,"Non","Non"],
-  [19,"Female",17,"Student","Yes","Sometimes (monthly)",3,4,"Closing taps always","Use less water"],
-  [20,"Male",18,"Student","Yes","Rarely (a few times a year)",5,4,"Taking short showers","Using water tanks"],
-];
-
-const concernDesc = {1:"Very Low",2:"Low",3:"Moderate",4:"High",5:"Very High"};
-
-// ─── PAGE SWITCHER ───────────────────────────────────────────────────────────
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  event.currentTarget.classList.add('active');
-  if (id === 'charts' && !chartsBuilt) buildCharts();
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --neon:#00f5ff;--neon2:#ff00ff;--gold:#ffd700;--red:#ff3333;--green:#00ff88;
+  --dark:#060612;--dark2:#0d0d2b;--card:#111130;--card2:#1a1a3e;
+  --text:#e0e0ff;--sub:#8888aa;
 }
+html,body{height:100%;overflow:hidden;font-family:'Segoe UI',sans-serif;background:var(--dark);color:var(--text);}
+canvas{display:none;position:absolute;top:0;left:0;}
 
-// ─── RAW DATA TABLE ──────────────────────────────────────────────────────────
-function buildRaw(filter = '') {
-  const tb = document.getElementById('rawBody');
-  tb.innerHTML = '';
-  const f = filter.toLowerCase();
-  raw.forEach(r => {
-    if (f && !r.join(' ').toLowerCase().includes(f)) return;
-    const cl = r[6];
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td class="ctr" style="font-weight:600;color:var(--md)">${r[0]}</td>
-      <td><span class="${r[1]==='Female'?'badge-female':'badge-male'}">${r[1]}</span></td>
-      <td class="ctr">${r[2]}</td>
-      <td><span class="pill">${r[3]}</span></td>
-      <td class="ctr" style="color:${r[4]==='Yes'?'#155724':r[4]==='No'?'#721c24':'#856404'};font-weight:600">${r[4]}</td>
-      <td style="font-size:12px">${r[5]}</td>
-      <td class="ctr"><span class="concern-badge concern-${cl}">${cl} – ${concernDesc[cl]}</span></td>
-      <td class="ctr">${r[7]}</td>
-      <td style="font-size:12px">${r[8]}</td>
-      <td style="font-size:12px">${r[9]}</td>
-    `;
-    tb.appendChild(tr);
-  });
-}
-buildRaw();
+/* SCREENS */
+.screen{display:none;position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;}
+.screen.active{display:flex;flex-direction:column;}
 
-function filterRaw() {
-  buildRaw(document.getElementById('rawSearch').value);
-}
+/* PARTICLES BG */
+#bg{position:fixed;inset:0;z-index:-1;}
 
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
-const countWhere = (col, val) => raw.filter(r => r[col] === val).length;
-const avg = arr => arr.reduce((a,b)=>a+b,0)/arr.length;
-const round2 = n => Math.round(n * 100) / 100;
-const round1 = n => Math.round(n * 10) / 10;
+/* ===== MAIN MENU ===== */
+#menuScreen{align-items:center;justify-content:center;gap:16px;padding:20px;}
+.logo-wrap{text-align:center;margin-bottom:8px;}
+.logo-title{font-size:clamp(28px,7vw,52px);font-weight:900;letter-spacing:2px;
+  background:linear-gradient(90deg,var(--neon),var(--neon2),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  text-shadow:none;filter:drop-shadow(0 0 12px #00f5ff88);}
+.logo-sub{font-size:clamp(11px,3vw,16px);color:var(--sub);letter-spacing:4px;margin-top:4px;}
+.menu-btn{width:min(340px,90vw);padding:14px 20px;border:none;border-radius:12px;
+  font-size:clamp(14px,3.5vw,18px);font-weight:700;cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;gap:12px;justify-content:center;letter-spacing:1px;}
+.btn-play{background:linear-gradient(135deg,#00c8ff,#7b2fff);color:#fff;}
+.btn-play:hover{transform:scale(1.04);box-shadow:0 0 24px #00c8ff88;}
+.btn-modes{background:linear-gradient(135deg,#ff6b00,#ff2d78);color:#fff;}
+.btn-modes:hover{transform:scale(1.04);box-shadow:0 0 24px #ff6b0088;}
+.btn-profile{background:var(--card2);color:var(--neon);border:1px solid var(--neon);}
+.btn-profile:hover{background:var(--neon);color:#000;}
+.btn-lb{background:var(--card2);color:var(--gold);border:1px solid var(--gold);}
+.btn-lb:hover{background:var(--gold);color:#000;}
+.menu-footer{font-size:11px;color:var(--sub);margin-top:8px;}
 
-const femaleRows = raw.filter(r => r[1]==='Female');
-const maleRows   = raw.filter(r => r[1]==='Male');
-const yesRows    = raw.filter(r => r[4]==='Yes');
-const studentRows= raw.filter(r => r[3]==='Student');
-const selfRows   = raw.filter(r => r[3]==='Self-employed');
-const ages       = raw.map(r=>r[2]);
-const concerns   = raw.map(r=>r[6]);
-const households = raw.map(r=>r[7]);
+/* ===== LOBBY ===== */
+#lobbyScreen{padding:16px;gap:12px;align-items:center;}
+.page-title{font-size:clamp(18px,5vw,28px);font-weight:800;color:var(--neon);
+  text-align:center;letter-spacing:2px;margin-bottom:4px;}
+.room-box{background:var(--card);border:1px solid var(--neon);border-radius:14px;
+  padding:16px;width:min(400px,95vw);text-align:center;}
+.room-code{font-size:clamp(28px,8vw,48px);font-weight:900;color:var(--gold);letter-spacing:8px;
+  font-family:monospace;}
+.room-label{font-size:12px;color:var(--sub);margin-bottom:8px;}
+.players-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:min(400px,95vw);}
+.player-slot{background:var(--card);border:1px solid #333355;border-radius:12px;
+  padding:12px;text-align:center;min-height:80px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:6px;transition:all .3s;}
+.player-slot.filled{border-color:var(--neon);background:var(--card2);}
+.player-slot.you{border-color:var(--gold);}
+.slot-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:20px;background:linear-gradient(135deg,#7b2fff,#00c8ff);}
+.slot-name{font-size:13px;font-weight:700;}
+.slot-empty{color:var(--sub);font-size:12px;}
+.slot-badge{font-size:10px;padding:2px 8px;border-radius:20px;background:#ffffff22;color:var(--gold);}
+.mode-selector{width:min(400px,95vw);}
+.mode-selector-title{font-size:13px;color:var(--sub);margin-bottom:8px;}
+.mode-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.mode-chip{padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;
+  border:1px solid #333355;background:var(--card);color:var(--sub);transition:all .2s;}
+.mode-chip.selected{border-color:var(--neon);color:var(--neon);background:#00f5ff11;}
+.mode-chip.locked{opacity:.4;cursor:not-allowed;}
+.lobby-actions{display:flex;gap:10px;width:min(400px,95vw);}
+.action-btn{flex:1;padding:13px;border:none;border-radius:12px;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all .2s;}
+.btn-start{background:linear-gradient(135deg,var(--green),#009955);color:#000;}
+.btn-back{background:var(--card2);color:var(--sub);border:1px solid #333355;}
+.btn-start:hover{transform:scale(1.03);box-shadow:0 0 20px #00ff8844;}
 
-const never    = countWhere(5,'Never');
-const rarely   = countWhere(5,'Rarely (a few times a year)');
-const sometimes= countWhere(5,'Sometimes (monthly)');
+/* ===== MODES GALLERY ===== */
+#modesScreen{padding:16px;gap:12px;align-items:center;}
+.modes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(160px,42vw),1fr));
+  gap:12px;width:min(600px,95vw);}
+.mode-card{background:var(--card);border:1px solid #222244;border-radius:16px;
+  padding:16px 12px;text-align:center;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.mode-card:not(.locked-card):hover{transform:translateY(-4px);border-color:var(--neon);
+  box-shadow:0 8px 32px #00f5ff22;}
+.mode-card.locked-card{opacity:.55;cursor:not-allowed;}
+.mode-icon{font-size:36px;margin-bottom:8px;}
+.mode-name{font-size:13px;font-weight:800;margin-bottom:4px;}
+.mode-desc{font-size:11px;color:var(--sub);line-height:1.4;}
+.coming-badge{position:absolute;top:10px;right:-18px;background:var(--red);color:#fff;
+  font-size:9px;font-weight:900;padding:3px 24px;transform:rotate(35deg);letter-spacing:1px;}
+.mode-players{font-size:10px;color:var(--neon);margin-top:6px;}
 
-// ─── LEVEL 1 CARDS ───────────────────────────────────────────────────────────
-const l1 = [
-  {label:"Total Respondents", val:raw.length, formula:"=COUNTA(A3:A22)"},
-  {label:"Average Age", val:round1(avg(ages)), formula:"=AVERAGE(C3:C22)"},
-  {label:"Min Concern Level", val:Math.min(...concerns), formula:"=MIN(G3:G22)"},
-  {label:"Max Concern Level", val:Math.max(...concerns), formula:"=MAX(G3:G22)"},
-  {label:"Average Concern", val:round2(avg(concerns)), formula:"=AVERAGE(G3:G22)", gold:true},
-  {label:"Median Concern", val:3, formula:"=MEDIAN(G3:G22)"},
-  {label:"Mode Concern", val:5, formula:"=MODE(G3:G22)"},
-  {label:"Avg Household Size", val:round2(avg(households)), formula:"=AVERAGE(H3:H22)"},
-  {label:"Min Household Size", val:Math.min(...households), formula:"=MIN(H3:H22)"},
-  {label:"Max Household Size", val:Math.max(...households), formula:"=MAX(H3:H22)"},
-  {label:"Total Male", val:maleRows.length, formula:'=COUNTIF(B3:B22,"Male")'},
-  {label:"Total Female", val:femaleRows.length, formula:'=COUNTIF(B3:B22,"Female")', gold:true},
-];
-const c1 = document.getElementById('l1cards');
-l1.forEach(d => {
-  c1.innerHTML += `<div class="metric-card${d.gold?' gold':''}">
-    <div class="label">${d.label}</div>
-    <div class="value">${d.val}</div>
-    <div class="formula-tag">${d.formula}</div>
-  </div>`;
-});
+/* ===== PROFILE ===== */
+#profileScreen{padding:16px;gap:14px;align-items:center;}
+.profile-card{background:var(--card);border:1px solid var(--neon);border-radius:20px;
+  padding:20px;width:min(380px,95vw);text-align:center;}
+.prof-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#7b2fff,#ff2d78);
+  margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:36px;
+  border:3px solid var(--gold);}
+.prof-name{font-size:22px;font-weight:900;color:var(--gold);}
+.prof-level{font-size:13px;color:var(--neon);margin-bottom:12px;}
+.xp-bar-wrap{background:#ffffff11;border-radius:20px;height:8px;margin:8px 0;}
+.xp-bar{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--neon),var(--neon2));
+  transition:width .5s;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px;}
+.stat-item{background:var(--card2);border-radius:10px;padding:10px 4px;}
+.stat-val{font-size:20px;font-weight:900;color:var(--gold);}
+.stat-lbl{font-size:10px;color:var(--sub);}
+.achievements{width:min(380px,95vw);}
+.ach-title{font-size:14px;font-weight:700;color:var(--neon);margin-bottom:10px;}
+.ach-item{background:var(--card);border-radius:10px;padding:10px 14px;margin-bottom:8px;
+  display:flex;align-items:center;gap:12px;border:1px solid #222244;}
+.ach-icon{font-size:24px;}
+.ach-name{font-size:13px;font-weight:700;}
+.ach-desc{font-size:11px;color:var(--sub);}
 
-// ─── LEVEL 2 ─────────────────────────────────────────────────────────────────
-const avgConcernStudents = round2(avg(studentRows.map(r=>r[6])));
-const l2data = [
-  ['Respondents saying "Yes" to Water Crisis', '=COUNTIF(E3:E22,"Yes")', countWhere(4,'Yes')],
-  ['Respondents saying "No" to Water Crisis', '=COUNTIF(E3:E22,"No")', countWhere(4,'No')],
-  ['Respondents saying "Unsure"', '=COUNTIF(E3:E22,"Unsure")', countWhere(4,'Unsure')],
-  ['Count – Shortage "Never"', '=COUNTIF(F3:F22,"Never")', never],
-  ['Count – Shortage "Rarely"', '=COUNTIF(F3:F22,"Rarely…")', rarely],
-  ['Count – Shortage "Sometimes"', '=COUNTIF(F3:F22,"Sometimes…")', sometimes],
-  ['% Female (rounded 1 dp)', '=ROUND(COUNTIF…/COUNTA…*100,1)', round1(femaleRows.length/20*100)+'%'],
-  ['% Male (rounded 1 dp)', '=ROUND(COUNTIF…/COUNTA…*100,1)', round1(maleRows.length/20*100)+'%'],
-  ['Largest Household Size', '=LARGE(H3:H22,1)', Math.max(...households)],
-  ['2nd Largest Household Size', '=LARGE(H3:H22,2)', [...households].sort((a,b)=>b-a)[1]],
-  ['Smallest Household Size', '=SMALL(H3:H22,1)', Math.min(...households)],
-  ['Students – Avg Concern Level', '=ROUND(SUMIF…/COUNTIF…,2)', avgConcernStudents],
-];
-const tb2 = document.getElementById('l2body');
-l2data.forEach(([lbl,fml,res]) => {
-  tb2.innerHTML += `<tr><td>${lbl}</td><td><span class="formula">${fml}</span></td><td class="num" style="font-weight:600;color:var(--dk)">${res}</td></tr>`;
-});
+/* ===== LEADERBOARD ===== */
+#lbScreen{padding:16px;gap:12px;align-items:center;}
+.lb-list{width:min(400px,95vw);}
+.lb-item{background:var(--card);border-radius:12px;padding:12px 16px;margin-bottom:8px;
+  display:flex;align-items:center;gap:12px;border:1px solid #222244;transition:all .2s;}
+.lb-item:hover{border-color:var(--neon);}
+.lb-rank{font-size:20px;font-weight:900;width:32px;text-align:center;}
+.rank-1{color:var(--gold);}
+.rank-2{color:#c0c0c0;}
+.rank-3{color:#cd7f32;}
+.lb-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#7b2fff,#00c8ff);
+  display:flex;align-items:center;justify-content:center;font-size:18px;}
+.lb-info{flex:1;}
+.lb-name{font-size:14px;font-weight:700;}
+.lb-score{font-size:12px;color:var(--gold);}
+.lb-pts{font-size:16px;font-weight:900;color:var(--neon);}
 
-// ─── LEVEL 3 ─────────────────────────────────────────────────────────────────
-const femStudYes = raw.filter(r=>r[1]==='Female'&&r[3]==='Student'&&r[4]==='Yes').length;
-const malStudYes = raw.filter(r=>r[1]==='Male'&&r[3]==='Student'&&r[4]==='Yes').length;
-const highConcern= raw.filter(r=>r[6]>=4).length;
-const lowConcern = raw.filter(r=>r[6]<=2).length;
-const avgAgeFem  = round2(avg(femaleRows.map(r=>r[2])));
-const avgAgeMal  = round2(avg(maleRows.map(r=>r[2])));
-const pctYes     = yesRows.length/20;
-const awareness  = pctYes > 0.75 ? 'High awareness' : 'Moderate awareness';
-const selfCount  = selfRows.length;
-const avgHH_Yes  = Math.ceil(avg(yesRows.map(r=>r[7]))*10)/10;
-const avgConcSelf= round2(avg(selfRows.map(r=>r[6])));
-const l3data = [
-  ['Female Students saying "Yes"', '=COUNTIFS(B…"Female",D…"Student",E…"Yes")', femStudYes],
-  ['Male Students saying "Yes"', '=COUNTIFS(B…"Male",D…"Student",E…"Yes")', malStudYes],
-  ['High Concern (level ≥ 4)', '=COUNTIFS(G3:G22,">="&4)', highConcern],
-  ['Low Concern (level ≤ 2)', '=COUNTIFS(G3:G22,"<="&2)', lowConcern],
-  ['Avg Age – Female Respondents', '=SUMIFS(C…,B…,"Female")/COUNTIF(…"Female")', avgAgeFem],
-  ['Avg Age – Male Respondents', '=SUMIFS(C…,B…,"Male")/COUNTIF(…"Male")', avgAgeMal],
-  ['Crisis Awareness (Yes > 75%?)', '=IF(COUNTIF…/COUNTA…>0.75,"High","Moderate")', awareness],
-  ['Self-employed count', '=COUNTIF(D3:D22,"Self-employed")', selfCount],
-  ['Avg Household Size – "Yes" Crisis', '=ROUNDUP(SUMIFS…/COUNTIF…,1)', avgHH_Yes],
-  ['Avg Concern – Self-employed', '=IF(COUNTIF…>0,SUMIFS…/COUNTIF…,"N/A")', avgConcSelf],
-];
-const tb3 = document.getElementById('l3body');
-l3data.forEach(([lbl,fml,res]) => {
-  tb3.innerHTML += `<tr><td>${lbl}</td><td><span class="formula">${fml}</span></td><td class="num" style="font-weight:600;color:var(--dk)">${res}</td></tr>`;
-});
+/* ===== GAME SCREENS ===== */
+#gameScreen{background:#000;position:relative;}
+#gameCanvas{display:block;width:100%;height:100%;}
+.hud{position:absolute;top:0;left:0;right:0;padding:8px 12px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:linear-gradient(180deg,#00000099,transparent);z-index:10;}
+.hud-score{font-size:clamp(12px,3vw,16px);font-weight:700;color:var(--gold);}
+.hud-mode{font-size:clamp(10px,2.5vw,13px);color:var(--neon);font-weight:700;}
+.hud-timer{font-size:clamp(14px,4vw,22px);font-weight:900;color:var(--red);}
+.hud-health{display:flex;gap:4px;align-items:center;}
+.health-bar{width:80px;height:8px;background:#ffffff22;border-radius:4px;overflow:hidden;}
+.health-fill{height:100%;background:var(--green);border-radius:4px;transition:width .3s;}
 
-// ─── LEVEL 4 ─────────────────────────────────────────────────────────────────
-const ageCategory = age => age < 18 ? 'Minor' : age < 25 ? 'Youth' : 'Adult';
-const riskRating = pctYes >= 0.8 ? 'HIGH RISK' : pctYes >= 0.5 ? 'MEDIUM RISK' : 'LOW RISK';
-const riskColor = riskRating === 'HIGH RISK' ? '#dc3545' : riskRating === 'MEDIUM RISK' ? '#856404' : '#155724';
-const l4data = [
-  ['Concern desc – Respondent 1', '=VLOOKUP(G3,$A$48:$B$52,2,FALSE)', `${raw[0][6]} → ${concernDesc[raw[0][6]]}`],
-  ['Concern desc – Respondent 10', '=VLOOKUP(G12,$A$48:$B$52,2,FALSE)', `${raw[9][6]} → ${concernDesc[raw[9][6]]}`],
-  ['Concern desc – Respondent 20', '=VLOOKUP(G22,$A$48:$B$52,2,FALSE)', `${raw[19][6]} → ${concernDesc[raw[19][6]]}`],
-  ['Age category – Respondent 1', '=IF(C3<18,"Minor",IF(C3<25,"Youth","Adult"))', `${raw[0][2]} → ${ageCategory(raw[0][2])}`],
-  ['Overall water risk rating', '=IF(COUNTIF…/20>=0.8,"HIGH RISK",IF(…>=0.5,"MEDIUM RISK","LOW RISK"))', `<span style="color:${riskColor};font-weight:700">${riskRating}</span>`],
-];
-const tb4 = document.getElementById('l4body');
-l4data.forEach(([lbl,fml,res]) => {
-  tb4.innerHTML += `<tr><td style="font-size:12px">${lbl}</td><td><span class="formula" style="font-size:10px">${fml}</span></td><td class="num">${res}</td></tr>`;
-});
+/* mobile controls */
+.mobile-controls{position:absolute;bottom:0;left:0;right:0;padding:12px;
+  display:flex;justify-content:space-between;align-items:flex-end;z-index:10;}
+.dpad{display:grid;grid-template-columns:repeat(3,48px);grid-template-rows:repeat(3,48px);gap:4px;}
+.dpad-btn{background:#ffffff18;border:1px solid #ffffff30;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;
+  -webkit-user-select:none;user-select:none;active:background:#ffffff33;}
+.dpad-btn:active{background:#ffffff33;}
+.action-btns{display:flex;flex-direction:column;gap:8px;}
+.act-btn{width:56px;height:56px;border-radius:50%;border:none;font-size:18px;font-weight:900;
+  cursor:pointer;-webkit-user-select:none;user-select:none;}
+.btn-fire{background:linear-gradient(135deg,var(--red),#ff6600);}
+.btn-special{background:linear-gradient(135deg,var(--neon2),#7b2fff);}
 
-// ─── SUMMARY TABLES ──────────────────────────────────────────────────────────
-// Gender
-const avgConcFem = round2(avg(femaleRows.map(r=>r[6])));
-const avgConcMal = round2(avg(maleRows.map(r=>r[6])));
-const avgConcAll = round2(avg(concerns));
-document.getElementById('genderBody').innerHTML = `
-  <tr><td><span class="badge-female">Female</span></td><td class="num">${femaleRows.length}</td><td class="num">${round1(femaleRows.length/20*100)}%</td><td class="num">${avgConcFem}</td></tr>
-  <tr><td><span class="badge-male">Male</span></td><td class="num">${maleRows.length}</td><td class="num">${round1(maleRows.length/20*100)}%</td><td class="num">${avgConcMal}</td></tr>
-  <tr class="tfoot-row"><td>Total</td><td class="num">20</td><td class="num">100%</td><td class="num">${avgConcAll}</td></tr>`;
-
-// Shortage Freq
-let cumul = 0;
-const freqRows = [
-  ['Never', never],
-  ['Rarely (a few times/year)', rarely],
-  ['Sometimes (monthly)', sometimes],
-];
-const fBody = document.getElementById('freqBody');
-freqRows.forEach(([lbl,cnt], i) => {
-  const pct = round1(cnt/20*100);
-  cumul += pct;
-  fBody.innerHTML += `<tr><td>${lbl}</td><td class="num">${cnt}</td><td class="num">${pct}%</td><td class="num">${round1(cumul)}%</td></tr>`;
-});
-fBody.innerHTML += `<tr class="tfoot-row"><td>Total</td><td class="num">20</td><td class="num">100%</td><td class="num"></td></tr>`;
-
-// Concern Level
-const cBody = document.getElementById('concernBody');
-let totalC = 0;
-for (let i=1; i<=5; i++) {
-  const cnt = raw.filter(r=>r[6]===i).length;
-  totalC += cnt;
-  cBody.innerHTML += `<tr><td class="ctr"><span class="concern-badge concern-${i}">${i}</span></td><td>${concernDesc[i]}</td><td class="num">${cnt}</td><td class="num">${round1(cnt/20*100)}%</td></tr>`;
-}
-cBody.innerHTML += `<tr class="tfoot-row"><td colspan="2">Total</td><td class="num">${totalC}</td><td class="num">100%</td></tr>`;
-
-// Occupation
-const avgConcStd = round2(avg(studentRows.map(r=>r[6])));
-const avgConcSelf2 = round2(avg(selfRows.map(r=>r[6])));
-document.getElementById('occBody').innerHTML = `
-  <tr><td><span class="pill">Student</span></td><td class="num">${studentRows.length}</td><td class="num">${round1(studentRows.length/20*100)}%</td><td class="num">${avgConcStd}</td></tr>
-  <tr><td><span class="pill">Self-employed</span></td><td class="num">${selfRows.length}</td><td class="num">${round1(selfRows.length/20*100)}%</td><td class="num">${avgConcSelf2}</td></tr>
-  <tr class="tfoot-row"><td>Total</td><td class="num">20</td><td class="num">100%</td><td class="num"></td></tr>`;
-
-// ─── SAVING METHODS ───────────────────────────────────────────────────────────
-const methods = [
-  "Taking short showers","Using water tanks","Fixing leaks in taps",
-  "Turning off tap always","Using buckets","Drinking water from fridge",
-  "Collecting rain water","Closing taps always","Use a cup while brushing teeth",
-  "Water plants with cans","Use less water","Recycle",
-  "Use a cup to brush teeth","Using jar for water","Fixing taps","Non"
-];
-const col8 = raw.map(r=>r[8]);
-const col9 = raw.map(r=>r[9]);
-const getCount = (col, m) => col.filter(v=>v===m).length;
-const methodData = methods.map(m => {
-  const c1 = getCount(col8, m), c2 = getCount(col9, m);
-  return {m, c1, c2, total: c1+c2};
-}).sort((a,b)=>b.total-a.total);
-
-// Bars
-const barsDiv = document.getElementById('savingBars');
-const maxTotal = Math.max(...methodData.map(d=>d.total));
-methodData.forEach(d => {
-  if (d.m === 'Non') return;
-  const pct = Math.round(d.total / maxTotal * 100);
-  barsDiv.innerHTML += `<div class="bar-row">
-    <span class="bar-label">${d.m}</span>
-    <div class="bar-track"><div class="bar-fill ${d.m==='Taking short showers'?'gold':''}" style="width:${pct}%"></div></div>
-    <span class="bar-count">${d.total}</span>
-  </div>`;
-});
-
-// Table
-const sBody = document.getElementById('savingBody');
-methodData.forEach(d => {
-  sBody.innerHTML += `<tr>
-    <td>${d.m}</td><td class="num">${d.c1}</td><td class="num">${d.c2}</td>
-    <td class="num" style="font-weight:600;color:var(--dk)">${d.total}</td>
-  </tr>`;
-});
-// Totals
-const t1 = methodData.reduce((a,d)=>a+d.c1,0);
-const t2 = methodData.reduce((a,d)=>a+d.c2,0);
-sBody.innerHTML += `<tr class="tfoot-row"><td>Total</td><td class="num">${t1}</td><td class="num">${t2}</td><td class="num">${t1+t2}</td></tr>`;
-
-// Tags
-const tagCloud = document.getElementById('tagCloud');
-methodData.filter(d=>d.m!=='Non').forEach(d => {
-  tagCloud.innerHTML += `<span class="tag">${d.m} <strong>${d.total}</strong></span>`;
-});
-
-// ─── CHARTS ───────────────────────────────────────────────────────────────────
-let chartsBuilt = false;
-function buildCharts() {
-  chartsBuilt = true;
-
-  // Chart 1: Bar – Shortage Frequency
-  new Chart(document.getElementById('chart1'), {
-    type: 'bar',
-    data: {
-      labels: ['Never','Rarely\n(few times/yr)','Sometimes\n(monthly)'],
-      datasets: [{
-        label: 'Respondents',
-        data: [never, rarely, sometimes],
-        backgroundColor: ['#1e6b3c','#2e8b57','#c9a84c'],
-        borderRadius: 5,
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: {display:false} },
-      scales: {
-        y: { beginAtZero:true, max:12, ticks:{stepSize:2,font:{size:11}} },
-        x: { ticks:{font:{size:11}} }
-      }
-    }
-  });
-
-  // Chart 2: Pie – Concern levels
-  const pieColors = ['#c8e6d0','#7fbf9e','#2e8b57','#c9a84c','#8b3a1a'];
-  const pieCounts = [1,2,3,4,5].map(i=>raw.filter(r=>r[6]===i).length);
-  const pieLegend = document.getElementById('pieLegend');
-  [1,2,3,4,5].forEach((i,idx) => {
-    pieLegend.innerHTML += `<span class="legend-item"><span class="legend-swatch" style="background:${pieColors[idx]}"></span>${concernDesc[i]} (${pieCounts[idx]})</span>`;
-  });
-  new Chart(document.getElementById('chart2'), {
-    type: 'pie',
-    data: {
-      labels: Object.values(concernDesc),
-      datasets: [{
-        data: pieCounts,
-        backgroundColor: pieColors,
-        borderWidth: 2,
-        borderColor: '#fff',
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend:{display:false} }
-    }
-  });
-
-  // Chart 3: Grouped Bar – Concern by Gender
-  const concernByGender = (rows, level) => rows.filter(r=>r[6]===level).length;
-  new Chart(document.getElementById('chart3'), {
-    type: 'bar',
-    data: {
-      labels: ['Very Low (1)','Low (2)','Moderate (3)','High (4)','Very High (5)'],
-      datasets: [
-        {
-          label: 'Female',
-          data: [1,2,3,4,5].map(i=>concernByGender(femaleRows,i)),
-          backgroundColor: '#1e6b3c',
-          borderRadius: 4,
-        },
-        {
-          label: 'Male',
-          data: [1,2,3,4,5].map(i=>concernByGender(maleRows,i)),
-          backgroundColor: '#4ba3c3',
-          borderRadius: 4,
-          borderSkipped: false,
-        }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend:{display:false} },
-      scales: {
-        y: {beginAtZero:true, ticks:{stepSize:1,font:{size:11}}},
-        x: {ticks:{font:{size:11}}}
-      }
-    }
-  });
-
-  // Chart 4: Age distribution
-  const ageCounts = {};
-  ages.forEach(a => { ageCounts[a] = (ageCounts[a]||0)+1; });
-  const ageLabels = Object.keys(ageCounts).sort((a,b)=>a-b);
-  new Chart(document.getElementById('chart4'), {
-    type: 'bar',
-    data: {
-      labels: ageLabels.map(a => 'Age '+a),
-      datasets: [{
-        label: 'Respondents',
-        data: ageLabels.map(a=>ageCounts[a]),
-        backgroundColor: ageLabels.map((_,i)=>['#1e6b3c','#2e8b57','#c9a84c'][i%3]),
-        borderRadius: 5,
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {legend:{display:false}},
-      scales: {
-        y:{beginAtZero:true,ticks:{stepSize:1,font:{size:11}}},
-        x:{ticks:{font:{size:11}}}
-      }
-    }
-  });
-}
-</script>
-</body>
-</html>
+/* ===== QUIZ SCREEN ===== */
+#quizScreen{padding:16px;gap:12px;align-items:center;background:var(--dark);}
+.quiz-hud{width:min(500px,95vw);display:flex;justify-content:space-between;align-items:center;
+  background:var(--card);border-radius:12px;padding:12px 16px;border:1px solid var(--neon);}
+.quiz-question{background:var(--card);border:1px solid #333355;border-radius:16px;
+  padding:20px;width:min(500px,95vw);font-size:clamp(14px,3.5vw,18px);font-weight:700;
+  text-align:center;line-height:1.5;min-height:80px;display:flex;align-items:center;justify-content:center;}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:min(500px,95vw);}
+.quiz-opt{padding:14px;border-radius:12px;border:2px solid #333355;background:var(--card);
+  font-size:clamp(13px,3vw,15px);font-weight:700;cursor:pointer;transition:all .2s;text-align:center;}
+.quiz-opt:hover:not(:disabled){border-color:var(--neon);background:#00f5ff11;}
+.quiz-opt.correct{border-color:var(--green);background:#00ff8822;color:var(--green);}
+.quiz-opt.wrong{border-color:var(--red);background:#ff333322;color:var(--red);}
+.quiz-players{display:flex;gap:10px;width:min(500px,95vw);
