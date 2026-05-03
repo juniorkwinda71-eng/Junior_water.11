@@ -39,42 +39,80 @@ html,body{
 
 /* ── SLIDE 0: INTRO / BRAND ── */
 .slide-intro{
-  background: linear-gradient(135deg,
-    #1a0010 0%,
-    #3d0030 20%,
-    #1a000f 40%,
-    #2a1500 60%,
-    #3d1a00 75%,
-    #1a0010 100%
-  );
   overflow:hidden;
+  background:#000;
 }
-.slide-intro::before{
-  content:'';position:absolute;inset:0;
-  background: radial-gradient(ellipse 80% 60% at 50% 50%,
-    rgba(255,180,200,0.18) 0%,
-    rgba(201,168,76,0.12) 40%,
-    transparent 70%
+
+/* Multi-layer animated background for intro */
+.slide-intro .intro-bg-layer{
+  position:absolute;inset:0;
+  z-index:0;
+}
+/* Layer 1: Deep rich base gradient that rotates */
+.slide-intro .intro-bg-layer::before{
+  content:'';
+  position:absolute;inset:-20%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    #1a0020,
+    #3d0050,
+    #200010,
+    #0a0030,
+    #2d0040,
+    #1a0020
   );
-  animation: pulseGlow 3s ease-in-out infinite alternate;
+  animation: rotateBg 18s linear infinite;
+}
+/* Layer 2: Gold shimmer rays */
+.slide-intro .intro-bg-layer::after{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 30% 70%, rgba(201,168,76,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 70% 30%, rgba(255,150,200,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 80% at 50% 50%, rgba(255,200,230,0.1) 0%, transparent 70%);
+  animation: pulseGlow 4s ease-in-out infinite alternate;
+}
+@keyframes rotateBg{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
 }
 @keyframes pulseGlow{
-  from{opacity:0.6;transform:scale(1);}
-  to{opacity:1;transform:scale(1.08);}
+  from{opacity:0.5;transform:scale(0.95);}
+  to{opacity:1;transform:scale(1.05);}
+}
+
+/* Layer 3: Bokeh / orb effects */
+.orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(60px);
+  opacity:0;
+  animation:orbFloat ease-in-out infinite alternate;
+  pointer-events:none;
+}
+.orb1{width:300px;height:300px;background:rgba(201,168,76,0.35);top:10%;left:5%;animation-duration:7s;animation-delay:0s;opacity:0.4;}
+.orb2{width:250px;height:250px;background:rgba(255,120,180,0.3);top:50%;right:5%;animation-duration:9s;animation-delay:1s;opacity:0.35;}
+.orb3{width:200px;height:200px;background:rgba(180,100,255,0.25);bottom:10%;left:40%;animation-duration:8s;animation-delay:0.5s;opacity:0.3;}
+.orb4{width:180px;height:180px;background:rgba(255,200,100,0.3);top:20%;right:20%;animation-duration:6s;animation-delay:2s;opacity:0.3;}
+@keyframes orbFloat{
+  from{transform:translate(0,0) scale(1);}
+  to{transform:translate(30px,20px) scale(1.2);}
 }
 
 /* floating petals */
 .petal{
   position:absolute;font-size:1.4rem;
   animation:floatPetal linear infinite;
-  opacity:0.6;pointer-events:none;
+  opacity:0.7;pointer-events:none;z-index:1;
 }
 @keyframes floatPetal{
   0%{transform:translateY(110vh) rotate(0deg);opacity:0;}
-  10%{opacity:0.7;}
+  10%{opacity:0.8;}
   90%{opacity:0.5;}
   100%{transform:translateY(-10vh) rotate(720deg);opacity:0;}
 }
+
 
 .intro-content{position:relative;z-index:2;padding:2rem;}
 
@@ -157,12 +195,11 @@ html,body{
 .slide-product.active .product-bg{transform:scale(1);}
 .product-overlay{
   position:absolute;inset:0;
-  background:linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.15) 0%,
-    rgba(10,0,8,0.55) 40%,
-    rgba(10,0,8,0.72) 70%,
-    rgba(10,0,8,0.88) 100%
+  background:radial-gradient(
+    ellipse at center,
+    rgba(0,0,0,0.45) 0%,
+    rgba(0,0,0,0.65) 60%,
+    rgba(0,0,0,0.8) 100%
   );
 }
 .product-content{
@@ -172,34 +209,44 @@ html,body{
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  padding:clamp(1.5rem,5vw,3rem);
+  padding:max(1rem, env(safe-area-inset-top)) 1.2rem max(5rem, env(safe-area-inset-bottom)) 1.2rem;
   z-index:2;
   text-align:center;
+  width:100%;
+  box-sizing:border-box;
 }
 .product-label{
   font-family:'Cinzel',serif;
-  font-size:clamp(0.55rem,1.4vw,0.75rem);
-  letter-spacing:0.5em;
-  color:#ff99cc;
+  font-size:clamp(0.6rem,3vw,0.85rem);
+  letter-spacing:0.4em;
+  color:#f5c842;
   text-transform:uppercase;
-  margin-bottom:0.8rem;
+  margin-bottom:0.7rem;
   opacity:0;
   transform:translateY(20px);
   transition:all 0.8s ease 0.4s;
+  width:100%;
+  text-align:center;
 }
 .slide-product.active .product-label{opacity:1;transform:translateY(0);}
 
 .product-msg{
   font-family:'Playfair Display',serif;
-  font-size:clamp(2rem,7vw,4.5rem);
+  font-size:clamp(1.8rem,8vw,4.5rem);
   font-weight:700;
-  color:#fff;
   line-height:1.15;
-  margin-bottom:0.8rem;
-  text-shadow:
-    0 2px 40px rgba(0,0,0,0.9),
-    0 0 80px rgba(0,0,0,0.6),
-    2px 2px 0 rgba(0,0,0,0.5);
+  margin-bottom:0.7rem;
+  text-align:center;
+  width:100%;
+  /* glowy gold */
+  background:linear-gradient(135deg, #fff8dc 0%, #f5c842 35%, #ffe082 65%, #c9a84c 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  filter:
+    drop-shadow(0 0 12px rgba(245,200,66,0.9))
+    drop-shadow(0 0 30px rgba(245,200,66,0.6))
+    drop-shadow(0 2px 4px rgba(0,0,0,0.8));
   opacity:0;
   transform:translateY(25px);
   transition:all 0.9s ease 0.6s;
@@ -208,10 +255,15 @@ html,body{
 
 .product-sub{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1rem,2.5vw,1.3rem);
-  font-weight:300;
-  color:rgba(255,220,235,0.85);
-  letter-spacing:0.05em;
+  font-size:clamp(0.95rem,3.5vw,1.3rem);
+  font-weight:400;
+  color:rgba(255,235,160,0.9);
+  letter-spacing:0.04em;
+  line-height:1.5;
+  text-align:center;
+  width:100%;
+  max-width:90vw;
+  text-shadow:0 1px 8px rgba(0,0,0,0.8);
   opacity:0;
   transform:translateY(20px);
   transition:all 0.9s ease 0.8s;
@@ -221,21 +273,24 @@ html,body{
 .product-cta{
   display:inline-flex;
   align-items:center;
-  gap:0.6rem;
-  margin-top:1.5rem;
-  padding:clamp(0.9rem,2.5vw,1.1rem) clamp(1.8rem,5vw,2.8rem);
+  justify-content:center;
+  gap:0.5rem;
+  margin-top:1.4rem;
+  padding:1rem 2rem;
+  width:min(90vw, 340px);
   background:linear-gradient(135deg, #25d366 0%, #128c7e 50%, #075e54 100%);
   color:#fff;
   font-family:'Cinzel',serif;
-  font-size:clamp(0.75rem,2vw,1rem);
+  font-size:clamp(0.8rem,3.5vw,1rem);
   font-weight:700;
-  letter-spacing:0.18em;
+  letter-spacing:0.15em;
   text-transform:uppercase;
   text-decoration:none;
   border:none;
   border-radius:0;
   position:relative;
   overflow:hidden;
+  flex-shrink:0;
   box-shadow:
     0 0 0 2px rgba(37,211,102,0.5),
     0 8px 30px rgba(37,211,102,0.4),
@@ -283,7 +338,9 @@ html,body{
 
 /* ── SLIDE DOTS ── */
 .dots{
-  position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);
+  position:fixed;
+  bottom:calc(1rem + env(safe-area-inset-bottom));
+  left:50%;transform:translateX(-50%);
   display:flex;gap:0.5rem;z-index:999;
 }
 .dot{
@@ -321,6 +378,35 @@ html,body{
   z-index:999;
 }
 
+/* ── CONTROL BUTTONS ── */
+.ctrl-btn{
+  position:fixed;
+  bottom:calc(1.5rem + env(safe-area-inset-bottom));
+  z-index:999;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  width:52px;height:52px;
+  background:rgba(10,5,15,0.7);
+  border:1px solid rgba(255,150,200,0.4);
+  color:rgba(255,220,240,0.7);
+  font-family:'Cinzel',serif;
+  text-transform:uppercase;
+  cursor:pointer;
+  backdrop-filter:blur(12px);
+  transition:all 0.3s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.ctrl-btn:hover,.ctrl-btn:active{
+  border-color:#f5c842;
+  color:#f5c842;
+  background:rgba(245,200,66,0.1);
+}
+#soundBtn{ right:calc(1rem + env(safe-area-inset-right)); }
+#fsBtn{ right:calc(4.5rem + env(safe-area-inset-right)); }
+
 
 </style>
 </head>
@@ -330,10 +416,27 @@ html,body{
 <div class="dots" id="dots"></div>
 <div class="slide-num" id="slideNum">01 / 07</div>
 
+<!-- Control buttons -->
+<button class="ctrl-btn" id="soundBtn" aria-label="Toggle sound">
+  <span style="font-size:1.1rem">🔇</span>
+  <span style="font-size:0.5rem;letter-spacing:0.12em">OFF</span>
+</button>
+<button class="ctrl-btn" id="fsBtn" aria-label="Toggle fullscreen">
+  <span style="font-size:1rem">⛶</span>
+  <span style="font-size:0.5rem;letter-spacing:0.12em">FULL</span>
+</button>
+
 <div class="slideshow" id="slideshow">
 
   <!-- SLIDE 0: INTRO -->
   <div class="slide slide-intro active" id="slide-0">
+    <!-- Animated bg -->
+    <div class="intro-bg-layer"></div>
+    <!-- Gold & pink orbs -->
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="orb orb4"></div>
     <!-- Floating petals -->
     <span class="petal" style="left:5%;animation-duration:7s;animation-delay:0s;">🌸</span>
     <span class="petal" style="left:15%;animation-duration:9s;animation-delay:1s;">✨</span>
@@ -480,28 +583,101 @@ function startProgress(duration){
   });
 }
 
-// ── AUTO FULLSCREEN ──
+// ── AUDIO ──
+// Water: freesound CC0 preview (Calm Stream In Forest by BurghRecords #578068)
+// Piano: freesound CC-BY preview (Ambient Piano #230860 RibhavAgrawal)
+const WATER_URL = 'https://freesound.org/data/previews/578/578068_5674468-lq.mp3';
+const PIANO_URL = 'https://freesound.org/data/previews/230/230860_4061003-lq.mp3';
+
+let waterAudio = null;
+let pianoAudio = null;
+let soundOn = false;
+
+function createAudio(url, vol, loop){
+  const a = new Audio();
+  a.crossOrigin = 'anonymous';
+  a.src = url;
+  a.volume = vol;
+  a.loop = loop;
+  return a;
+}
+
+function startSounds(){
+  if(!waterAudio) waterAudio = createAudio(WATER_URL, 0.3, true);
+  if(!pianoAudio) pianoAudio = createAudio(PIANO_URL, 0.55, true);
+  waterAudio.play().catch(()=>{});
+  pianoAudio.play().catch(()=>{});
+  soundOn = true;
+  updateSoundBtn();
+}
+
+function stopSounds(){
+  if(waterAudio) waterAudio.pause();
+  if(pianoAudio) pianoAudio.pause();
+  soundOn = false;
+  updateSoundBtn();
+}
+
+function updateSoundBtn(){
+  const btn = document.getElementById('soundBtn');
+  if(!btn) return;
+  btn.innerHTML = soundOn
+    ? '<span style="font-size:1.1rem">🔊</span><span style="font-size:0.55rem;letter-spacing:0.15em;margin-left:2px">ON</span>'
+    : '<span style="font-size:1.1rem">🔇</span><span style="font-size:0.55rem;letter-spacing:0.15em;margin-left:2px">OFF</span>';
+  btn.style.borderColor = soundOn ? '#f5c842' : 'rgba(255,150,200,0.4)';
+  btn.style.color = soundOn ? '#f5c842' : 'rgba(255,220,240,0.7)';
+}
+
+document.getElementById('soundBtn').addEventListener('click', (e)=>{
+  e.stopPropagation();
+  if(soundOn) stopSounds(); else startSounds();
+});
+
+// ── FULLSCREEN ──
+const fsBtn = document.getElementById('fsBtn');
+
 function goFullscreen(){
   const el = document.documentElement;
   const req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
   if(req) req.call(el).catch(()=>{});
 }
-// Try immediately (works on some browsers)
+function exitFullscreen(){
+  const ex = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen;
+  if(ex) ex.call(document).catch(()=>{});
+}
+function isFullscreen(){
+  return !!(document.fullscreenElement || document.webkitFullscreenElement);
+}
+function updateFsBtn(){
+  fsBtn.innerHTML = isFullscreen()
+    ? '<span style="font-size:1rem">⛶</span><span style="font-size:0.5rem;letter-spacing:0.12em;margin-left:2px">EXIT</span>'
+    : '<span style="font-size:1rem">⛶</span><span style="font-size:0.5rem;letter-spacing:0.12em;margin-left:2px">FULL</span>';
+}
+
+fsBtn.addEventListener('click', (e)=>{
+  e.stopPropagation();
+  if(isFullscreen()) exitFullscreen(); else goFullscreen();
+  // Start sound on first interaction too
+  if(!soundOn) startSounds();
+});
+
+document.addEventListener('fullscreenchange', updateFsBtn);
+document.addEventListener('webkitfullscreenchange', updateFsBtn);
+
+// Auto-attempt fullscreen + sound on first tap anywhere
+const firstTouch = ()=>{
+  goFullscreen();
+  startSounds();
+  document.removeEventListener('touchstart', firstTouch);
+  document.removeEventListener('click', firstTouch);
+};
+document.addEventListener('touchstart', firstTouch, {once:true});
+document.addEventListener('click', firstTouch, {once:true});
+
+// Try fullscreen immediately
 goFullscreen();
-// Also trigger on first user interaction (required by most browsers)
-const fsOnce = ()=>{ goFullscreen(); document.removeEventListener('click',fsOnce); document.removeEventListener('touchstart',fsOnce); };
-document.addEventListener('click', fsOnce);
-document.addEventListener('touchstart', fsOnce);
 
-// Re-enter fullscreen if user exits accidentally
-document.addEventListener('fullscreenchange', ()=>{
-  if(!document.fullscreenElement) setTimeout(goFullscreen, 800);
-});
-document.addEventListener('webkitfullscreenchange', ()=>{
-  if(!document.webkitFullscreenElement) setTimeout(goFullscreen, 800);
-});
-
-// Start
+// Start slides
 startProgress(DURATIONS[0]);
 timer = setTimeout(()=>goTo(1), DURATIONS[0]);
 
